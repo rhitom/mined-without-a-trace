@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Prototype 01 / Redacted Briefing</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Alegreya:wght@400;500;700;800&family=Archivo:wght@400;500;600;700;800&family=Bebas+Neue&family=Cormorant+Garamond:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body class="prototype-page prototype-page--briefing">
+    <main class="prototype prototype--briefing">
+      <a class="back-link" href="index.html">Back to gallery</a>
+      <div class="prototype__header">
+        <span class="prototype__number">01</span>
+        <div>
+          <h2>Redacted Briefing</h2>
+          <p>
+            A field report interface that treats the phone like evidence and the
+            supply chain like a classified route map.
+          </p>
+        </div>
+      </div>
+
+      <div class="prototype__scenes">
+        <article class="scene-card scene-card--select">
+          <div class="scene-card__label">Model Selection</div>
+          <h3>Choose the device under review</h3>
+          <div class="device-stack">
+            <div class="device-tile is-active">
+              <span>iPhone 16</span>
+              <small>active file</small>
+            </div>
+            <div class="device-tile">
+              <span>Galaxy S25</span>
+              <small>coming soon</small>
+            </div>
+            <div class="device-tile">
+              <span>Pixel 9</span>
+              <small>coming soon</small>
+            </div>
+          </div>
+        </article>
+
+        <article class="scene-card scene-card--diagram">
+          <div class="scene-card__label">Component Diagram</div>
+          <h3>Internal zones flagged for investigation</h3>
+          <div class="phone-plate phone-plate--briefing">
+            <div class="phone-plate__outline"></div>
+            <div class="hotspot hotspot--battery">battery</div>
+            <div class="hotspot hotspot--logic">logic board</div>
+            <div class="hotspot hotspot--motor">taptic motor</div>
+            <div class="hotspot hotspot--camera">camera ring</div>
+          </div>
+        </article>
+
+        <article class="scene-card scene-card--globe">
+          <div class="scene-card__label">Globe View</div>
+          <h3>Trace the route from mine to assembly</h3>
+          <div class="globe globe--briefing">
+            <div class="globe__ring"></div>
+            <div class="globe__arc globe__arc--drc"></div>
+            <div class="globe__arc globe__arc--china"></div>
+            <div class="globe__pin globe__pin--one">Kolwezi</div>
+            <div class="globe__pin globe__pin--two">Shenzhen</div>
+          </div>
+        </article>
+      </div>
+    </main>
+  </body>
+</html>
