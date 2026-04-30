@@ -71,3 +71,10 @@ A small end-to-end interactive editorial website whose homepage acts as a galler
 - The gallery homepage in `index.html` was then refreshed so the prototype changes are visible before clicking into each world
 - Homepage cards no longer use the old generic preview pills; they now contain mini structural previews that match the current prototype systems for `world-1` through `world-5`
 - This keeps the homepage functioning as a real archive of iteration rather than a stale index pointing at newer underlying demos
+- Round 2 planning expanded the gallery beyond the original `5` worlds with a second section for `Compliance: Drift`, `Compliance: Collapse`, and `Transmission`, each intended to reuse key successful patterns from Round 1 while pushing further apart in tone and breakdown
+- A new implementation pass on `2026-04-30` produced complete `world-6` and `world-7` click-through flows with `selection`, `components`, and `globe` pages plus dedicated `styles.css` files for both worlds
+- `World 6` is now implemented as the `Compliance: Drift` branch: Apple-like selection, subtly destabilized components page, and a stressed circular supply-route globe paired with a shipment tracker table
+- `World 7` is now implemented as the `Compliance: Collapse` branch: Apple-like selection, a hard break into protest-poster anatomy on the components page, and a black/red manifest-style globe page with confrontational copy
+- `World 8` work began as `Transmission`: the selection page, components page, and a dedicated zine-style stylesheet were created, including CSS-only hover reveals and red/teal registration-offset treatments
+- Round 2 work stopped before `world-8/globe.html` was built because the build session hit a usage limit, so `World 8` is currently partial rather than complete
+- The Round 2 homepage integration is still pending in code: `projectv1/index.html` still shows only the original `5` gallery cards and `projectv1/styles.css` does not yet include the planned `.gallery-round-2` section or world `6–8` card preview styles
