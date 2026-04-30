@@ -161,6 +161,30 @@ a {
   line-height: 1.6;
 }
 
+.gallery-round-3 {
+  display: grid;
+  gap: 1rem;
+}
+
+.gallery-round-3__header {
+  padding: 1.5rem;
+  border-radius: 2rem;
+  border: 1px solid rgba(81, 16, 32, 0.12);
+  background:
+    linear-gradient(180deg, rgba(255, 250, 241, 0.88), rgba(246, 240, 230, 0.82));
+  box-shadow: var(--shadow);
+}
+
+.gallery-round-3__header h2 {
+  margin: 0;
+}
+
+.gallery-round-3__header p {
+  margin: 0.4rem 0 0;
+  max-width: 46rem;
+  line-height: 1.6;
+}
+
 .gallery-card {
   display: grid;
   gap: 1rem;
@@ -1454,6 +1478,347 @@ a {
     -0.8rem 0.65rem 0 -0.15rem rgba(241, 234, 223, 0.72),
     0.5rem -0.55rem 0 -0.15rem rgba(241, 234, 223, 0.54);
   transform: rotate(-18deg);
+}
+
+.gallery-card--combo {
+  background:
+    linear-gradient(180deg, #f5f5f7 0%, #f1ece4 55%, #111111 100%);
+  color: #161618;
+  border-color: rgba(127, 23, 52, 0.18);
+}
+
+.gallery-card--combo .gallery-card__number {
+  color: #7f1734;
+}
+
+.gallery-card__mock--combo {
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.82), rgba(248, 243, 232, 0.78) 46%, rgba(17, 17, 17, 0.98) 100%);
+}
+
+.mock-combo-top,
+.mock-combo-note,
+.mock-combo-band,
+.mock-combo-bottom {
+  position: absolute;
+}
+
+.mock-combo-top {
+  left: 1rem;
+  right: 1rem;
+  top: 0.9rem;
+  height: 2.2rem;
+  border-radius: 0.9rem;
+  border: 1px solid #d2d2d7;
+  background: rgba(255, 255, 255, 0.96);
+}
+
+.mock-combo-note {
+  left: 1.4rem;
+  top: 4rem;
+  width: 36%;
+  height: 1rem;
+  background: rgba(127, 23, 52, 0.16);
+  transform: rotate(-4deg);
+}
+
+.mock-combo-band {
+  left: 1rem;
+  right: 1rem;
+  top: 5.4rem;
+  height: 2px;
+  background: rgba(127, 23, 52, 0.65);
+}
+
+.mock-combo-bottom {
+  left: 1rem;
+  right: 1rem;
+  bottom: 1rem;
+  height: 2.8rem;
+  border: 1px solid rgba(255, 245, 194, 0.22);
+  background: rgba(255, 245, 194, 0.08);
+  box-shadow: inset 0 0 0 1px rgba(255, 245, 194, 0.08);
+}
+
+.gallery-card--console {
+  background: #f5f5f7;
+  color: #17171a;
+  border-color: rgba(17, 17, 20, 0.1);
+}
+
+.gallery-card--console .gallery-card__number {
+  color: #0f61d9;
+}
+
+.gallery-card__mock--console {
+  display: grid;
+  grid-template-columns: 3.4rem 1fr;
+  gap: 0.7rem;
+  background: rgba(12, 18, 28, 0.03);
+  padding: 0.8rem;
+}
+
+.mock-console-rail {
+  border-radius: 1rem;
+  background: linear-gradient(180deg, #14161b, #232630);
+}
+
+.mock-console-main {
+  display: grid;
+  grid-template-rows: 1.2rem 1fr;
+  gap: 0.55rem;
+}
+
+.mock-console-bar {
+  border-radius: 999px;
+  background: rgba(15, 97, 217, 0.14);
+}
+
+.mock-console-grid {
+  display: grid;
+  grid-template-columns: 1.2fr 0.9fr 0.9fr;
+  gap: 0.45rem;
+}
+
+.mock-console-grid div {
+  border-radius: 0.8rem;
+  background: #ffffff;
+  border: 1px solid rgba(15, 97, 217, 0.12);
+}
+
+.gallery-card--studio {
+  background:
+    radial-gradient(circle at 78% 12%, rgba(255, 243, 184, 0.18), transparent 18%),
+    linear-gradient(180deg, #f4efe6 0%, #101010 100%);
+  color: #161618;
+  border-color: rgba(17, 17, 17, 0.12);
+}
+
+.gallery-card--studio .gallery-card__number {
+  color: #7f1734;
+}
+
+.gallery-card__mock--studio {
+  background:
+    linear-gradient(180deg, rgba(255,255,255,0.82), rgba(244,239,230,0.74) 38%, rgba(16,16,16,1) 100%);
+}
+
+.mock-studio-stage,
+.mock-studio-caption,
+.mock-studio-chip {
+  position: absolute;
+}
+
+.mock-studio-stage {
+  left: 1rem;
+  right: 1rem;
+  top: 1rem;
+  bottom: 3rem;
+  border-radius: 1.1rem;
+  border: 1px solid rgba(255, 243, 184, 0.14);
+  background:
+    radial-gradient(circle at 52% 28%, rgba(255,255,255,0.5), transparent 22%),
+    linear-gradient(180deg, rgba(255,255,255,0.1), transparent 42%);
+}
+
+.mock-studio-caption {
+  left: 1.3rem;
+  bottom: 1.2rem;
+  width: 46%;
+  height: 1rem;
+  background: rgba(255, 243, 184, 0.75);
+}
+
+.mock-studio-chip {
+  right: 1.3rem;
+  top: 1.5rem;
+  width: 24%;
+  height: 1.5rem;
+  background: rgba(127, 23, 52, 0.74);
+  transform: rotate(-6deg);
+}
+
+.gallery-card--signal {
+  background:
+    linear-gradient(180deg, #f5f5f7 0%, #ede7dc 46%, #111111 100%);
+  color: #161618;
+  border-color: rgba(127, 23, 52, 0.16);
+}
+
+.gallery-card--signal .gallery-card__number {
+  color: #7f1734;
+}
+
+.gallery-card__mock--signal {
+  background:
+    linear-gradient(180deg, rgba(255,255,255,0.82), rgba(238,231,219,0.74) 42%, rgba(17,17,17,0.98) 100%);
+}
+
+.mock-signal-base,
+.mock-signal-alert,
+.mock-signal-overlay,
+.mock-signal-fracture {
+  position: absolute;
+}
+
+.mock-signal-base {
+  left: 1rem;
+  right: 1rem;
+  top: 1rem;
+  bottom: 1rem;
+  border-radius: 1rem;
+  border: 1px solid rgba(210, 210, 215, 0.9);
+  background: rgba(255,255,255,0.84);
+}
+
+.mock-signal-alert {
+  right: 1.1rem;
+  top: 1.3rem;
+  width: 30%;
+  height: 1.4rem;
+  background: rgba(127, 23, 52, 0.82);
+}
+
+.mock-signal-overlay {
+  left: 1.4rem;
+  right: 2.8rem;
+  bottom: 2rem;
+  height: 2.8rem;
+  background: rgba(255, 243, 184, 0.08);
+  border: 1px solid rgba(255, 243, 184, 0.22);
+}
+
+.mock-signal-fracture {
+  top: 1rem;
+  bottom: 1rem;
+  left: 48%;
+  width: 2px;
+  background: linear-gradient(180deg, transparent, rgba(127, 23, 52, 0.75), transparent);
+  transform: rotate(14deg);
+}
+
+.gallery-card--polish {
+  background:
+    linear-gradient(180deg, #f5f5f7 0%, #efe9de 52%, #111111 100%);
+  color: #15161a;
+  border-color: rgba(15, 97, 217, 0.14);
+}
+
+.gallery-card--polish .gallery-card__number {
+  color: #0f61d9;
+}
+
+.gallery-card__mock--polish {
+  background:
+    linear-gradient(180deg, rgba(255,255,255,0.88), rgba(244,239,230,0.8) 46%, rgba(17,17,17,0.98) 100%);
+}
+
+.mock-polish-nav,
+.mock-polish-preview,
+.mock-polish-orbit,
+.mock-polish-dot {
+  position: absolute;
+}
+
+.mock-polish-nav {
+  left: 1rem;
+  right: 1rem;
+  top: 0.9rem;
+  height: 1.25rem;
+  border-radius: 999px;
+  background: rgba(15, 97, 217, 0.12);
+}
+
+.mock-polish-preview {
+  left: 1rem;
+  right: 1rem;
+  top: 2.7rem;
+  height: 2.2rem;
+  border-radius: 0.9rem;
+  background: rgba(255,255,255,0.86);
+  border: 1px solid rgba(15, 97, 217, 0.12);
+}
+
+.mock-polish-orbit {
+  left: 50%;
+  bottom: 1.1rem;
+  width: 6.8rem;
+  height: 3rem;
+  transform: translateX(-50%);
+  border-top: 2px solid rgba(255, 243, 184, 0.58);
+  border-radius: 999px 999px 0 0;
+}
+
+.mock-polish-dot {
+  width: 0.65rem;
+  height: 0.65rem;
+  border-radius: 50%;
+  background: #fff3b8;
+  left: calc(50% + 1.4rem);
+  bottom: 3.55rem;
+  box-shadow: 0 0 0 4px rgba(255,243,184,0.12);
+}
+
+.gallery-card--final-edit {
+  background:
+    linear-gradient(180deg, #f5f5f7 0%, #ede6da 50%, #0f0f10 100%);
+  color: #15161a;
+  border-color: rgba(15, 97, 217, 0.14);
+}
+
+.gallery-card--final-edit .gallery-card__number {
+  color: #0f61d9;
+}
+
+.gallery-card__mock--final-edit {
+  background:
+    linear-gradient(180deg, rgba(255,255,255,0.88), rgba(243,238,228,0.8) 46%, rgba(15,15,16,0.98) 100%);
+}
+
+.mock-final-rail,
+.mock-final-specs,
+.mock-final-orbit,
+.mock-final-focus {
+  position: absolute;
+}
+
+.mock-final-rail {
+  left: 1rem;
+  right: 1rem;
+  top: 0.9rem;
+  height: 1.1rem;
+  border-radius: 999px;
+  background: rgba(15, 97, 217, 0.12);
+}
+
+.mock-final-specs {
+  left: 1rem;
+  right: 1rem;
+  top: 2.5rem;
+  height: 2rem;
+  border-radius: 1rem;
+  background: rgba(255,255,255,0.92);
+  border: 1px solid rgba(15,97,217,0.1);
+}
+
+.mock-final-orbit {
+  left: 50%;
+  bottom: 1rem;
+  width: 7.2rem;
+  height: 3.2rem;
+  transform: translateX(-50%);
+  border-top: 2px solid rgba(255,243,184,0.62);
+  border-radius: 999px 999px 0 0;
+}
+
+.mock-final-focus {
+  right: 1.4rem;
+  top: 5.2rem;
+  width: 2.2rem;
+  height: 2.2rem;
+  border-radius: 50%;
+  border: 1.5px solid rgba(255,243,184,0.42);
+  background: rgba(255,243,184,0.12);
 }
 
 /* ─────────────────────────────────────────────────────────────────────────── */
