@@ -1,0 +1,305 @@
+/* World 7: Compliance — Collapse */
+/* Version B: Apple header → full red break → protest poster */
+/* Selection = pristine. Components = crack becomes wall. Globe = full protest. */
+
+:root {
+  --w: #ffffff;
+  --off: #f5f5f7;
+  --charcoal: #1d1d1f;
+  --mid: #6e6e73;
+  --light: #aeaeb2;
+  --blue: #0071e3;
+  --border: #d2d2d7;
+  --red: #7f1734;
+  --red-bright: #b01c3e;
+  --font: system-ui, -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif;
+  --mono: 'IBM Plex Mono', 'Courier New', monospace;
+  --heavy: 'Bebas Neue', 'Arial Black', 'Impact', sans-serif;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  background: var(--w);
+  color: var(--charcoal);
+  font-family: var(--font);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── Navigation (pristine) ── */
+.nav {
+  background: rgba(255,255,255,0.92);
+  border-bottom: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 22px; height: 44px;
+  position: sticky; top: 0; z-index: 10;
+}
+.nav a, .nav span { font-size: 12px; color: var(--charcoal); text-decoration: none; }
+.nav a:hover { color: var(--blue); }
+.nav .nav-proto { font-size: 11px; color: var(--light); font-family: var(--mono); }
+
+.page { max-width: 860px; margin: 0 auto; padding: 0 22px; }
+
+/* ── Hero (selection — identical to World 1) ── */
+.hero { text-align: center; padding: 80px 0 60px; border-bottom: 1px solid var(--border); }
+.hero .eyebrow { font-size: 13px; color: var(--mid); letter-spacing: 0.02em; margin-bottom: 12px; }
+.hero h1 { font-size: clamp(44px, 8vw, 78px); font-weight: 700; letter-spacing: -0.025em; line-height: 1.05; margin-bottom: 18px; }
+.hero .tagline { font-size: clamp(16px, 2.2vw, 19px); color: var(--mid); font-weight: 400; line-height: 1.45; margin: 0 auto 32px; max-width: 520px; }
+.cta-row { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+.cta { display: inline-block; background: var(--blue); color: #fff; font-size: 15px; padding: 10px 22px; border-radius: 980px; text-decoration: none; }
+.cta.ghost { background: transparent; color: var(--blue); border: 1.5px solid var(--blue); }
+
+.device-strip { padding: 52px 0 40px; border-bottom: 1px solid var(--border); }
+.strip-label { font-size: 11px; color: var(--mid); letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 22px; font-family: var(--mono); }
+.device-tiles { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+.device-tile { border: 1px solid var(--border); border-radius: 18px; padding: 28px 18px 22px; text-align: center; text-decoration: none; color: inherit; display: block; background: var(--off); }
+.device-tile.live { border-color: var(--charcoal); background: var(--w); }
+.device-icon { width: 44px; height: 80px; border: 2px solid var(--light); border-radius: 7px; margin: 0 auto 16px; }
+.device-tile.live .device-icon { border-color: var(--charcoal); background: var(--charcoal); }
+.d-name { font-size: 16px; font-weight: 600; margin-bottom: 4px; }
+.d-sub { font-size: 12px; color: var(--mid); }
+.device-tile.dim .d-name, .device-tile.dim .d-sub, .device-tile.dim .device-icon { color: var(--light); border-color: var(--border); }
+.d-cta { display: block; margin-top: 14px; font-size: 13px; color: var(--blue); }
+.footnote { padding: 18px 0 32px; font-size: 11px; color: var(--light); line-height: 1.65; font-family: var(--mono); }
+
+/* ── Components page ── */
+
+/* Apple spec grid (top half, pristine) */
+.spec-section { padding: 60px 0 0; }
+.section-label { font-size: 11px; color: var(--mid); letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 22px; font-family: var(--mono); }
+.spec-grid {
+  display: grid; grid-template-columns: repeat(2, 1fr);
+  gap: 1px; background: var(--border);
+  border: 1px solid var(--border); border-radius: 18px; overflow: hidden;
+}
+.spec-card { background: var(--w); padding: 22px 22px 20px; }
+.s-label { font-size: 11px; color: var(--mid); letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 8px; font-family: var(--mono); }
+.s-val { font-size: 17px; font-weight: 600; margin-bottom: 4px; }
+.s-note { font-size: 13px; color: var(--mid); }
+
+/* THE BREAK — full red band */
+.collapse-band {
+  margin-top: 52px;
+  background: var(--red);
+  padding: 28px 32px;
+  text-align: center;
+}
+.collapse-band-text {
+  font-family: var(--heavy);
+  font-size: clamp(22px, 5vw, 42px);
+  color: #fff;
+  letter-spacing: 0.04em;
+  line-height: 1.1;
+}
+
+/* High-contrast anatomy plate (black bg, white callouts, red minerals) */
+.collapse-plate {
+  background: #0a0a0a;
+  padding: 36px 32px 40px;
+  margin-bottom: 0;
+}
+.collapse-plate-label {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--red-bright);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin-bottom: 28px;
+}
+.collapse-grid {
+  display: grid;
+  grid-template-columns: 1fr 300px;
+  gap: 36px;
+  align-items: start;
+}
+
+/* Phone outline — high contrast */
+.collapse-diagram {
+  position: relative;
+  min-height: 340px;
+  display: flex; align-items: center; justify-content: center;
+}
+.collapse-phone {
+  width: 100px; height: 200px;
+  border: 2px solid #fff;
+  border-radius: 12px;
+  background: transparent;
+  position: relative;
+}
+.collapse-phone::before {
+  content: ''; position: absolute;
+  top: 10px; left: 50%; transform: translateX(-50%);
+  width: 26px; height: 5px; border-radius: 3px;
+  background: #444;
+}
+
+/* Callout circles — white border, white number */
+.c-num {
+  position: absolute;
+  width: 28px; height: 28px; border-radius: 50%;
+  border: 2px solid var(--red-bright);
+  background: #0a0a0a;
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--mono); font-size: 12px;
+  color: #fff; font-weight: 500;
+}
+.cn1 { top: 14px; left: 50%; transform: translateX(-50%); }
+.cn2 { top: 68px; left: -36px; }
+.cn3 { top: 132px; left: -36px; }
+.cn4 { bottom: 14px; left: 50%; transform: translateX(-50%); }
+
+/* Connector lines */
+.c-conn { position: absolute; height: 1px; background: rgba(176,28,62,0.5); transform-origin: left center; }
+.cc1 { top: 28px; left: 92px; width: 52px; transform: rotate(10deg); }
+.cc2 { top: 82px; left: 64px; width: 44px; transform: rotate(-5deg); }
+.cc3 { top: 146px; left: 64px; width: 44px; transform: rotate(5deg); }
+.cc4 { top: 186px; left: 92px; width: 48px; transform: rotate(-8deg); }
+
+/* Legend — stark mono on black */
+.collapse-legend {
+  border-left: 1px solid rgba(176,28,62,0.3);
+  padding-left: 28px;
+}
+.cl-entry {
+  margin-bottom: 26px;
+  padding-bottom: 26px;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+.cl-entry:last-child { border-bottom: none; margin-bottom: 0; }
+.cl-num {
+  font-family: var(--mono); font-size: 10px;
+  color: var(--red-bright); letter-spacing: 0.1em;
+  text-transform: uppercase; margin-bottom: 5px;
+}
+.cl-component { font-size: 15px; font-weight: 700; color: #fff; margin-bottom: 3px; }
+.cl-mineral { font-family: var(--mono); font-size: 11px; color: var(--red-bright); margin-bottom: 6px; }
+.cl-note { font-size: 13px; color: #aaa; line-height: 1.5; }
+
+.next-cta {
+  display: block; background: var(--red); color: #fff;
+  font-family: var(--heavy);
+  font-size: clamp(16px, 3vw, 22px);
+  letter-spacing: 0.06em;
+  padding: 16px 32px;
+  text-decoration: none;
+  text-align: center;
+  margin: 0 0 0;
+}
+.next-cta:hover { background: var(--red-bright); }
+
+/* ── Globe page — full protest poster ── */
+body.globe-page {
+  background: #0a0a0a;
+  color: #fff;
+}
+body.globe-page .nav {
+  background: #0a0a0a;
+  border-bottom-color: rgba(255,255,255,0.1);
+}
+body.globe-page .nav a,
+body.globe-page .nav span { color: #fff; }
+body.globe-page .nav a:hover { color: var(--red-bright); }
+
+.poster-wrap { padding: 52px 0 80px; }
+
+.poster-title {
+  font-family: var(--heavy);
+  font-size: clamp(48px, 12vw, 110px);
+  line-height: 0.92;
+  letter-spacing: 0.02em;
+  color: #fff;
+  text-align: center;
+  margin-bottom: 8px;
+}
+.poster-title span { color: var(--red-bright); }
+
+.poster-sub {
+  font-family: var(--mono);
+  font-size: 12px;
+  color: #555;
+  text-align: center;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: 48px;
+}
+
+/* CSS globe — stark circle */
+.poster-globe {
+  position: relative;
+  width: min(380px, 100%);
+  height: min(380px, 100vw);
+  border-radius: 50%;
+  border: 3px solid var(--red-bright);
+  overflow: hidden;
+  margin: 0 auto 48px;
+  background: #0a0a0a;
+}
+.pg-h { position: absolute; left: 0; right: 0; height: 1px; background: rgba(255,255,255,0.07); }
+.pg-v { position: absolute; top: 0; bottom: 0; width: 1px; background: rgba(255,255,255,0.07); }
+.poster-arc {
+  position: absolute; width: 62%; height: 28%;
+  border-top: 4px solid var(--red-bright);
+  border-radius: 50%; top: 38%; left: 14%;
+  transform: rotate(-16deg);
+}
+.poster-pin {
+  position: absolute; font-family: var(--mono); font-size: 11px;
+  color: #fff; letter-spacing: 0.03em; white-space: nowrap; font-weight: 600;
+}
+.poster-pin::before { content: '●'; color: var(--red-bright); margin-right: 5px; font-size: 9px; }
+.pp1 { top: 48%; left: 20%; }
+.pp2 { top: 32%; left: 60%; }
+.pp3 { top: 40%; left: 8%; }
+
+/* Manifest table — stark black/red */
+.manifest-label {
+  font-family: var(--heavy);
+  font-size: clamp(18px, 4vw, 32px);
+  color: #fff;
+  letter-spacing: 0.06em;
+  margin-bottom: 16px;
+}
+.manifest-table {
+  width: 100%;
+  border: 2px solid var(--red-bright);
+  border-collapse: collapse;
+  font-family: var(--mono);
+  margin-bottom: 48px;
+}
+.manifest-table th {
+  background: var(--red);
+  color: #fff;
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 10px 16px;
+  border: 1px solid var(--red-bright);
+  text-align: left;
+}
+.manifest-table td {
+  padding: 12px 16px;
+  font-size: 12px;
+  color: #ccc;
+  border: 1px solid rgba(176,28,62,0.25);
+}
+.manifest-table tr:nth-child(odd) td { background: rgba(255,255,255,0.03); }
+.m-place { font-weight: 600; color: #fff; }
+.m-flag {
+  font-size: 9px; font-family: var(--mono);
+  color: #fff; background: var(--red);
+  padding: 2px 6px; border-radius: 2px;
+  letter-spacing: 0.05em; text-transform: uppercase;
+  white-space: nowrap;
+}
+.poster-disc {
+  font-family: var(--mono); font-size: 10px;
+  color: #444; line-height: 1.7;
+  border-top: 1px solid rgba(255,255,255,0.08);
+  padding-top: 20px;
+}
+
+@media (max-width: 600px) {
+  .spec-grid, .device-tiles { grid-template-columns: 1fr; }
+  .collapse-grid { grid-template-columns: 1fr; }
+  .collapse-legend { border-left: none; border-top: 1px solid rgba(255,255,255,0.1); padding-left: 0; padding-top: 24px; }
+}

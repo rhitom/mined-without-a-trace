@@ -1,0 +1,324 @@
+/* World 5: Campaign */
+/* Miu Miu fashion editorial — the phone as a luxury object, the campaign copy is about minerals */
+/* Persuasion by irony: genre mismatch. The horror is in the copy, not the design. */
+
+:root {
+  --w: #ffffff;
+  --black: #0f0f0f;
+  --mid: #888888;
+  --border: #e0e0e0;
+  --burg: #5a0020;
+  --font-disp: 'Cormorant Garamond', Georgia, serif;
+  --font-body: 'DM Sans', 'Helvetica Neue', Arial, sans-serif;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  background: var(--w);
+  color: var(--black);
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── Minimal navigation bar ── */
+.nav {
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 40px;
+  height: 48px;
+}
+.nav a, .nav span {
+  font-size: 11px;
+  color: var(--mid);
+  text-decoration: none;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.nav a:hover { color: var(--black); }
+.nav .brand { font-size: 13px; font-weight: 500; color: var(--black); letter-spacing: 0.12em; text-transform: uppercase; }
+
+/* ── Campaign hero — editorial full-screen opener ── */
+.campaign-hero {
+  min-height: 88vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 80px 40px;
+  border-bottom: 1px solid var(--border);
+}
+
+.campaign-kicker {
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--mid);
+  margin-bottom: 36px;
+}
+
+.campaign-headline {
+  font-family: var(--font-disp);
+  font-size: clamp(52px, 9vw, 120px);
+  font-weight: 700;
+  line-height: 0.94;
+  letter-spacing: -0.01em;
+  color: var(--black);
+  margin-bottom: 48px;
+}
+
+.campaign-headline .line { display: block; }
+
+.campaign-subline {
+  font-size: 13px;
+  color: var(--mid);
+  letter-spacing: 0.06em;
+  max-width: 380px;
+  line-height: 1.6;
+  margin-bottom: 48px;
+}
+
+.campaign-cta {
+  display: inline-block;
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--black);
+  border-bottom: 1px solid var(--black);
+  padding-bottom: 2px;
+  text-decoration: none;
+}
+
+/* ── Device collection tiles ── */
+.collection-strip {
+  padding: 80px 40px 80px;
+  max-width: 960px;
+  margin: 0 auto;
+}
+
+.collection-label {
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--mid);
+  margin-bottom: 48px;
+}
+
+.collection-tiles {
+  display: grid;
+  grid-template-columns: 1fr 1.4fr 1fr;
+  gap: 24px;
+  align-items: start;
+}
+
+.c-tile {
+  border: 1px solid var(--border);
+  padding: 40px 28px 32px;
+  text-align: center;
+  text-decoration: none;
+  color: inherit;
+  display: block;
+}
+.c-tile.live { border-color: var(--black); }
+
+.c-tile-icon {
+  width: 40px;
+  height: 72px;
+  border: 1px solid var(--border);
+  margin: 0 auto 28px;
+}
+.c-tile.live .c-tile-icon { border-color: var(--black); }
+
+.c-season {
+  font-size: 9px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--mid);
+  margin-bottom: 10px;
+  display: block;
+}
+
+.c-name {
+  font-family: var(--font-disp);
+  font-size: clamp(22px, 3vw, 32px);
+  font-weight: 500;
+  line-height: 1.1;
+  margin-bottom: 10px;
+}
+.c-tile.dim .c-name { color: var(--mid); }
+
+.c-sub {
+  font-size: 11px;
+  color: var(--mid);
+  letter-spacing: 0.06em;
+}
+
+.c-enter {
+  display: block;
+  margin-top: 22px;
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--burg);
+  text-decoration: none;
+}
+
+/* ── Composition label page (components) ── */
+.label-page {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 100px 40px 80px;
+  border-bottom: 1px solid var(--border);
+}
+
+.label-season {
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--mid);
+  margin-bottom: 60px;
+}
+
+.label-frame {
+  border: 1px solid var(--black);
+  padding: 52px 64px;
+  max-width: 560px;
+  width: 100%;
+  margin-bottom: 60px;
+}
+
+.label-title {
+  font-family: var(--font-disp);
+  font-size: 11px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--mid);
+  margin-bottom: 32px;
+}
+
+.label-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  padding: 14px 0;
+  border-bottom: 1px solid var(--border);
+  gap: 20px;
+}
+.label-item:last-child { border-bottom: none; }
+
+.li-mineral {
+  font-family: var(--font-disp);
+  font-size: 18px;
+  font-weight: 500;
+  flex: 1;
+}
+
+.li-pct {
+  font-size: 12px;
+  color: var(--mid);
+  white-space: nowrap;
+}
+
+.li-origin {
+  font-size: 10px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--burg);
+  white-space: nowrap;
+}
+
+.label-care {
+  margin-top: 36px;
+  padding-top: 20px;
+  border-top: 1px solid var(--border);
+  font-size: 10px;
+  color: var(--mid);
+  letter-spacing: 0.06em;
+  line-height: 1.8;
+  font-style: italic;
+}
+
+.label-cta {
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--black);
+  border-bottom: 1px solid var(--black);
+  padding-bottom: 2px;
+  text-decoration: none;
+}
+
+/* ── Where it was made (globe page) ── */
+.made-page {
+  padding: 100px 40px 100px;
+  max-width: 720px;
+  margin: 0 auto;
+}
+
+.made-season {
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--mid);
+  margin-bottom: 60px;
+}
+
+.made-rule {
+  border: none;
+  border-top: 1px solid var(--black);
+  margin: 0 0 60px;
+}
+
+.made-item {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: baseline;
+  padding: 22px 0;
+  border-bottom: 1px solid var(--border);
+  gap: 32px;
+}
+.made-item:last-child { border-bottom: 1px solid var(--black); }
+
+.mi-country {
+  font-family: var(--font-disp);
+  font-size: clamp(22px, 3.5vw, 38px);
+  font-weight: 500;
+  line-height: 1.1;
+}
+
+.mi-mat {
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--mid);
+  text-align: right;
+}
+
+.mi-detail {
+  font-size: 11px;
+  color: var(--burg);
+  letter-spacing: 0.05em;
+  grid-column: 1 / -1;
+  padding-bottom: 4px;
+}
+
+.made-foot {
+  margin-top: 52px;
+  font-size: 10px;
+  color: var(--mid);
+  letter-spacing: 0.06em;
+  line-height: 1.9;
+}
+
+@media (max-width: 640px) {
+  .collection-tiles { grid-template-columns: 1fr; }
+  .label-frame { padding: 32px 24px; }
+  .made-item { grid-template-columns: 1fr; }
+  .mi-mat { text-align: left; }
+}

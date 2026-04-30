@@ -1,0 +1,222 @@
+/* World 1: Compliance */
+/* Persuasion by betrayal — starts as Apple.com, cracks open to reveal the mineral supply chain */
+
+:root {
+  --w: #ffffff;
+  --off: #f5f5f7;
+  --charcoal: #1d1d1f;
+  --mid: #6e6e73;
+  --light: #aeaeb2;
+  --blue: #0071e3;
+  --border: #d2d2d7;
+  --cran: #7f1734;
+  --font: system-ui, -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif;
+  --mono: 'IBM Plex Mono', 'Courier New', monospace;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  background: var(--w);
+  color: var(--charcoal);
+  font-family: var(--font);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── Navigation ── */
+.nav {
+  background: rgba(255,255,255,0.92);
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 22px;
+  height: 44px;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+.nav a, .nav span { font-size: 12px; color: var(--charcoal); text-decoration: none; letter-spacing: 0.01em; }
+.nav a:hover { color: var(--blue); }
+.nav .nav-proto { font-size: 11px; color: var(--light); font-family: var(--mono); }
+
+/* ── Page wrapper ── */
+.page { max-width: 860px; margin: 0 auto; padding: 0 22px; }
+
+/* ── Hero ── */
+.hero {
+  text-align: center;
+  padding: 80px 0 60px;
+  border-bottom: 1px solid var(--border);
+}
+.hero .eyebrow { font-size: 13px; color: var(--mid); letter-spacing: 0.02em; margin-bottom: 12px; }
+.hero h1 {
+  font-size: clamp(44px, 8vw, 78px);
+  font-weight: 700;
+  letter-spacing: -0.025em;
+  line-height: 1.05;
+  margin-bottom: 18px;
+}
+.hero .tagline {
+  font-size: clamp(16px, 2.2vw, 19px);
+  color: var(--mid);
+  font-weight: 400;
+  line-height: 1.45;
+  margin: 0 auto 32px;
+  max-width: 520px;
+}
+.cta-row { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+.cta {
+  display: inline-block;
+  background: var(--blue);
+  color: #fff;
+  font-size: 15px;
+  padding: 10px 22px;
+  border-radius: 980px;
+  text-decoration: none;
+}
+.cta.ghost {
+  background: transparent;
+  color: var(--blue);
+  border: 1.5px solid var(--blue);
+}
+
+/* ── Device tiles ── */
+.device-strip { padding: 52px 0 40px; border-bottom: 1px solid var(--border); }
+.strip-label { font-size: 11px; color: var(--mid); letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 22px; font-family: var(--mono); }
+.device-tiles { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+.device-tile {
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  padding: 28px 18px 22px;
+  text-align: center;
+  text-decoration: none;
+  color: inherit;
+  display: block;
+  background: var(--off);
+}
+.device-tile.live { border-color: var(--charcoal); background: var(--w); }
+.device-icon {
+  width: 44px; height: 80px;
+  border: 2px solid var(--light);
+  border-radius: 7px;
+  margin: 0 auto 16px;
+}
+.device-tile.live .device-icon { border-color: var(--charcoal); background: var(--charcoal); }
+.d-name { font-size: 16px; font-weight: 600; margin-bottom: 4px; }
+.d-sub { font-size: 12px; color: var(--mid); }
+.device-tile.dim .d-name, .device-tile.dim .d-sub, .device-tile.dim .device-icon { color: var(--light); border-color: var(--border); }
+.d-cta { display: block; margin-top: 14px; font-size: 13px; color: var(--blue); }
+
+.footnote { padding: 18px 0 32px; font-size: 11px; color: var(--light); line-height: 1.65; font-family: var(--mono); }
+
+/* ── Spec section (components page — clean half) ── */
+.spec-section { padding: 60px 0 0; }
+.section-label { font-size: 11px; color: var(--mid); letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 22px; font-family: var(--mono); }
+.spec-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1px;
+  background: var(--border);
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  overflow: hidden;
+}
+.spec-card { background: var(--w); padding: 22px 22px 20px; }
+.s-label { font-size: 11px; color: var(--mid); letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 8px; font-family: var(--mono); }
+.s-val { font-size: 17px; font-weight: 600; margin-bottom: 4px; }
+.s-note { font-size: 13px; color: var(--mid); }
+
+/* ── Crack divider ── */
+.crack { margin-top: 52px; border-top: 1.5px solid var(--cran); padding-top: 14px; }
+.crack-label { font-family: var(--mono); font-size: 11px; color: var(--cran); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 26px; }
+
+/* ── Reveal section (mineral data, same layout — different accent) ── */
+.reveal-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1px;
+  background: var(--cran);
+  border: 1px solid var(--cran);
+  border-radius: 18px;
+  overflow: hidden;
+}
+.reveal-card { background: var(--w); padding: 22px 22px 20px; }
+.reveal-card .s-label { color: var(--cran); }
+.flag {
+  display: inline-block;
+  font-family: var(--mono);
+  font-size: 10px;
+  color: var(--w);
+  background: var(--cran);
+  padding: 2px 8px;
+  border-radius: 2px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  margin-top: 8px;
+}
+.next-cta {
+  display: inline-block;
+  background: var(--cran);
+  color: #fff;
+  font-size: 15px;
+  padding: 10px 22px;
+  border-radius: 980px;
+  text-decoration: none;
+  margin: 28px 0 60px;
+}
+
+/* ── Globe page ── */
+.globe-wrap { padding: 52px 0 60px; }
+.globe-subtitle { font-size: 19px; color: var(--charcoal); margin-bottom: 34px; margin-top: 6px; }
+
+.compliance-map {
+  position: relative;
+  width: min(420px, 100%);
+  height: min(420px, 100vw);
+  border-radius: 50%;
+  border: 1px solid var(--border);
+  overflow: hidden;
+  margin: 0 auto 36px;
+  background: var(--off);
+}
+.mg-h { position: absolute; left: 0; right: 0; height: 1px; background: var(--border); }
+.mg-v { position: absolute; top: 0; bottom: 0; width: 1px; background: var(--border); }
+.map-arc {
+  position: absolute;
+  width: 62%; height: 28%;
+  border-top: 2px dashed var(--cran);
+  border-radius: 50%;
+  top: 38%; left: 14%;
+  transform: rotate(-16deg);
+}
+.map-pin {
+  position: absolute;
+  font-family: var(--mono);
+  font-size: 10px;
+  color: var(--charcoal);
+  letter-spacing: 0.03em;
+  white-space: nowrap;
+}
+.map-pin::before { content: '●'; color: var(--cran); margin-right: 4px; font-size: 7px; }
+.mp1 { top: 48%; left: 22%; }
+.mp2 { top: 32%; left: 61%; }
+.mp3 { top: 39%; left: 9%; }
+
+.route-table { border: 1px solid var(--border); border-radius: 14px; overflow: hidden; }
+.route-row {
+  display: flex; align-items: center;
+  padding: 14px 20px;
+  border-bottom: 1px solid var(--border);
+  font-size: 13px;
+  gap: 14px;
+}
+.route-row:last-child { border-bottom: none; }
+.rdot { width: 8px; height: 8px; border-radius: 50%; background: var(--cran); flex-shrink: 0; }
+.rplace { font-weight: 500; color: var(--charcoal); flex: 1; }
+.rnote { color: var(--mid); font-family: var(--mono); font-size: 11px; }
+.map-disc { margin-top: 22px; font-size: 11px; color: var(--light); line-height: 1.65; font-family: var(--mono); }
+
+@media (max-width: 600px) {
+  .spec-grid, .reveal-grid, .device-tiles { grid-template-columns: 1fr; }
+}

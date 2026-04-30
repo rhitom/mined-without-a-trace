@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Compliance / Supply Route</title>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <nav class="nav">
+      <a href="../index.html">← Gallery</a>
+      <a href="components.html">← Components</a>
+      <span class="nav-proto">Supply Route</span>
+    </nav>
+
+    <main class="page">
+      <section class="globe-wrap">
+        <p class="section-label">Supply Chain Visualization — Cobalt Route</p>
+        <p class="globe-subtitle">Kolwezi, DRC → Shenzhen, China → Cupertino, CA</p>
+
+        <!-- Clean circular map projection -->
+        <div class="compliance-map">
+          <div class="mg-h" style="top: 16.6%"></div>
+          <div class="mg-h" style="top: 33.3%"></div>
+          <div class="mg-h" style="top: 50%"></div>
+          <div class="mg-h" style="top: 66.6%"></div>
+          <div class="mg-h" style="top: 83.3%"></div>
+          <div class="mg-v" style="left: 16.6%"></div>
+          <div class="mg-v" style="left: 33.3%"></div>
+          <div class="mg-v" style="left: 50%"></div>
+          <div class="mg-v" style="left: 66.6%"></div>
+          <div class="mg-v" style="left: 83.3%"></div>
+          <div class="map-arc"></div>
+          <div class="map-pin mp1">Kolwezi, DRC</div>
+          <div class="map-pin mp2">Shenzhen, CN</div>
+          <div class="map-pin mp3">Cupertino, US</div>
+        </div>
+
+        <div class="route-table">
+          <div class="route-row">
+            <div class="rdot"></div>
+            <span class="rplace">Kolwezi, Democratic Republic of Congo</span>
+            <span class="rnote">Mine → Smelter</span>
+          </div>
+          <div class="route-row">
+            <div class="rdot"></div>
+            <span class="rplace">Lubumbashi, DRC (Refinery)</span>
+            <span class="rnote">Cobalt hydroxide</span>
+          </div>
+          <div class="route-row">
+            <div class="rdot"></div>
+            <span class="rplace">Shenzhen, China (Cell Manufacture)</span>
+            <span class="rnote">Battery assembly</span>
+          </div>
+          <div class="route-row">
+            <div class="rdot"></div>
+            <span class="rplace">Zhengzhou, China (Foxconn)</span>
+            <span class="rnote">Final device assembly</span>
+          </div>
+          <div class="route-row">
+            <div class="rdot"></div>
+            <span class="rplace">Cupertino, California</span>
+            <span class="rnote">Distribution / Retail</span>
+          </div>
+        </div>
+
+        <p class="map-disc">
+          ¹ Route is approximate. Actual supply chains involve additional intermediaries not shown. Sourcing data is based on publicly available conflict mineral disclosures.<br>
+          ² Some features of this supply chain are not available in all countries or regions.
+        </p>
+      </section>
+    </main>
+  </body>
+</html>

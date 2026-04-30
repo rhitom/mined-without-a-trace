@@ -1,0 +1,347 @@
+/* World 2: Notes on Extraction */
+/* D.S. & Durga apothecary catalog — beauty as an entry point to horror */
+/* Persuasion by beauty: the horror sneaks in through precious sentences */
+
+:root {
+  --cream: #f2e4c8;
+  --parchment: #e8d4aa;
+  --ink: #2a1a0e;
+  --ink-mid: #5a3a22;
+  --ink-light: #8a6240;
+  --amber: #c8862a;
+  --rust: #8b2020;
+  --rule: rgba(42,26,14,0.15);
+  --font-disp: 'Playfair Display', Georgia, serif;
+  --font-body: 'Crimson Pro', 'Georgia', serif;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  background: var(--cream);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: 18px;
+  line-height: 1.8;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── Thin top bar ── */
+.nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 40px;
+  border-bottom: 1px solid var(--rule);
+  font-family: var(--font-disp);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+}
+.nav a { color: var(--ink); text-decoration: none; }
+.nav a:hover { color: var(--amber); }
+.nav .nav-title { font-style: italic; font-size: 12px; }
+
+/* ── Narrow centered column ── */
+.page {
+  max-width: 580px;
+  margin: 0 auto;
+  padding: 0 32px;
+}
+
+/* ── Catalog header ── */
+.catalog-header {
+  padding: 72px 0 52px;
+  border-bottom: 1px solid var(--rule);
+}
+
+.catalog-label {
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--ink-light);
+  margin-bottom: 24px;
+  font-family: var(--font-disp);
+}
+
+.catalog-title {
+  font-family: var(--font-disp);
+  font-size: clamp(42px, 6vw, 68px);
+  font-weight: 700;
+  font-style: italic;
+  line-height: 1.0;
+  letter-spacing: -0.01em;
+  margin-bottom: 20px;
+}
+
+.catalog-lede {
+  font-size: 16px;
+  color: var(--ink-mid);
+  line-height: 1.65;
+  max-width: 46ch;
+  margin-bottom: 10px;
+}
+
+.catalog-contains {
+  font-size: 13px;
+  color: var(--ink-light);
+  letter-spacing: 0.03em;
+  font-style: italic;
+  margin-top: 18px;
+}
+
+/* ── Device entries ── */
+.device-list {
+  padding: 52px 0;
+  display: grid;
+  gap: 0;
+}
+
+.device-entry {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  padding: 22px 0;
+  border-bottom: 1px solid var(--rule);
+  text-decoration: none;
+  color: inherit;
+  gap: 20px;
+}
+
+.device-entry:first-child { border-top: 1px solid var(--rule); }
+
+.de-name {
+  font-family: var(--font-disp);
+  font-size: 20px;
+  font-style: italic;
+}
+
+.de-note {
+  font-size: 13px;
+  color: var(--ink-light);
+  letter-spacing: 0.05em;
+}
+
+.de-cta {
+  font-size: 13px;
+  color: var(--amber);
+  font-style: italic;
+  white-space: nowrap;
+}
+
+.device-entry.dim .de-name { color: var(--ink-light); }
+.device-entry.dim .de-cta { color: var(--rule); }
+
+/* ── Ingredient list (components page) ── */
+.ingredient-header {
+  padding: 64px 0 40px;
+}
+
+.ingr-label {
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--ink-light);
+  margin-bottom: 18px;
+  font-family: var(--font-disp);
+}
+
+.ingr-title {
+  font-family: var(--font-disp);
+  font-size: clamp(32px, 5vw, 52px);
+  font-style: italic;
+  font-weight: 700;
+  line-height: 1.05;
+  margin-bottom: 16px;
+}
+
+.ingr-subtitle {
+  font-size: 15px;
+  color: var(--ink-mid);
+  font-style: italic;
+}
+
+/* Amber rule dividers */
+.amber-rule {
+  border: none;
+  border-top: 1px solid var(--amber);
+  opacity: 0.45;
+  margin: 40px 0;
+}
+
+/* Each ingredient entry */
+.ingredient {
+  padding: 32px 0;
+  border-bottom: 1px solid var(--rule);
+}
+.ingredient:first-of-type { border-top: 1px solid var(--rule); }
+
+.ingr-mineral {
+  font-family: var(--font-disp);
+  font-size: 22px;
+  font-style: italic;
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+
+.ingr-where {
+  font-size: 12px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--amber);
+  margin-bottom: 14px;
+}
+
+.ingr-body {
+  font-size: 16px;
+  color: var(--ink-mid);
+  line-height: 1.75;
+  max-width: 46ch;
+}
+
+.ingr-note {
+  font-size: 13px;
+  color: var(--rust);
+  font-style: italic;
+  margin-top: 10px;
+}
+
+.ingr-cta {
+  display: inline-block;
+  margin: 52px 0 72px;
+  font-size: 14px;
+  color: var(--amber);
+  font-style: italic;
+  text-decoration: none;
+  border-bottom: 1px solid var(--amber);
+  padding-bottom: 2px;
+}
+
+/* ── Terroir map (globe page) ── */
+.terroir-header {
+  padding: 64px 0 40px;
+}
+
+.terroir-label {
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--ink-light);
+  margin-bottom: 18px;
+  font-family: var(--font-disp);
+}
+
+.terroir-title {
+  font-family: var(--font-disp);
+  font-size: clamp(30px, 4.5vw, 48px);
+  font-style: italic;
+  font-weight: 700;
+  line-height: 1.1;
+  margin-bottom: 14px;
+}
+
+.terroir-intro {
+  font-size: 16px;
+  color: var(--ink-mid);
+  font-style: italic;
+  max-width: 44ch;
+}
+
+/* CSS terroir map */
+.terroir-map {
+  position: relative;
+  width: 100%;
+  height: 260px;
+  border: 1px solid var(--rule);
+  background: var(--parchment);
+  margin: 40px 0 32px;
+  overflow: hidden;
+}
+
+/* Simple abstract "world" continent shapes using CSS */
+.continent {
+  position: absolute;
+  background: rgba(42,26,14,0.09);
+  border: 1px solid rgba(42,26,14,0.12);
+}
+.c-africa { top: 28%; left: 34%; width: 14%; height: 40%; border-radius: 40% 40% 50% 50%; }
+.c-asia { top: 14%; left: 50%; width: 30%; height: 42%; border-radius: 20% 30% 35% 15%; }
+.c-americas { top: 18%; left: 8%; width: 12%; height: 50%; border-radius: 30% 20% 40% 25%; }
+.c-europe { top: 14%; left: 36%; width: 10%; height: 20%; border-radius: 35% 25% 30% 40%; }
+
+/* Origin dots */
+.origin-dot {
+  position: absolute;
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: var(--amber);
+  transform: translate(-50%, -50%);
+}
+
+/* Origin labels */
+.origin-label {
+  position: absolute;
+  font-family: var(--font-disp);
+  font-size: 10px;
+  font-style: italic;
+  color: var(--ink);
+  white-space: nowrap;
+}
+
+/* DRC */
+.od1 { top: 52%; left: 38%; }
+.ol1 { top: 55%; left: 40%; }
+/* China */
+.od2 { top: 30%; left: 68%; }
+.ol2 { top: 33%; left: 70%; }
+/* Indonesia */
+.od3 { top: 50%; left: 72%; }
+.ol3 { top: 53%; left: 74%; }
+/* US */
+.od4 { top: 28%; left: 14%; }
+.ol4 { top: 31%; left: 16%; }
+
+/* Thin route lines — CSS borders */
+.route-line {
+  position: absolute;
+  height: 1px;
+  background: var(--amber);
+  opacity: 0.35;
+  transform-origin: left center;
+}
+.rl1 { top: 52%; left: 38%; width: 30%; transform: rotate(-18deg); }
+.rl2 { top: 30%; left: 38%; width: 30%; transform: rotate(5deg); }
+
+/* Terroir origin list */
+.origin-list { padding: 0 0 72px; }
+
+.origin-entry {
+  padding: 26px 0;
+  border-bottom: 1px solid var(--rule);
+}
+.origin-entry:first-child { border-top: 1px solid var(--rule); }
+
+.oe-place {
+  font-family: var(--font-disp);
+  font-size: 19px;
+  font-style: italic;
+  margin-bottom: 6px;
+}
+
+.oe-mineral {
+  font-size: 12px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--amber);
+  margin-bottom: 10px;
+}
+
+.oe-note {
+  font-size: 15px;
+  color: var(--ink-mid);
+  line-height: 1.65;
+}
+
+@media (max-width: 640px) {
+  .page { padding: 0 20px; }
+  .nav { padding: 14px 20px; }
+}

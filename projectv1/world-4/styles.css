@@ -1,0 +1,423 @@
+/* World 4: Specimen 16A */
+/* Naturalist archive / Hollow Knight — the phone as a pinned specimen */
+
+:root {
+  --ink: #0c0a08;
+  --ink2: #1a160f;
+  --parchment: #e8dcc8;
+  --amber: #c4913a;
+  --amber-dim: #8a6428;
+  --grey: #6a5a48;
+  --sage: #3a4a2a;
+  --text: #c8b898;
+  --off-text: #a89878;
+  --font-serif: 'IM Fell English', Georgia, 'Times New Roman', serif;
+  --font-mono: 'Courier Prime', 'Courier New', monospace;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  background: var(--ink);
+  color: var(--text);
+  font-family: var(--font-serif);
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── Navigation ── */
+.nav {
+  border-bottom: 1px solid var(--ink2);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 32px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--grey);
+  letter-spacing: 0.06em;
+}
+.nav a { color: var(--grey); text-decoration: none; }
+.nav a:hover { color: var(--amber); }
+.nav .nav-label { letter-spacing: 0.1em; text-transform: uppercase; }
+
+/* ── Archive header ── */
+.archive-header {
+  text-align: center;
+  padding: 52px 32px 40px;
+  border-bottom: 1px solid var(--ink2);
+}
+.archive-inst {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--grey);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  margin-bottom: 16px;
+}
+.archive-title {
+  font-size: clamp(20px, 3.5vw, 32px);
+  font-style: italic;
+  color: var(--parchment);
+  font-weight: 400;
+  line-height: 1.2;
+  margin-bottom: 10px;
+}
+.archive-subtitle {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--grey);
+  letter-spacing: 0.04em;
+}
+
+/* ── Specimen case (selection page) ── */
+.specimen-case {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 28px;
+  padding: 52px 32px 60px;
+  flex-wrap: wrap;
+}
+
+.specimen-box {
+  width: 200px;
+  border: 1px solid var(--ink2);
+  background: var(--ink2);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 28px 18px 20px;
+  text-decoration: none;
+}
+.specimen-box.active { border-color: var(--amber-dim); }
+.specimen-box.active:hover { border-color: var(--amber); }
+
+.specimen-phone {
+  width: 58px;
+  height: 105px;
+  border: 2px solid var(--grey);
+  border-radius: 7px;
+  margin-bottom: 20px;
+  position: relative;
+}
+.specimen-box.active .specimen-phone { border-color: var(--amber-dim); }
+
+.spec-pin {
+  position: absolute;
+  top: -9px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--amber);
+  box-shadow: 0 0 6px rgba(196,145,58,0.5);
+}
+.specimen-box.dim .spec-pin { background: var(--grey); box-shadow: none; }
+
+.specimen-label {
+  border: 1px solid rgba(196,145,58,0.2);
+  background: var(--parchment);
+  color: var(--ink);
+  width: 100%;
+  padding: 10px 12px;
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.02em;
+  line-height: 1.65;
+  text-align: left;
+}
+.specimen-box.dim .specimen-label { background: #c8b898; border-color: rgba(100,80,60,0.3); }
+
+.label-id { font-size: 11px; font-weight: bold; margin-bottom: 3px; display: block; }
+.label-status { margin-top: 7px; font-size: 9px; display: block; }
+.specimen-box.active .label-status { color: var(--sage); font-weight: bold; }
+.specimen-box.dim .label-status { color: var(--grey); font-style: italic; }
+
+.spec-enter {
+  display: inline-block;
+  margin-top: 12px;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--amber);
+  text-decoration: none;
+  letter-spacing: 0.09em;
+  border: 1px solid var(--amber-dim);
+  padding: 6px 14px;
+  text-transform: uppercase;
+}
+
+/* ── Anatomy plate (components page) ── */
+.plate-header {
+  text-align: center;
+  padding: 46px 32px 34px;
+  border-bottom: 1px solid var(--ink2);
+}
+.plate-number {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--grey);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+.plate-title { font-size: 24px; font-style: italic; color: var(--parchment); font-weight: 400; }
+.plate-subtitle { font-family: var(--font-mono); font-size: 11px; color: var(--grey); margin-top: 6px; }
+
+.plate-body {
+  display: grid;
+  grid-template-columns: 1fr 300px;
+  gap: 0;
+  max-width: 820px;
+  margin: 0 auto;
+  padding: 52px 32px 20px;
+  align-items: start;
+}
+
+/* Diagram area */
+.anatomy-diagram {
+  position: relative;
+  min-height: 500px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.anatomy-phone {
+  width: 106px;
+  height: 214px;
+  border: 2px solid var(--amber-dim);
+  border-radius: 12px;
+  position: relative;
+  background: var(--ink2);
+}
+/* notch */
+.anatomy-phone::before {
+  content: '';
+  position: absolute;
+  top: 10px; left: 50%;
+  transform: translateX(-50%);
+  width: 28px; height: 6px;
+  border-radius: 3px;
+  background: var(--amber-dim);
+  opacity: 0.4;
+}
+
+/* Internal dashed component areas */
+.int-zone {
+  position: absolute;
+  border: 1px dashed var(--amber-dim);
+  opacity: 0.5;
+}
+.iz-battery { inset: 32% 14% 14% 14%; }
+.iz-logic { inset: 10% 14% 52% 14%; }
+
+/* Numbered circles */
+.anatomy-num {
+  position: absolute;
+  width: 24px; height: 24px;
+  border-radius: 50%;
+  border: 1px solid var(--amber);
+  background: var(--ink);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--amber);
+}
+.an1 { top: 20px; left: 50%; transform: translateX(-50%); }
+.an2 { top: 78px; left: -36px; }
+.an3 { top: 142px; left: -36px; }
+.an4 { bottom: 24px; left: 50%; transform: translateX(-50%); }
+
+/* Thin connector lines */
+.conn {
+  position: absolute;
+  height: 1px;
+  background: var(--amber-dim);
+  opacity: 0.5;
+  transform-origin: left center;
+}
+.cn1 { top: 32px; left: 103px; width: 60px; transform: rotate(10deg); }
+.cn2 { top: 91px; left: 70px; width: 50px; transform: rotate(-5deg); }
+.cn3 { top: 155px; left: 70px; width: 50px; transform: rotate(5deg); }
+.cn4 { top: 190px; left: 103px; width: 55px; transform: rotate(-8deg); }
+
+/* Legend */
+.anatomy-legend {
+  border-left: 1px solid var(--ink2);
+  padding-left: 28px;
+  padding-top: 10px;
+}
+.legend-entry {
+  margin-bottom: 28px;
+  padding-bottom: 28px;
+  border-bottom: 1px solid var(--ink2);
+}
+.legend-entry:last-child { border-bottom: none; }
+
+.leg-num {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--amber);
+  letter-spacing: 0.09em;
+  margin-bottom: 6px;
+}
+.leg-component {
+  font-size: 15px;
+  font-style: italic;
+  color: var(--parchment);
+  margin-bottom: 3px;
+}
+.leg-mineral {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--amber-dim);
+  margin-bottom: 8px;
+}
+.leg-note {
+  font-size: 12px;
+  color: var(--off-text);
+  line-height: 1.55;
+}
+
+.specimen-link {
+  display: inline-block;
+  margin: 12px 32px 52px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--amber);
+  text-decoration: none;
+  letter-spacing: 0.07em;
+  border: 1px solid var(--amber-dim);
+  padding: 9px 18px;
+  text-transform: uppercase;
+}
+
+/* ── Chart of Provenance (globe page) ── */
+.chart-header {
+  text-align: center;
+  padding: 46px 32px 24px;
+  border-bottom: 1px solid var(--ink2);
+}
+.chart-title {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--grey);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+.chart-sub { font-size: 22px; font-style: italic; color: var(--parchment); font-weight: 400; }
+
+.chart-body {
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 44px 32px 60px;
+}
+
+/* Antique map box */
+.antique-map {
+  position: relative;
+  width: 100%;
+  height: 340px;
+  border: 1px solid var(--amber-dim);
+  background: var(--ink2);
+  margin-bottom: 32px;
+  overflow: hidden;
+}
+
+/* Lat/lon grid lines */
+.cl-h { position: absolute; left: 0; right: 0; height: 1px; background: rgba(196,145,58,0.12); }
+.cl-v { position: absolute; top: 0; bottom: 0; width: 1px; background: rgba(196,145,58,0.12); }
+
+/* Corner degree labels */
+.deg {
+  position: absolute;
+  font-family: var(--font-mono);
+  font-size: 8px;
+  color: var(--grey);
+  letter-spacing: 0.03em;
+}
+.deg-tl { top: 7px; left: 9px; }
+.deg-tr { top: 7px; right: 9px; }
+.deg-bl { bottom: 7px; left: 9px; }
+.deg-br { bottom: 7px; right: 9px; }
+
+/* Dashed supply route */
+.chart-arc {
+  position: absolute;
+  width: 55%;
+  height: 50%;
+  border-top: 1px dashed var(--amber-dim);
+  border-radius: 50%;
+  top: 28%;
+  left: 20%;
+  transform: rotate(-8deg);
+}
+
+/* Location markers */
+.chart-loc {
+  position: absolute;
+  font-family: var(--font-serif);
+  font-size: 11px;
+  font-style: italic;
+  color: var(--parchment);
+  white-space: nowrap;
+}
+.chart-loc::before {
+  content: '×';
+  color: var(--amber);
+  margin-right: 5px;
+  font-style: normal;
+  font-size: 14px;
+}
+.cl1 { top: 56%; left: 26%; }
+.cl2 { top: 30%; left: 55%; }
+.cl3 { top: 36%; left: 8%; }
+
+/* Small legend in corner */
+.chart-legend-box {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  border: 1px solid var(--amber-dim);
+  background: var(--ink);
+  padding: 8px 10px;
+  font-family: var(--font-mono);
+  font-size: 8px;
+  color: var(--grey);
+  letter-spacing: 0.05em;
+  line-height: 1.9;
+}
+
+/* Provenance list below map */
+.chart-caption {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--grey);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: 18px;
+}
+.provenance-list { list-style: none; }
+.provenance-item {
+  display: flex;
+  align-items: baseline;
+  gap: 14px;
+  padding: 14px 0;
+  border-bottom: 1px solid var(--ink2);
+  font-size: 14px;
+}
+.provenance-item:last-child { border-bottom: none; }
+.prov-mark { color: var(--amber); font-family: var(--font-mono); font-size: 13px; flex-shrink: 0; }
+.prov-place { font-style: italic; color: var(--parchment); flex: 1; }
+.prov-mat { font-family: var(--font-mono); font-size: 11px; color: var(--grey); }
+
+@media (max-width: 700px) {
+  .specimen-case { flex-direction: column; align-items: center; }
+  .plate-body { grid-template-columns: 1fr; }
+  .anatomy-legend { border-left: none; border-top: 1px solid var(--ink2); padding-left: 0; padding-top: 24px; }
+}

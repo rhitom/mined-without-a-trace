@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Teardown / Supply Chain Tracker</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <nav class="nav">
+      <a href="../index.html">← Gallery</a>
+      <a href="components.html">← Teardown</a>
+      <span class="site-name">Teardown</span>
+    </nav>
+
+    <main class="page">
+      <section class="tracking-header">
+        <p class="tr-cat">Supply Chain Tracker / Cobalt Route / iPhone 16 Battery</p>
+        <h1>Shipment Route: Kolwezi → Cupertino</h1>
+        <span class="tr-num">TRACKING #: COBALT-DRC-16A-2024-0034812</span>
+      </section>
+
+      <!-- Status bar -->
+      <div class="tracking-status">
+        <div class="ts-item">
+          <p class="ts-label">Status</p>
+          <p class="ts-val in-transit">In Transit</p>
+        </div>
+        <div class="ts-item">
+          <p class="ts-label">Mineral</p>
+          <p class="ts-val">Cobalt (Co)</p>
+        </div>
+        <div class="ts-item">
+          <p class="ts-label">Origin Class</p>
+          <p class="ts-val flagged">Conflict-Adjacent</p>
+        </div>
+        <div class="ts-item">
+          <p class="ts-label">Audit Level</p>
+          <p class="ts-val">Tier 2 (incomplete)</p>
+        </div>
+      </div>
+
+      <table class="route-table">
+        <thead>
+          <tr>
+            <th>Stop</th>
+            <th>Location</th>
+            <th>Activity</th>
+            <th>Est. Date</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>01</td>
+            <td class="rt-location"><span class="rt-dot conflict"></span>Kolwezi, DRC</td>
+            <td class="rt-type">Artisanal extraction — cobalt hydroxide</td>
+            <td class="rt-time">Ongoing</td>
+            <td><span class="status-tag status-conflict">Conflict Zone</span></td>
+          </tr>
+          <tr>
+            <td>02</td>
+            <td class="rt-location"><span class="rt-dot conflict"></span>Lubumbashi, DRC</td>
+            <td class="rt-type">Smelting and refining</td>
+            <td class="rt-time">+14 days</td>
+            <td><span class="status-tag status-risk">High Risk</span></td>
+          </tr>
+          <tr>
+            <td>03</td>
+            <td class="rt-location"><span class="rt-dot transit"></span>Guangzhou, China</td>
+            <td class="rt-type">Chemical processing — cathode powder</td>
+            <td class="rt-time">+32 days</td>
+            <td><span class="status-tag status-risk">In Process</span></td>
+          </tr>
+          <tr>
+            <td>04</td>
+            <td class="rt-location"><span class="rt-dot transit"></span>Shenzhen, China</td>
+            <td class="rt-type">Battery cell manufacture</td>
+            <td class="rt-time">+48 days</td>
+            <td><span class="status-tag status-risk">In Process</span></td>
+          </tr>
+          <tr>
+            <td>05</td>
+            <td class="rt-location"><span class="rt-dot transit"></span>Zhengzhou, China (Foxconn)</td>
+            <td class="rt-type">Final assembly — device integration</td>
+            <td class="rt-time">+56 days</td>
+            <td><span class="status-tag status-risk">In Process</span></td>
+          </tr>
+          <tr>
+            <td>06</td>
+            <td class="rt-location"><span class="rt-dot arrived"></span>Cupertino, CA</td>
+            <td class="rt-type">Distribution / Retail / Consumer</td>
+            <td class="rt-time">+72 days</td>
+            <td><span class="status-tag status-clear">Delivered</span></td>
+          </tr>
+        </tbody>
+      </table>
+
+      <p class="tr-disclaimer">
+        DISCLAIMER: Route data is approximate and for educational/prototype purposes only. Actual supply chains involve additional intermediaries and do not provide this level of tracking visibility. Conflict mineral sourcing data is based on publicly available SEC and OECD disclosures.
+      </p>
+    </main>
+  </body>
+</html>

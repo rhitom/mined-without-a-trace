@@ -1,0 +1,238 @@
+/* World 6: Compliance — Drift */
+/* Version A: subtle devolution. The Apple UI begins to crack but never fully breaks. */
+/* Selection = pristine. Components = subtle stress. Globe = urgent but recognizable. */
+
+:root {
+  --w: #ffffff;
+  --off: #f5f5f7;
+  --charcoal: #1d1d1f;
+  --mid: #6e6e73;
+  --light: #aeaeb2;
+  --blue: #0071e3;
+  --border: #d2d2d7;
+  --cran: #7f1734;
+  --cran-faint: rgba(127,23,52,0.06);
+  --cran-tint: rgba(127,23,52,0.18);
+  --font: system-ui, -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif;
+  --mono: 'IBM Plex Mono', 'Courier New', monospace;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  background: var(--w);
+  color: var(--charcoal);
+  font-family: var(--font);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── Navigation (pristine) ── */
+.nav {
+  background: rgba(255,255,255,0.92);
+  border-bottom: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 22px; height: 44px;
+  position: sticky; top: 0; z-index: 10;
+}
+.nav a, .nav span { font-size: 12px; color: var(--charcoal); text-decoration: none; }
+.nav a:hover { color: var(--blue); }
+.nav .nav-proto { font-size: 11px; color: var(--light); font-family: var(--mono); }
+
+.page { max-width: 860px; margin: 0 auto; padding: 0 22px; }
+
+/* ── Hero (selection — identical to World 1) ── */
+.hero { text-align: center; padding: 80px 0 60px; border-bottom: 1px solid var(--border); }
+.hero .eyebrow { font-size: 13px; color: var(--mid); letter-spacing: 0.02em; margin-bottom: 12px; }
+.hero h1 { font-size: clamp(44px, 8vw, 78px); font-weight: 700; letter-spacing: -0.025em; line-height: 1.05; margin-bottom: 18px; }
+.hero .tagline { font-size: clamp(16px, 2.2vw, 19px); color: var(--mid); font-weight: 400; line-height: 1.45; margin: 0 auto 32px; max-width: 520px; }
+.cta-row { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+.cta { display: inline-block; background: var(--blue); color: #fff; font-size: 15px; padding: 10px 22px; border-radius: 980px; text-decoration: none; }
+.cta.ghost { background: transparent; color: var(--blue); border: 1.5px solid var(--blue); }
+
+.device-strip { padding: 52px 0 40px; border-bottom: 1px solid var(--border); }
+.strip-label { font-size: 11px; color: var(--mid); letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 22px; font-family: var(--mono); }
+.device-tiles { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+.device-tile { border: 1px solid var(--border); border-radius: 18px; padding: 28px 18px 22px; text-align: center; text-decoration: none; color: inherit; display: block; background: var(--off); }
+.device-tile.live { border-color: var(--charcoal); background: var(--w); }
+.device-icon { width: 44px; height: 80px; border: 2px solid var(--light); border-radius: 7px; margin: 0 auto 16px; }
+.device-tile.live .device-icon { border-color: var(--charcoal); background: var(--charcoal); }
+.d-name { font-size: 16px; font-weight: 600; margin-bottom: 4px; }
+.d-sub { font-size: 12px; color: var(--mid); }
+.device-tile.dim .d-name, .device-tile.dim .d-sub, .device-tile.dim .device-icon { color: var(--light); border-color: var(--border); }
+.d-cta { display: block; margin-top: 14px; font-size: 13px; color: var(--blue); }
+.footnote { padding: 18px 0 32px; font-size: 11px; color: var(--light); line-height: 1.65; font-family: var(--mono); }
+
+/* ── Components page — stress begins ── */
+/* Background starts to feel slightly off */
+body.components-page { background: color-mix(in srgb, #ffffff 94%, #7f1734 6%); }
+
+.spec-section { padding: 60px 0 0; }
+.section-label { font-size: 11px; color: var(--mid); letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 22px; font-family: var(--mono); }
+
+/* Spec cards still Apple-clean but the grid is slightly askew */
+.spec-grid {
+  display: grid; grid-template-columns: repeat(2, 1fr);
+  gap: 1px; background: var(--border);
+  border: 1px solid var(--border); border-radius: 18px; overflow: hidden;
+}
+.spec-card { background: var(--w); padding: 22px 22px 20px; }
+/* subtle drift — cards shift very slightly */
+.spec-card:nth-child(2) { transform: translateX(2px); }
+.spec-card:nth-child(3) { transform: translateX(-2px) translateY(1px); }
+.spec-card:nth-child(4) { transform: translateY(2px); }
+.s-label { font-size: 11px; color: var(--mid); letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 8px; font-family: var(--mono); }
+.s-val { font-size: 17px; font-weight: 600; margin-bottom: 4px; }
+.s-note { font-size: 13px; color: var(--mid); }
+
+/* Crack — more visible than World 1 */
+.crack { margin-top: 52px; border-top: 2px solid var(--cran); padding-top: 14px; }
+.crack-label { font-family: var(--mono); font-size: 11px; color: var(--cran); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 26px; }
+
+/* ── Anatomy plate (drift version) ── */
+/* Still Apple-white base, but structure is World 4 numbered callouts */
+.anatomy-section {
+  background: var(--off);
+  border: 1px solid rgba(127,23,52,0.2);
+  border-radius: 18px;
+  padding: 32px;
+  margin-bottom: 12px;
+}
+.anatomy-section .section-label { color: var(--cran); }
+
+.drift-plate {
+  display: grid;
+  grid-template-columns: 1fr 280px;
+  gap: 28px;
+  align-items: start;
+  margin-top: 20px;
+}
+
+.drift-diagram {
+  position: relative;
+  min-height: 340px;
+  display: flex; align-items: center; justify-content: center;
+}
+
+.drift-phone {
+  width: 100px; height: 200px;
+  border: 2px solid var(--charcoal);
+  border-radius: 12px;
+  background: var(--w);
+  position: relative;
+  /* slight misalignment */
+  transform: rotate(-0.8deg);
+}
+.drift-phone::before {
+  content: ''; position: absolute;
+  top: 10px; left: 50%; transform: translateX(-50%);
+  width: 26px; height: 5px; border-radius: 3px;
+  background: var(--border);
+}
+
+/* Numbered callout circles */
+.d-num {
+  position: absolute;
+  width: 26px; height: 26px; border-radius: 50%;
+  border: 1.5px solid var(--cran);
+  background: var(--w);
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--mono); font-size: 11px;
+  color: var(--cran);
+}
+.dn1 { top: 18px; left: 50%; transform: translateX(-50%); }
+.dn2 { top: 72px; left: -34px; }
+.dn3 { top: 136px; left: -34px; }
+.dn4 { bottom: 18px; left: 50%; transform: translateX(-50%); }
+
+/* Connector lines */
+.d-conn { position: absolute; height: 1px; background: rgba(127,23,52,0.3); transform-origin: left center; }
+.dc1 { top: 30px; left: 96px; width: 56px; transform: rotate(8deg); }
+.dc2 { top: 85px; left: 66px; width: 42px; transform: rotate(-4deg); }
+.dc3 { top: 149px; left: 66px; width: 42px; transform: rotate(6deg); }
+.dc4 { top: 182px; left: 96px; width: 50px; transform: rotate(-6deg); }
+
+/* Legend */
+.drift-legend { border-left: 1px solid rgba(127,23,52,0.2); padding-left: 24px; }
+.dl-entry { margin-bottom: 22px; padding-bottom: 22px; border-bottom: 1px solid var(--border); }
+.dl-entry:last-child { border-bottom: none; }
+.dl-num { font-family: var(--mono); font-size: 10px; color: var(--cran); letter-spacing: 0.08em; margin-bottom: 5px; }
+.dl-component { font-size: 15px; font-weight: 700; margin-bottom: 3px; }
+.dl-mineral { font-family: var(--mono); font-size: 11px; color: var(--cran); margin-bottom: 6px; }
+.dl-note { font-size: 13px; color: var(--mid); line-height: 1.5; }
+
+.flag {
+  display: inline-block; font-family: var(--mono); font-size: 10px;
+  color: var(--w); background: var(--cran);
+  padding: 2px 8px; border-radius: 2px;
+  letter-spacing: 0.04em; text-transform: uppercase; margin-top: 6px;
+}
+.next-cta {
+  display: inline-block; background: var(--cran); color: #fff;
+  font-size: 15px; padding: 10px 22px; border-radius: 980px;
+  text-decoration: none; margin: 28px 0 60px;
+}
+
+/* ── Globe page — stressed but Apple-adjacent ── */
+body.globe-page {
+  background: color-mix(in srgb, #ffffff 88%, #7f1734 12%);
+}
+
+.globe-wrap { padding: 52px 0 60px; }
+.globe-subtitle { font-size: 19px; font-weight: 700; color: var(--charcoal); margin-bottom: 34px; margin-top: 6px; }
+
+/* Map — same structure as World 1 but more weight */
+.compliance-map {
+  position: relative;
+  width: min(420px, 100%); height: min(420px, 100vw);
+  border-radius: 50%;
+  border: 2px solid var(--cran);
+  overflow: hidden; margin: 0 auto 36px;
+  background: var(--off);
+}
+.mg-h { position: absolute; left: 0; right: 0; height: 1px; background: rgba(127,23,52,0.12); }
+.mg-v { position: absolute; top: 0; bottom: 0; width: 1px; background: rgba(127,23,52,0.12); }
+
+/* Two route arcs — primary + ghost (slight offset = stress) */
+.map-arc {
+  position: absolute; width: 62%; height: 28%;
+  border-top: 3px solid var(--cran);
+  border-radius: 50%; top: 38%; left: 14%;
+  transform: rotate(-16deg);
+}
+.map-arc-ghost {
+  position: absolute; width: 64%; height: 30%;
+  border-top: 1px solid rgba(127,23,52,0.3);
+  border-radius: 50%; top: 37%; left: 13%;
+  transform: rotate(-18deg);
+}
+.map-pin {
+  position: absolute; font-family: var(--mono); font-size: 10px;
+  color: var(--charcoal); letter-spacing: 0.03em; white-space: nowrap;
+  font-weight: 600;
+}
+.map-pin::before { content: '●'; color: var(--cran); margin-right: 4px; font-size: 8px; }
+.mp1 { top: 48%; left: 22%; }
+.mp2 { top: 32%; left: 61%; }
+.mp3 { top: 39%; left: 9%; }
+
+/* Shipment tracker table below the globe */
+.tracker-label {
+  font-family: var(--mono); font-size: 11px; color: var(--cran);
+  letter-spacing: 0.1em; text-transform: uppercase;
+  margin: 36px 0 14px;
+}
+.route-table { border: 1px solid rgba(127,23,52,0.3); border-radius: 14px; overflow: hidden; }
+.route-row { display: flex; align-items: center; padding: 14px 20px; border-bottom: 1px solid rgba(127,23,52,0.12); font-size: 13px; gap: 14px; }
+.route-row:last-child { border-bottom: none; }
+.rdot { width: 8px; height: 8px; border-radius: 50%; background: var(--cran); flex-shrink: 0; }
+.rplace { font-weight: 600; color: var(--charcoal); flex: 1; }
+.rnote { color: var(--mid); font-family: var(--mono); font-size: 11px; }
+.rflag { font-family: var(--mono); font-size: 9px; color: var(--w); background: var(--cran); padding: 2px 6px; border-radius: 2px; white-space: nowrap; }
+
+.map-disc { margin-top: 22px; font-size: 11px; color: var(--light); line-height: 1.65; font-family: var(--mono); padding-bottom: 60px; }
+
+@media (max-width: 600px) {
+  .spec-grid, .device-tiles { grid-template-columns: 1fr; }
+  .drift-plate { grid-template-columns: 1fr; }
+  .drift-legend { border-left: none; border-top: 1px solid var(--border); padding-left: 0; padding-top: 20px; }
+}

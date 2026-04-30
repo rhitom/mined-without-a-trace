@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Compliance: Collapse / Components</title>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Bebas+Neue&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <nav class="nav">
+      <a href="../index.html">← Gallery</a>
+      <a href="index.html">← Selection</a>
+      <span class="nav-proto">Prototype 07 / Compliance: Collapse</span>
+    </nav>
+
+    <main class="page">
+      <!-- Top half: Apple spec grid, still pristine -->
+      <section class="spec-section">
+        <p class="section-label">Technical Specifications</p>
+        <div class="spec-grid">
+          <div class="spec-card">
+            <p class="s-label">Material</p>
+            <p class="s-val">Titanium / Ceramic Shield</p>
+            <p class="s-note">Grade 5 titanium frame</p>
+          </div>
+          <div class="spec-card">
+            <p class="s-label">Chip</p>
+            <p class="s-val">A18 (3nm)</p>
+            <p class="s-note">6-core CPU, 6-core GPU</p>
+          </div>
+          <div class="spec-card">
+            <p class="s-label">Battery</p>
+            <p class="s-val">3,561 mAh</p>
+            <p class="s-note">Up to 22 hours video playback</p>
+          </div>
+          <div class="spec-card">
+            <p class="s-label">Display</p>
+            <p class="s-val">6.1-inch Super Retina XDR</p>
+            <p class="s-note">2556 × 1179 at 460 ppi</p>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- THE BREAK — full bleed red band, outside .page container -->
+    <div class="collapse-band">
+      <p class="collapse-band-text">WHAT IS ACTUALLY<br>INSIDE THIS DEVICE</p>
+    </div>
+
+    <!-- Protest anatomy plate — full bleed black -->
+    <div class="collapse-plate">
+      <div class="page">
+        <p class="collapse-plate-label">Internal Components / Mineral Provenance / iPhone 16</p>
+
+        <div class="collapse-grid">
+          <div class="collapse-diagram">
+            <div class="collapse-phone">
+              <div class="c-num cn1">①</div>
+              <div class="c-num cn2">②</div>
+              <div class="c-num cn3">③</div>
+              <div class="c-num cn4">④</div>
+              <div class="c-conn cc1"></div>
+              <div class="c-conn cc2"></div>
+              <div class="c-conn cc3"></div>
+              <div class="c-conn cc4"></div>
+            </div>
+          </div>
+
+          <div class="collapse-legend">
+            <div class="cl-entry">
+              <p class="cl-num">① — CAMERA RING</p>
+              <p class="cl-component">Lens Assembly</p>
+              <p class="cl-mineral">Neodymium (Nd) · Rare Earth</p>
+              <p class="cl-note">Sourced from Inner Mongolia. Separation produces radioactive tailings. No full environmental audit available.</p>
+            </div>
+            <div class="cl-entry">
+              <p class="cl-num">② — LOGIC BOARD</p>
+              <p class="cl-component">Capacitor Array (~200 units)</p>
+              <p class="cl-mineral">Tantalum (Ta) · Conflict Mineral</p>
+              <p class="cl-note">From coltan ore. Eastern DRC supply routes have financed armed groups. Present in every modern smartphone.</p>
+            </div>
+            <div class="cl-entry">
+              <p class="cl-num">③ — BATTERY</p>
+              <p class="cl-component">Lithium-Ion Cell</p>
+              <p class="cl-mineral">Cobalt (Co) · ≈1.12g</p>
+              <p class="cl-note">70%+ of global cobalt comes from the DRC. Artisanal mining involves an estimated 40,000 child laborers.</p>
+            </div>
+            <div class="cl-entry">
+              <p class="cl-num">④ — TAPTIC ENGINE</p>
+              <p class="cl-component">Vibration Actuator Mass</p>
+              <p class="cl-mineral">Tungsten (W) · High Density</p>
+              <p class="cl-note">Bolivia and China are primary sources. Supply chain less documented than 3TG minerals.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <a class="next-cta" href="globe.html">TRACK THE SUPPLY ROUTE →</a>
+    </div>
+  </body>
+</html>

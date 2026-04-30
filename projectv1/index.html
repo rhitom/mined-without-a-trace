@@ -3,103 +3,135 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Mined Without A Trace Prototype Gallery</title>
+    <title>Mined Without A Trace / Prototype Gallery</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Alegreya:wght@400;500;700;800&family=Archivo:wght@400;500;600;700;800&family=Bebas+Neue&family=Cormorant+Garamond:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,700;1,400&family=IBM+Plex+Mono:wght@400;500&family=DM+Sans:wght@400;500&display=swap"
       rel="stylesheet"
     />
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body class="page-home">
     <header class="hero">
-      <div class="hero__eyebrow">MPCS 51238 / Design Build Ship / Prototype Round 01</div>
+      <div class="hero__eyebrow">MPCS 51238 / Design Build Ship / Prototype Round</div>
       <h1>Mined Without A Trace</h1>
       <p class="hero__lede">
-        A homepage gallery of five visual experiments for the iPhone 16 experience.
-        Each card opens a separate HTML/CSS demo for the model selection page, the
-        component diagram page, and the globe page.
+        Five deliberately different versions of the same website. Each card opens a
+        click-through demo with separate pages for selection, components, and globe.
+        Each world uses a different strategy to make you care.
       </p>
       <div class="hero__meta">
         <span>HTML/CSS only</span>
-        <span>Cream, beige, cranberry palette</span>
-        <span>Five separate visual worlds</span>
+        <span>5 separate design systems</span>
+        <span>Range over convergence</span>
       </div>
     </header>
 
     <main class="gallery-home">
       <section class="gallery-intro">
         <div>
-          <h2>Round 1 Goal</h2>
+          <h2>Prototype Archive</h2>
           <p>
-            Push into distinct identities before the project settles into one system.
-            These are demos, not polished finals.
+            Five genuinely different interfaces — different layout paradigms, different typographic voices,
+            different metaphors for the phone diagram and supply route. Not five color treatments
+            applied to one skeleton.
           </p>
         </div>
         <div class="gallery-intro__notes">
-          <span>Field report energy</span>
-          <span>Activist poster energy</span>
-          <span>Luxury object tension</span>
-          <span>Experimental over safe</span>
+          <span>Compliance</span>
+          <span>Notes on Extraction</span>
+          <span>Teardown</span>
+          <span>Specimen 16A</span>
+          <span>Campaign</span>
         </div>
       </section>
 
       <section class="gallery-grid" aria-label="Prototype demos">
-        <a class="gallery-card gallery-card--briefing" href="prototype-1.html">
+
+        <!-- World 1: Compliance -->
+        <a class="gallery-card gallery-card--comply" href="world-1/index.html">
           <span class="gallery-card__number">01</span>
-          <h3>Redacted Briefing</h3>
-          <p>Evidence-board language, investigation framing, and route-map tension.</p>
-          <div class="gallery-card__preview">
-            <span>Selection</span>
-            <span>Diagram</span>
-            <span>Globe</span>
+          <h3>Compliance</h3>
+          <p>A product page that looks exactly like Apple.com — until you scroll down.</p>
+          <div class="gallery-card__mock gallery-card__mock--comply">
+            <div class="mock-comply-hero"></div>
+            <div class="mock-comply-crack"></div>
+            <div class="mock-comply-reveal">
+              <div class="mock-comply-flag"></div>
+              <div class="mock-comply-flag"></div>
+            </div>
           </div>
         </a>
 
-        <a class="gallery-card gallery-card--zine" href="prototype-2.html">
+        <!-- World 2: Notes on Extraction -->
+        <a class="gallery-card gallery-card--catalog" href="world-2/index.html">
           <span class="gallery-card__number">02</span>
-          <h3>Protest Broadsheet</h3>
-          <p>Cut-paper force, rough stickers, and a loud activist-poster rhythm.</p>
-          <div class="gallery-card__preview">
-            <span>Selection</span>
-            <span>Diagram</span>
-            <span>Globe</span>
+          <h3>Notes on Extraction</h3>
+          <p>Ingredient catalog. Beauty as an entry point. The horror in the sentences.</p>
+          <div class="gallery-card__mock gallery-card__mock--catalog">
+            <div class="mock-catalog-title"></div>
+            <div class="mock-catalog-entry"></div>
+            <div class="mock-catalog-entry mock-catalog-entry--mid"></div>
+            <div class="mock-catalog-entry"></div>
           </div>
         </a>
 
-        <a class="gallery-card gallery-card--luxury" href="prototype-3.html">
+        <!-- World 3: Teardown -->
+        <a class="gallery-card gallery-card--teardown" href="world-3/index.html">
           <span class="gallery-card__number">03</span>
-          <h3>Veneer / Violence</h3>
-          <p>Premium device language that slowly exposes extraction underneath it.</p>
-          <div class="gallery-card__preview">
-            <span>Selection</span>
-            <span>Diagram</span>
-            <span>Globe</span>
+          <h3>Teardown</h3>
+          <p>Tech review scores. One column is human cost. The horror is in the table.</p>
+          <div class="gallery-card__mock gallery-card__mock--teardown">
+            <div class="mock-td-header"></div>
+            <div class="mock-td-row mock-td-row--head"></div>
+            <div class="mock-td-row"></div>
+            <div class="mock-td-row mock-td-row--flag"></div>
+            <div class="mock-td-row"></div>
           </div>
         </a>
 
-        <a class="gallery-card gallery-card--shock" href="prototype-4.html">
+        <!-- World 4: Specimen 16A -->
+        <a class="gallery-card gallery-card--specimen" href="world-4/index.html">
           <span class="gallery-card__number">04</span>
-          <h3>Supply Shock</h3>
-          <p>Urgent blocks, route vectors, and a more industrial systems-poster feel.</p>
-          <div class="gallery-card__preview">
-            <span>Selection</span>
-            <span>Diagram</span>
-            <span>Globe</span>
+          <h3>Specimen 16A</h3>
+          <p>Museum case. The phone as a pinned specimen. The horror in the labels.</p>
+          <div class="gallery-card__mock gallery-card__mock--specimen">
+            <div class="mock-spec-case">
+              <div class="mock-spec-box mock-spec-box--active">
+                <div class="mock-spec-phone"></div>
+                <div class="mock-spec-label"></div>
+              </div>
+              <div class="mock-spec-box">
+                <div class="mock-spec-phone"></div>
+                <div class="mock-spec-label mock-spec-label--dim"></div>
+              </div>
+              <div class="mock-spec-box">
+                <div class="mock-spec-phone"></div>
+                <div class="mock-spec-label mock-spec-label--dim"></div>
+              </div>
+            </div>
           </div>
         </a>
 
-        <a class="gallery-card gallery-card--burn" href="prototype-5.html">
+        <!-- World 5: Campaign -->
+        <a class="gallery-card gallery-card--campaign" href="world-5/index.html">
           <span class="gallery-card__number">05</span>
-          <h3>Burn Notice</h3>
-          <p>Heat, residue, and testimonial margins without defaulting into dark mode.</p>
-          <div class="gallery-card__preview">
-            <span>Selection</span>
-            <span>Diagram</span>
-            <span>Globe</span>
+          <h3>Campaign</h3>
+          <p>Fashion editorial. The mineral collection. The horror in the genre mismatch.</p>
+          <div class="gallery-card__mock gallery-card__mock--campaign">
+            <div class="mock-camp-word"></div>
+            <div class="mock-camp-word mock-camp-word--sm"></div>
+            <div class="mock-camp-word"></div>
+            <div class="mock-camp-word mock-camp-word--sm"></div>
+            <div class="mock-camp-tiles">
+              <div class="mock-camp-tile"></div>
+              <div class="mock-camp-tile mock-camp-tile--hero"></div>
+              <div class="mock-camp-tile"></div>
+            </div>
           </div>
         </a>
+
       </section>
     </main>
   </body>

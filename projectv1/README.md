@@ -54,3 +54,20 @@ A small end-to-end interactive editorial website whose homepage acts as a galler
 - Prototype `04` extends the round with a harsher `systems-poster` direction to test a more industrial and modular visual language
 - Prototype `05` extends the round with a `heat / residue` direction that adds emotional weight without defaulting to a black dark-mode interface
 - Current artifact is intentionally static and non-functional: it previews the `model selection`, `component diagram`, and `globe` scenes as design demos before deeper interaction work begins
+- Second implementation pass on `2026-04-28` replaced the static single-page previews with a structure closer to `rhitom_assignment1`: one gallery homepage linking into separate prototype folders
+- Each of the first `5` worlds now contains `3` separate click-through HTML pages: `model selection`, `component diagram`, and `globe`
+- The five worlds now push harder on distinct UI patterns as well as styling: `classified dossier`, `activist poster`, `luxury showroom`, `industrial systems poster`, and `burn / residue testimony`
+- Typography contrast was deliberately increased across worlds instead of preserving one shared site voice
+- This round still prioritizes design experimentation over deep interactivity; the main functional behavior is click-through flow between the prototype pages rather than live hotspot or globe logic
+- Third design pass focused on removing shared layout habits across the first `5` demos after they still felt too similar in composition
+- `World 1` now behaves like a typed case file board with memo blocks, evidence files, and procedural navigation rather than a generic hero layout
+- `World 2` now behaves like an activist poster wall with taped labels, rotated blocks, and confrontational copy instead of a normal page structure
+- `World 3` now shifts to a sparse luxury showroom with whitespace and centered product tiles rather than an editorial headline layout
+- `World 4` now behaves like an operations board with a control rail and freight-signage language instead of a traditional content page
+- `World 5` now behaves like a quiet folio with margin notes and a literary page rhythm rather than a standard stacked interface
+- Fourth design pass pushed the `iPhone stencil` and `globe` systems farther apart across worlds instead of letting them behave like the same wireframe with different colors
+- Each world now uses different component and location label treatments: dossier tags, poster stickers, luxury capsules and slips, operations blocks, and folio notes
+- The globe views remain flat `HTML/CSS` mock interfaces, but they now read as different map languages rather than one repeated circular layout
+- The gallery homepage in `index.html` was then refreshed so the prototype changes are visible before clicking into each world
+- Homepage cards no longer use the old generic preview pills; they now contain mini structural previews that match the current prototype systems for `world-1` through `world-5`
+- This keeps the homepage functioning as a real archive of iteration rather than a stale index pointing at newer underlying demos

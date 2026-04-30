@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Compliance: Drift / Supply Route</title>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body class="globe-page">
+    <nav class="nav">
+      <a href="../index.html">← Gallery</a>
+      <a href="components.html">← Components</a>
+      <span class="nav-proto">Prototype 06 / Compliance: Drift</span>
+    </nav>
+
+    <main class="page">
+      <div class="globe-wrap">
+        <p class="eyebrow">Supply Chain / Cobalt Route</p>
+        <p class="globe-subtitle">iPhone 16 — From Mine to Market</p>
+
+        <div class="compliance-map">
+          <!-- lat/lon grid -->
+          <div class="mg-h" style="top:20%"></div>
+          <div class="mg-h" style="top:35%"></div>
+          <div class="mg-h" style="top:50%"></div>
+          <div class="mg-h" style="top:65%"></div>
+          <div class="mg-h" style="top:80%"></div>
+          <div class="mg-v" style="left:20%"></div>
+          <div class="mg-v" style="left:35%"></div>
+          <div class="mg-v" style="left:50%"></div>
+          <div class="mg-v" style="left:65%"></div>
+          <div class="mg-v" style="left:80%"></div>
+
+          <!-- route arcs -->
+          <div class="map-arc"></div>
+          <div class="map-arc-ghost"></div>
+
+          <!-- location pins -->
+          <div class="map-pin mp1">Kolwezi</div>
+          <div class="map-pin mp2">Shenzhen</div>
+          <div class="map-pin mp3">Cupertino</div>
+        </div>
+
+        <p class="tracker-label">Shipment Route / Cobalt-DRC-16A-2024</p>
+
+        <div class="route-table">
+          <div class="route-row">
+            <div class="rdot"></div>
+            <span class="rplace">Kolwezi, DRC</span>
+            <span class="rnote">Artisanal extraction</span>
+            <span class="rflag">CONFLICT ZONE</span>
+          </div>
+          <div class="route-row">
+            <div class="rdot"></div>
+            <span class="rplace">Lubumbashi, DRC</span>
+            <span class="rnote">Smelting · +14 days</span>
+            <span class="rflag">HIGH RISK</span>
+          </div>
+          <div class="route-row">
+            <div class="rdot" style="background:var(--mid)"></div>
+            <span class="rplace">Guangzhou, China</span>
+            <span class="rnote">Chemical processing · +32 days</span>
+          </div>
+          <div class="route-row">
+            <div class="rdot" style="background:var(--mid)"></div>
+            <span class="rplace">Shenzhen, China</span>
+            <span class="rnote">Battery manufacture · +48 days</span>
+          </div>
+          <div class="route-row">
+            <div class="rdot" style="background:var(--mid)"></div>
+            <span class="rplace">Zhengzhou (Foxconn)</span>
+            <span class="rnote">Final assembly · +56 days</span>
+          </div>
+          <div class="route-row">
+            <div class="rdot" style="background:var(--charcoal)"></div>
+            <span class="rplace">Cupertino, CA</span>
+            <span class="rnote">Distribution · +72 days</span>
+          </div>
+        </div>
+
+        <p class="map-disc">
+          Route data is approximate and for educational/prototype purposes only. Actual supply chains involve additional intermediaries and do not provide this level of tracking visibility. Conflict mineral sourcing data is based on publicly available SEC and OECD disclosures.
+        </p>
+      </div>
+    </main>
+  </body>
+</html>

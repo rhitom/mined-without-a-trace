@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Compliance / Components</title>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <nav class="nav">
+      <a href="../index.html">← Gallery</a>
+      <span class="nav-proto">Prototype 01 / Compliance</span>
+      <a href="index.html">← Selection</a>
+    </nav>
+
+    <main class="page">
+      <!-- Clean Apple spec section -->
+      <section class="spec-section">
+        <p class="section-label">iPhone 16 — Technical Specifications</p>
+        <div class="spec-grid">
+          <div class="spec-card">
+            <p class="s-label">Material</p>
+            <p class="s-val">Grade 5 Titanium</p>
+            <p class="s-note">Most durable iPhone ever made.</p>
+          </div>
+          <div class="spec-card">
+            <p class="s-label">Chip</p>
+            <p class="s-val">A18 Bionic</p>
+            <p class="s-note">3nm next-generation architecture.</p>
+          </div>
+          <div class="spec-card">
+            <p class="s-label">Battery</p>
+            <p class="s-val">Up to 27 hrs</p>
+            <p class="s-note">Video playback. All-day performance.</p>
+          </div>
+          <div class="spec-card">
+            <p class="s-label">Display</p>
+            <p class="s-val">Super Retina XDR</p>
+            <p class="s-note">6.1-inch OLED. ProMotion.</p>
+          </div>
+          <div class="spec-card">
+            <p class="s-label">Weight</p>
+            <p class="s-val">170 grams</p>
+            <p class="s-note">Lighter than previous generation.</p>
+          </div>
+          <div class="spec-card">
+            <p class="s-label">Taptic Engine</p>
+            <p class="s-val">Second-generation</p>
+            <p class="s-note">Refined haptic feedback.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- The crack / reveal -->
+      <div class="crack">
+        <p class="crack-label">Disclosure — What's actually inside</p>
+      </div>
+
+      <section style="padding-bottom: 20px;">
+        <p class="section-label" style="color: var(--cran);">Material Origins — Mandatory Conflict Mineral Disclosure</p>
+        <div class="reveal-grid">
+          <div class="reveal-card">
+            <p class="s-label">Battery / Cathode</p>
+            <p class="s-val">Cobalt (Co)</p>
+            <p class="s-note">≈1.12g per device. Powers the lithium-ion cell.</p>
+            <span class="flag">DRC / Artisanal mining</span>
+          </div>
+          <div class="reveal-card">
+            <p class="s-label">Logic Board / Capacitors</p>
+            <p class="s-val">Tantalum (Ta)</p>
+            <p class="s-note">~200 capacitors per board. Derived from coltan ore.</p>
+            <span class="flag">DRC / Eastern Congo</span>
+          </div>
+          <div class="reveal-card">
+            <p class="s-label">Taptic Engine</p>
+            <p class="s-val">Tungsten (W)</p>
+            <p class="s-note">Vibration mass element. High density required.</p>
+            <span class="flag">Bolivia / China</span>
+          </div>
+          <div class="reveal-card">
+            <p class="s-label">Camera Module</p>
+            <p class="s-val">Rare Earth Elements</p>
+            <p class="s-note">Neodymium, Dysprosium in lens assembly.</p>
+            <span class="flag">China / Inner Mongolia</span>
+          </div>
+          <div class="reveal-card">
+            <p class="s-label">Circuit Board / Solder</p>
+            <p class="s-val">Tin (Sn)</p>
+            <p class="s-note">Solder joints throughout. Source tracing incomplete.</p>
+            <span class="flag">Indonesia / Bangka Island</span>
+          </div>
+          <div class="reveal-card">
+            <p class="s-label">Connector / Traces</p>
+            <p class="s-val">Gold (Au)</p>
+            <p class="s-note">Corrosion-resistant contacts. Sub-milligram quantities.</p>
+            <span class="flag">DRC / Ghana / Philippines</span>
+          </div>
+        </div>
+        <a class="next-cta" href="globe.html">Trace the supply route →</a>
+      </section>
+    </main>
+  </body>
+</html>
