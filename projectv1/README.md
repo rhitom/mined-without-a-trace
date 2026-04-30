@@ -78,3 +78,13 @@ A small end-to-end interactive editorial website whose homepage acts as a galler
 - `World 8` work began as `Transmission`: the selection page, components page, and a dedicated zine-style stylesheet were created, including CSS-only hover reveals and red/teal registration-offset treatments
 - Round 2 work stopped before `world-8/globe.html` was built because the build session hit a usage limit, so `World 8` is currently partial rather than complete
 - The Round 2 homepage integration is still pending in code: `projectv1/index.html` still shows only the original `5` gallery cards and `projectv1/styles.css` does not yet include the planned `.gallery-round-2` section or world `6–8` card preview styles
+- Follow-up implementation completed World 8 (Transmission) as a full three-page risograph/glitch branch, including the missing globe page with the zine manifest table, route labels, and CSS-only reveal behavior
+- Round 2 is now fully integrated into the gallery homepage and expanded to five comparison worlds: Worlds 6-10
+- World 9 was added as Transmission: Blackout, pushing the zine direction into a darker black, red, and off-white collage/poster system
+- World 10 was added as Compliance: Combo, blending the Apple-like compliance shell with serif drift, larger anatomy treatment, expandable research framing, and a darker black/yellow route endpoint
+- A full Round 3 / Toward the Final Interface section was added to the homepage to compare more app-like static HTML/CSS explorations before any Next.js move
+- World 10A, 10B, and 10C were built as three high-polish comparison branches testing console, studio, and signal structures against the same core content
+- 10A - Polish was added as a stronger app-shell refinement with more intentional transitions between the components and globe views and a click-advanced route sequence
+- Compliance: Final Polish Edit was added as the current lead candidate, with horizontal Apple-like technical spec rails, expandable component research panels, concise titles, and the most resolved black/yellow visual system
+- The final candidate's interaction layer has been strengthened so component cards now drive clear focus states inside the phone diagram and route steps now update the moving dot, labels, contrast, notes, and supporting metadata together
+- The gallery homepage now presents Round 1, Round 2, and Round 3 as clean five-card rows on large screens so the branches can be compared side by side
