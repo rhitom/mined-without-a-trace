@@ -52,14 +52,14 @@ export default function SelectPage() {
         type="button"
         onClick={() => router.push("/")}
         className="absolute left-6 top-6 z-10 text-xs uppercase tracking-[0.32em] transition-colors hover:text-[var(--ink)]"
-        style={{ color: "var(--warm-gray)" }}
+        style={{ color: "var(--warm-gray)", fontFamily: "var(--font-mono), monospace" }}
       >
         {"\u2190"} Back
       </button>
 
       <div className="flex flex-1 flex-col items-center justify-center px-6 py-16">
         <div className="mb-10 text-center">
-          <p className="text-xs uppercase tracking-[0.32em]" style={{ color: "var(--warm-gray)" }}>
+          <p className="text-xs uppercase tracking-[0.32em]" style={{ color: "var(--warm-gray)", fontFamily: "var(--font-mono), monospace" }}>
             Choose a device
           </p>
         </div>

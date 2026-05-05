@@ -1,7 +1,7 @@
 ﻿"use client";
 
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 // Path data extracted from public/illustrations/new_landing.svg
 // Layer 1: full body + pocket (static)
@@ -14,7 +14,14 @@ const PHONE_C = "M1186 668.063q2.053.75 4.105 1.498c3.975 1.455 7.936 2.942 11.8
 export default function LandingPage() {
   const router = useRouter();
   const [clicked, setClicked] = useState(false);
-  const [hovering, setHovering] = useState(false);
+  const [buzzing, setBuzzing] = useState(false);
+  const [showText, setShowText] = useState(false);
+
+  useEffect(() => {
+    const t1 = setTimeout(() => setBuzzing(true), 3000);
+    const t2 = setTimeout(() => { setBuzzing(false); setShowText(true); }, 3600);
+    return () => { clearTimeout(t1); clearTimeout(t2); };
+  }, []);
 
   function handlePhoneClick() {
     if (clicked) return;
@@ -23,11 +30,9 @@ export default function LandingPage() {
   }
 
   const phoneGroupStyle: React.CSSProperties = {
-    cursor: hovering ? "pointer" : "default",
+    cursor: "pointer",
     transformOrigin: "1200px 870px",
-    animation: hovering && !clicked ? "buzz-svg 0.5s ease-in-out" : "none",
-    transition: "opacity 0.15s ease",
-    opacity: hovering ? 0.85 : 1,
+    animation: buzzing && !clicked ? "buzz-svg 0.6s ease-in-out" : "none",
   };
 
   return (
@@ -55,11 +60,9 @@ export default function LandingPage() {
           {/* Static body */}
           <path fill="#2E272E" style={{ pointerEvents: "none" }} d={BODY} />
 
-          {/* Phone — buzz on hover, navigate on click */}
+          {/* Phone — auto-buzz at 3s, navigate on click */}
           <g
             style={phoneGroupStyle}
-            onMouseEnter={() => setHovering(true)}
-            onMouseLeave={() => setHovering(false)}
             onClick={handlePhoneClick}
           >
             <path fill="#2E272E" d={PHONE_A} />
@@ -67,11 +70,28 @@ export default function LandingPage() {
             <path fill="#2E272E" d={PHONE_C} />
           </g>
         </svg>
+
+        {/* Text bubbles — fade in after buzz */}
+        <img
+          src="/illustrations/landing_text.svg"
+          alt=""
+          className="absolute inset-0 w-full h-full object-cover select-none pointer-events-none"
+          style={{
+            opacity: showText && !clicked ? 1 : 0,
+            transition: "opacity 0.8s ease",
+          }}
+          draggable={false}
+        />
       </div>
 
       <p
         className="absolute bottom-8 left-1/2 -translate-x-1/2 text-xs tracking-[0.3em] uppercase fade-up select-none pointer-events-none"
-        style={{ color: "var(--warm-gray)", animationDelay: "2s", opacity: 0 }}
+        style={{
+          color: "var(--warm-gray)",
+          fontFamily: "var(--font-mono), monospace",
+          animationDelay: "2s",
+          opacity: 0,
+        }}
       >
         tap to explore
       </p>

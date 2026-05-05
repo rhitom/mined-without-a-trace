@@ -88,7 +88,7 @@ export default function DiagramPage() {
       <button
         onClick={() => router.push("/select")}
         className="absolute left-5 top-5 z-20 text-xs uppercase tracking-widest sm:left-6 sm:top-6"
-        style={{ color: "var(--warm-gray)" }}
+        style={{ color: "var(--warm-gray)", fontFamily: "var(--font-mono), monospace" }}
       >
         ← Devices
       </button>
@@ -96,7 +96,7 @@ export default function DiagramPage() {
       <div className="absolute left-1/2 top-5 z-20 -translate-x-1/2 text-center sm:top-6">
         <p
           className="text-xs uppercase tracking-[0.3em]"
-          style={{ color: "var(--warm-gray)" }}
+          style={{ color: "var(--warm-gray)", fontFamily: "var(--font-mono), monospace" }}
         >
           {phoneData.brand}
         </p>
@@ -151,7 +151,7 @@ export default function DiagramPage() {
                         : "rgba(46,38,46,0.22)",
                       transition:
                         "color 0.15s ease, background-color 0.15s ease, border-color 0.15s ease",
-                      fontFamily: "Georgia, 'Times New Roman', serif",
+                      fontFamily: "var(--font-mono), monospace",
                     }}
                   >
                     {component.label}
