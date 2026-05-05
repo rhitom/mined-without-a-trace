@@ -1,0 +1,42 @@
+- generic [active] [ref=e1]:
+  - main [ref=e2]:
+    - button "← Devices" [ref=e3]
+    - generic [ref=e4]:
+      - paragraph [ref=e5]: Apple
+      - heading "iPhone 16" [level=1] [ref=e6]
+    - generic [ref=e8]:
+      - img "iPhone 16 component diagram" [ref=e9]
+      - button "OLED Display" [ref=e10] [cursor=pointer]
+      - button "Logic Board" [ref=e11] [cursor=pointer]
+      - button "A18 Chip" [ref=e12] [cursor=pointer]
+      - button "Capacitors" [ref=e13] [cursor=pointer]
+      - button "Battery" [ref=e14] [cursor=pointer]
+      - button "Taptic Engine" [ref=e15] [cursor=pointer]
+      - button "USB-C / Pins" [ref=e16] [cursor=pointer]
+    - generic [ref=e18]:
+      - paragraph [ref=e19]: Components
+      - list [ref=e20]:
+        - listitem [ref=e21]:
+          - button "OLED Display" [ref=e22]:
+            - generic [ref=e24]: OLED Display
+        - listitem [ref=e25]:
+          - button "Logic Board" [ref=e26]:
+            - generic [ref=e28]: Logic Board
+        - listitem [ref=e29]:
+          - button "A18 Chip" [ref=e30]:
+            - generic [ref=e32]: A18 Chip
+        - listitem [ref=e33]:
+          - button "Capacitors" [ref=e34]:
+            - generic [ref=e36]: Capacitors
+        - listitem [ref=e37]:
+          - button "Battery" [ref=e38]:
+            - generic [ref=e40]: Battery
+        - listitem [ref=e41]:
+          - button "Taptic Engine" [ref=e42]:
+            - generic [ref=e44]: Taptic Engine
+        - listitem [ref=e45]:
+          - button "USB-C / Pins" [ref=e46]:
+            - generic [ref=e48]: USB-C / Pins
+  - button "Open Next.js Dev Tools" [ref=e54] [cursor=pointer]:
+    - img [ref=e55]
+  - alert [ref=e58]
