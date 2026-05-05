@@ -31,6 +31,7 @@ export default function GlobeView({ mineLocation, supplyChain, mineralColor }: P
   useEffect(() => {
     const globe = globeEl.current;
     if (!globe) return;
+
     // Fly to mine location after a short delay
     const timer = setTimeout(() => {
       globe.pointOfView(
@@ -44,16 +45,18 @@ export default function GlobeView({ mineLocation, supplyChain, mineralColor }: P
   return (
     <Globe
       ref={globeEl}
-      globeImageUrl="/earth-night.jpg"
       backgroundColor="rgba(0,0,0,0)"
+      showAtmosphere={false}
+      showGraticules
+      globeImageUrl="/illustrations/globe-du-bois-map-plate.svg"
       // Points
       pointsData={points}
       pointLat="lat"
       pointLng="lng"
       pointLabel="label"
       pointColor={() => mineralColor}
-      pointAltitude={0.01}
-      pointRadius={0.5}
+      pointAltitude={0.008}
+      pointRadius={0.35}
       // Arcs
       arcsData={arcs}
       arcStartLat="startLat"
@@ -62,8 +65,8 @@ export default function GlobeView({ mineLocation, supplyChain, mineralColor }: P
       arcEndLng="endLng"
       arcLabel="label"
       arcColor={() => mineralColor}
-      arcAltitude={0.3}
-      arcStroke={0.8}
+      arcAltitude={0.22}
+      arcStroke={0.65}
       arcDashLength={0.4}
       arcDashGap={0.2}
       arcDashAnimateTime={2000}
