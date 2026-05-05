@@ -10,61 +10,62 @@ type Component = {
   label: string;
   mineral: string;
   description: string;
+  // % of image container — label dot placed at end of annotation line
+  labelPos: { x: number; y: number };
+  // region to paint red on hover
   hotspot: { x: number; y: number; w: number; h: number };
 };
 
-// Hotspot positions calibrated to the components.png exploded-view illustration.
-// The illustration is ~1080×720, left-aligned, with components stacked vertically.
-// Positions are expressed as percentages of the image container.
-const HOTSPOTS: Component[] = [
+// Label positions derived from the annotation line endpoints in components.svg (2150×1600 viewBox).
+// Order top-to-bottom matches the user-specified component order.
+const COMPONENTS: Component[] = [
   {
-    id: "display",
-    label: "OLED Display",
+    id: "front-camera",
+    label: "Front Camera",
     mineral: "rare-earths",
-    description: "6.1\" Super Retina XDR OLED. Indium tin oxide touch layer, rare earth phosphors.",
-    hotspot: { x: 7, y: 48, w: 34, h: 12 },
+    description: "7 MP TrueDepth camera. Rare earth elements coat the lens and power the image sensor.",
+    labelPos: { x: 47.2, y: 35.4 },
+    hotspot: { x: 28, y: 5, w: 20, h: 14 },
+  },
+  {
+    id: "rear-camera",
+    label: "Rear Camera",
+    mineral: "rare-earths",
+    description: "48 MP Fusion camera system. Rare earth optical coatings and magnetic lens actuators.",
+    labelPos: { x: 15.0, y: 39.8 },
+    hotspot: { x: 5, y: 16, w: 24, h: 16 },
   },
   {
     id: "circuit-board",
-    label: "Logic Board",
+    label: "Circuit Board",
     mineral: "tin",
-    description: "Main PCB with tin solder holding every chip and connector in place.",
+    description: "Main PCB. Tin solder holds every chip, capacitor, and connector in place.",
+    labelPos: { x: 30.4, y: 49.4 },
     hotspot: { x: 12, y: 31, w: 28, h: 14 },
   },
   {
     id: "processor",
-    label: "A18 Chip",
+    label: "Processor",
     mineral: "rare-earths",
-    description: "Apple A18 Bionic SoC. Rare earth elements in package substrate and magnets.",
+    description: "Apple A18 Bionic. Rare earth elements in the package substrate and on-chip magnets.",
+    labelPos: { x: 47.6, y: 51.1 },
     hotspot: { x: 19, y: 34, w: 12, h: 8 },
-  },
-  {
-    id: "capacitors",
-    label: "Capacitors",
-    mineral: "tantalum",
-    description: "Dozens of tantalum capacitors regulate voltage across the logic board.",
-    hotspot: { x: 28, y: 36, w: 10, h: 6 },
   },
   {
     id: "battery",
     label: "Battery",
     mineral: "cobalt",
-    description: "3,561 mAh lithium-ion battery. Contains ~10g of cobalt from the DRC.",
+    description: "3,561 mAh lithium-ion cell. Contains ~10 g of cobalt, most of it mined in the DRC.",
+    labelPos: { x: 35.5, y: 58.9 },
     hotspot: { x: 9, y: 62, w: 32, h: 16 },
   },
   {
-    id: "vibration-motor",
-    label: "Taptic Engine",
-    mineral: "tungsten",
-    description: "Tungsten-weighted linear actuator — the source of every haptic buzz.",
-    hotspot: { x: 7, y: 33, w: 8, h: 8 },
-  },
-  {
-    id: "connectors",
-    label: "USB-C / Pins",
-    mineral: "gold",
-    description: "Gold-plated USB-C port, antenna connectors, and internal bond wires.",
-    hotspot: { x: 10, y: 79, w: 20, h: 6 },
+    id: "display",
+    label: "Display",
+    mineral: "rare-earths",
+    description: "6.1\" Super Retina XDR OLED. Indium tin oxide touch layer, rare earth phosphors.",
+    labelPos: { x: 46.7, y: 69.3 },
+    hotspot: { x: 7, y: 48, w: 34, h: 12 },
   },
 ];
 
@@ -92,7 +93,6 @@ export default function DiagramPage() {
     );
   }
 
-  const activeHotspot = hovered || selected?.id || null;
   const mineral = selected ? minerals.find((m) => m.id === selected.mineral) : null;
 
   function navigateToGlobe(mineralId: string) {
@@ -123,65 +123,69 @@ export default function DiagramPage() {
         </h1>
       </div>
 
-      {/* Component diagram — left panel */}
+      {/* Diagram panel */}
       <div className="relative flex-1 flex items-center justify-start pl-8">
         <div className="relative" style={{ width: "60vw", maxWidth: 680 }}>
           <img
-            src="/illustrations/components.png"
+            src="/illustrations/components.svg"
             alt="iPhone 16 component diagram"
             className="w-full h-auto select-none"
             draggable={false}
           />
 
-          {/* Hotspot overlays */}
-          {HOTSPOTS.map((hs) => {
-            const isActive = activeHotspot === hs.id;
-            const color = MINERAL_COLORS[hs.mineral] || "#8B2635";
-
-            return (
-              <button
-                key={hs.id}
-                onClick={() => setSelected(selected?.id === hs.id ? null : hs)}
-                onMouseEnter={() => setHovered(hs.id)}
-                onMouseLeave={() => setHovered(null)}
-                className="absolute transition-all duration-200"
-                style={{
-                  left: `${hs.hotspot.x}%`,
-                  top: `${hs.hotspot.y}%`,
-                  width: `${hs.hotspot.w}%`,
-                  height: `${hs.hotspot.h}%`,
-                  background: isActive ? `${color}22` : "transparent",
-                  border: isActive ? `1.5px solid ${color}99` : "1.5px solid transparent",
-                  borderRadius: 4,
-                  cursor: "pointer",
-                }}
-                aria-label={hs.label}
-              />
-            );
-          })}
-
-          {/* Floating label on hover */}
-          {hovered && !selected && (() => {
-            const hs = HOTSPOTS.find((h) => h.id === hovered)!;
-            const color = MINERAL_COLORS[hs.mineral] || "#8B2635";
+          {/* Red component highlight on hover */}
+          {hovered && (() => {
+            const comp = COMPONENTS.find((c) => c.id === hovered)!;
             return (
               <div
-                className="absolute pointer-events-none px-2 py-1 text-xs whitespace-nowrap"
+                className="absolute pointer-events-none transition-opacity duration-150"
                 style={{
-                  left: `${hs.hotspot.x + hs.hotspot.w / 2}%`,
-                  top: `${hs.hotspot.y - 8}%`,
-                  transform: "translateX(-50%)",
-                  background: "var(--cream)",
-                  border: `1px solid ${color}66`,
-                  color: color,
-                  borderRadius: 2,
-                  letterSpacing: "0.1em",
+                  left: `${comp.hotspot.x}%`,
+                  top: `${comp.hotspot.y}%`,
+                  width: `${comp.hotspot.w}%`,
+                  height: `${comp.hotspot.h}%`,
+                  background: "rgba(139,38,53,0.22)",
+                  border: "1.5px solid rgba(139,38,53,0.55)",
+                  borderRadius: 3,
                 }}
-              >
-                {hs.label}
-              </div>
+              />
             );
           })()}
+
+          {/* Annotation line labels */}
+          {COMPONENTS.map((comp) => {
+            const isActive = hovered === comp.id || selected?.id === comp.id;
+            return (
+              <button
+                key={comp.id}
+                onClick={() => setSelected(selected?.id === comp.id ? null : comp)}
+                onMouseEnter={() => setHovered(comp.id)}
+                onMouseLeave={() => setHovered(null)}
+                className="absolute text-left"
+                style={{
+                  left: `${comp.labelPos.x}%`,
+                  top: `${comp.labelPos.y}%`,
+                  transform: "translateY(-50%)",
+                  cursor: "pointer",
+                  padding: "2px 6px",
+                  background: isActive ? "rgba(139,38,53,0.08)" : "transparent",
+                  border: "none",
+                  outline: "none",
+                }}
+              >
+                <span
+                  className="text-xs tracking-widest uppercase whitespace-nowrap"
+                  style={{
+                    color: isActive ? "var(--cranberry)" : "var(--ink)",
+                    transition: "color 0.15s ease",
+                    fontFamily: "Georgia, 'Times New Roman', serif",
+                  }}
+                >
+                  {comp.label}
+                </span>
+              </button>
+            );
+          })}
         </div>
       </div>
 
@@ -223,30 +227,18 @@ export default function DiagramPage() {
             >
               Trace the supply chain →
             </button>
+            <button
+              onClick={() => setSelected(null)}
+              className="mt-3 w-full py-1 text-xs tracking-widest uppercase"
+              style={{ color: "var(--warm-gray)" }}
+            >
+              ← Back
+            </button>
           </div>
         ) : (
-          <div style={{ color: "var(--warm-gray)" }}>
-            <p className="text-xs tracking-[0.25em] uppercase mb-4">Components</p>
-            <ul className="space-y-3">
-              {HOTSPOTS.map((hs) => (
-                <li key={hs.id}>
-                  <button
-                    onClick={() => setSelected(hs)}
-                    className="flex items-center gap-3 text-sm text-left w-full group"
-                    style={{ color: "var(--ink)" }}
-                  >
-                    <span
-                      className="w-2 h-2 rounded-full shrink-0"
-                      style={{ background: MINERAL_COLORS[hs.mineral] || "#8B2635" }}
-                    />
-                    <span className="group-hover:opacity-70 transition-opacity">
-                      {hs.label}
-                    </span>
-                  </button>
-                </li>
-              ))}
-            </ul>
-          </div>
+          <p className="text-xs tracking-[0.25em] uppercase" style={{ color: "var(--warm-gray)" }}>
+            Tap a component to explore its supply chain.
+          </p>
         )}
       </div>
     </main>
