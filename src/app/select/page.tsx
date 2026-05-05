@@ -1,125 +1,102 @@
 "use client";
 
-import { useState } from "react";
+import Image from "next/image";
 import { useRouter } from "next/navigation";
-import phones from "@/data/phones.json";
 
-const PHONE_LABELS = [
-  { id: "galaxy",  brand: "Samsung", name: "Galaxy S25" },
-  { id: "iphone",  brand: "Apple",   name: "iPhone 16" },
-  { id: "pixel",   brand: "Google",  name: "Pixel 9" },
+const MODEL_LABELS = [
+  { id: "pixel", label: "pixel 10", x: "17%", clickable: false },
+  { id: "iphone", label: "iphone 16", x: "50%", clickable: true, href: "/diagram/iphone" },
+  { id: "samsung", label: "samsung s25", x: "83%", clickable: false },
 ];
 
-export default function SelectPage() {
-  const router = useRouter();
-  // center phone (index 1 = iPhone) is active by default
-  const [active, setActive] = useState(1);
+function LabelPill({
+  label,
+  clickable,
+  onClick,
+}: {
+  label: string;
+  clickable: boolean;
+  onClick?: () => void;
+}) {
+  const base =
+    "inline-flex items-center justify-center rounded-[18px] px-4 py-2 text-[0.72rem] tracking-[0.18em] transition-all duration-200";
 
-  const phone = PHONE_LABELS[active];
-  const isClickable = phones.find((p) => p.id === phone.id)?.status === "active";
-
-  function handleSelect() {
-    if (!isClickable) return;
-    router.push(`/diagram/${phone.id}`);
+  if (clickable) {
+    return (
+      <button
+        type="button"
+        onClick={onClick}
+        className={`${base} border border-[rgba(139,38,53,0.7)] bg-[var(--cranberry)] text-[var(--cream)] hover:-translate-y-0.5 hover:bg-[#7a2230]`}
+      >
+        {label}
+      </button>
+    );
   }
 
   return (
-    <main
-      className="relative w-full h-screen flex flex-col items-center justify-center overflow-hidden"
-      style={{ background: "var(--cream)" }}
+    <div
+      className={`${base} border border-[rgba(46,38,46,0.18)] bg-[rgba(250,245,238,0.88)] text-[var(--ink)]`}
+      style={{ opacity: 0.7 }}
     >
-      {/* Back link */}
+      {label}
+    </div>
+  );
+}
+
+export default function SelectPage() {
+  const router = useRouter();
+
+  return (
+    <main className="relative flex min-h-screen flex-col overflow-hidden" style={{ background: "var(--cream)" }}>
       <button
+        type="button"
         onClick={() => router.push("/")}
-        className="absolute top-6 left-6 text-xs tracking-widest uppercase"
+        className="absolute left-6 top-6 z-10 text-xs uppercase tracking-[0.32em] transition-colors hover:text-[var(--ink)]"
         style={{ color: "var(--warm-gray)" }}
       >
-        ← Back
+        {"\u2190"} Back
       </button>
 
-      {/* Section label */}
-      <p
-        className="text-xs tracking-[0.3em] uppercase mb-12 select-none"
-        style={{ color: "var(--warm-gray)" }}
-      >
-        Choose a device
-      </p>
-
-      {/* Phone carousel — uses the hand-drawn illustration as base,
-          with three interactive zones mapped to each phone position */}
-      <div className="relative w-full max-w-2xl" style={{ aspectRatio: "1080/620" }}>
-        <img
-          src="/illustrations/phone-select.png"
-          alt="Three phones"
-          className="w-full h-full object-contain select-none"
-          draggable={false}
-        />
-
-        {/* Clickable hotspot overlays — left, center, right */}
-        {PHONE_LABELS.map((p, i) => {
-          const isActive = active === i;
-          // Position each hotspot over the three illustrated phones
-          const positions = [
-            { left: "13%", top: "20%", width: "22%", height: "68%" }, // left phone
-            { left: "37%", top: "12%", width: "26%", height: "80%" }, // center phone
-            { left: "65%", top: "22%", width: "22%", height: "64%" }, // right phone
-          ];
-          const pos = positions[i];
-
-          return (
-            <button
-              key={p.id}
-              onClick={() => {
-                setActive(i);
-                if (isActive && phones.find((ph) => ph.id === p.id)?.status === "active") {
-                  router.push(`/diagram/${p.id}`);
-                }
-              }}
-              className="absolute rounded-lg transition-all duration-300"
-              style={{
-                left: pos.left,
-                top: pos.top,
-                width: pos.width,
-                height: pos.height,
-                background: isActive ? "rgba(139,38,53,0.06)" : "transparent",
-                border: isActive ? "2px solid rgba(139,38,53,0.25)" : "2px solid transparent",
-                cursor: "pointer",
-              }}
-              aria-label={`Select ${p.name}`}
-            />
-          );
-        })}
-      </div>
-
-      {/* Phone label and CTA */}
-      <div className="flex flex-col items-center mt-8 gap-3" style={{ minHeight: 80 }}>
-        <div className="text-center fade-up" key={active}>
-          <p className="text-xs tracking-[0.25em] uppercase" style={{ color: "var(--warm-gray)" }}>
-            {phone.brand}
+      <div className="flex flex-1 flex-col items-center justify-center px-6 py-16">
+        <div className="mb-10 text-center">
+          <p className="text-xs uppercase tracking-[0.32em]" style={{ color: "var(--warm-gray)" }}>
+            Choose a device
           </p>
-          <h2 className="text-2xl mt-1" style={{ color: "var(--ink)" }}>
-            {phone.name}
-          </h2>
         </div>
 
-        {isClickable ? (
-          <button
-            onClick={handleSelect}
-            className="mt-2 px-6 py-2 text-xs tracking-widest uppercase transition-all duration-200"
-            style={{
-              background: "var(--cranberry)",
-              color: "var(--cream)",
-              borderRadius: 2,
-              letterSpacing: "0.2em",
-            }}
-          >
-            Explore →
-          </button>
-        ) : (
-          <p className="mt-2 text-xs tracking-widest uppercase" style={{ color: "var(--warm-gray)" }}>
-            Coming soon
-          </p>
-        )}
+        <div className="relative w-full max-w-6xl" style={{ aspectRatio: "2150 / 1600" }}>
+          <Image
+            src="/illustrations/models.svg"
+            alt="Three phone models"
+            fill
+            priority
+            className="select-none object-contain"
+            sizes="(max-width: 1024px) 100vw, 1200px"
+          />
+
+          <div className="pointer-events-none absolute inset-x-0 bottom-[16%]">
+            <div className="relative h-0 w-full">
+              {MODEL_LABELS.map((model) => (
+                <div
+                  key={model.id}
+                  className="absolute"
+                  style={{
+                    left: model.x,
+                    transform: "translateX(-50%)",
+                  }}
+                >
+                  <div className="pointer-events-auto">
+                    <LabelPill
+                      label={model.label}
+                      clickable={model.clickable}
+                      onClick={model.href ? () => router.push(model.href) : undefined}
+                    />
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
       </div>
     </main>
   );

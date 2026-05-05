@@ -25,20 +25,20 @@ export default function GlobeView({ mineLocation, supplyChain, mineralColor }: P
     startLng: supplyChain[i].lng,
     endLat: supplyChain[i + 1].lat,
     endLng: supplyChain[i + 1].lng,
-    label: `${supplyChain[i].label} → ${supplyChain[i + 1].label}`,
+    label: `${supplyChain[i].label} -> ${supplyChain[i + 1].label}`,
   }));
 
   useEffect(() => {
     const globe = globeEl.current;
     if (!globe) return;
 
-    // Fly to mine location after a short delay
     const timer = setTimeout(() => {
       globe.pointOfView(
         { lat: mineLocation.lat, lng: mineLocation.lng, altitude: 2.2 },
         1800
       );
     }, 500);
+
     return () => clearTimeout(timer);
   }, [mineLocation]);
 
@@ -47,17 +47,15 @@ export default function GlobeView({ mineLocation, supplyChain, mineralColor }: P
       ref={globeEl}
       backgroundColor="rgba(0,0,0,0)"
       showAtmosphere={false}
-      showGraticules
-      globeImageUrl="/illustrations/globe-du-bois-map-plate.svg"
-      // Points
+      showGraticules={false}
+      globeImageUrl="/illustrations/globe-political-atlas.svg"
       pointsData={points}
       pointLat="lat"
       pointLng="lng"
       pointLabel="label"
       pointColor={() => mineralColor}
-      pointAltitude={0.008}
-      pointRadius={0.35}
-      // Arcs
+      pointAltitude={0.006}
+      pointRadius={0.22}
       arcsData={arcs}
       arcStartLat="startLat"
       arcStartLng="startLng"
@@ -65,8 +63,8 @@ export default function GlobeView({ mineLocation, supplyChain, mineralColor }: P
       arcEndLng="endLng"
       arcLabel="label"
       arcColor={() => mineralColor}
-      arcAltitude={0.22}
-      arcStroke={0.65}
+      arcAltitude={0.24}
+      arcStroke={0.45}
       arcDashLength={0.4}
       arcDashGap={0.2}
       arcDashAnimateTime={2000}
