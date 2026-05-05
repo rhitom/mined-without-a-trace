@@ -66,12 +66,6 @@ export default function LandingPage() {
         </svg>
       </div>
 
-      <p
-        className="absolute bottom-8 left-1/2 -translate-x-1/2 text-xs tracking-[0.3em] uppercase fade-up select-none pointer-events-none"
-        style={{ color: "var(--warm-gray)", animationDelay: "2s", opacity: 0 }}
-      >
-        tap to explore
-      </p>
     </main>
   );
 }

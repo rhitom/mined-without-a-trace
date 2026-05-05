@@ -18,37 +18,37 @@ type DiagramComponent = {
 const COMPONENTS: DiagramComponent[] = [
   {
     id: "front-camera",
-    label: "Front Camera",
+    label: "front camera",
     mineral: "rare-earths",
     labelPos: { x: LABEL_COLUMN_X, y: 552 },
   },
   {
     id: "rear-camera",
-    label: "Rear Cameras",
+    label: "rear cameras",
     mineral: "rare-earths",
     labelPos: { x: LABEL_COLUMN_X, y: 626 },
   },
   {
     id: "circuit-board",
-    label: "Circuit Board",
+    label: "circuit board",
     mineral: "tin",
     labelPos: { x: LABEL_COLUMN_X, y: 738 },
   },
   {
     id: "processor",
-    label: "Processor",
+    label: "processor",
     mineral: "rare-earths",
     labelPos: { x: LABEL_COLUMN_X, y: 818 },
   },
   {
     id: "battery",
-    label: "Battery",
+    label: "battery",
     mineral: "cobalt",
     labelPos: { x: LABEL_COLUMN_X, y: 964 },
   },
   {
     id: "display",
-    label: "Display",
+    label: "display",
     mineral: "rare-earths",
     labelPos: { x: LABEL_COLUMN_X, y: 1106 },
   },
