@@ -5,16 +5,15 @@ import dynamic from "next/dynamic";
 import { useState } from "react";
 import minerals from "@/data/minerals.json";
 
-// Dynamic import — react-globe.gl requires a browser + WebGL context
 const GlobeView = dynamic(() => import("@/components/GlobeView"), { ssr: false });
 
 const MINERAL_COLORS: Record<string, string> = {
-  cobalt: "#5C7CFA",
-  tantalum: "#CC5DE8",
-  tungsten: "#868E96",
-  gold: "#FFA94D",
-  tin: "#74C0FC",
-  "rare-earths": "#51CF66",
+  cobalt: "#8B2635",
+  tantalum: "#8B2635",
+  tungsten: "#8B2635",
+  gold: "#8B2635",
+  tin: "#8B2635",
+  "rare-earths": "#8B2635",
 };
 
 export default function GlobePage() {
@@ -27,18 +26,23 @@ export default function GlobePage() {
 
   if (!mineral) {
     return (
-      <main className="w-full h-screen flex items-center justify-center" style={{ background: "#0a0a14" }}>
-        <p style={{ color: "#666" }}>Mineral not found.</p>
+      <main
+        className="flex h-screen w-full items-center justify-center"
+        style={{ background: "var(--cream)" }}
+      >
+        <p style={{ color: "var(--warm-gray)" }}>Mineral not found.</p>
       </main>
     );
   }
 
-  const color = MINERAL_COLORS[mineralId] || "#5C7CFA";
+  const color = MINERAL_COLORS[mineralId] || "var(--cranberry)";
   const card = mineral.cards[activeCard];
 
   return (
-    <main className="relative w-full h-screen overflow-hidden" style={{ background: "#0a0a14" }}>
-      {/* Globe — fills full screen */}
+    <main
+      className="relative h-screen w-full overflow-hidden"
+      style={{ background: "var(--cream)" }}
+    >
       <div className="absolute inset-0">
         <GlobeView
           mineLocation={mineral.mineLocation}
@@ -47,20 +51,23 @@ export default function GlobePage() {
         />
       </div>
 
-      {/* Top nav */}
-      <div className="absolute top-0 left-0 right-0 flex items-center justify-between px-6 py-5 z-10">
+      <div className="absolute left-0 right-0 top-0 z-10 flex items-center justify-between px-6 py-5">
         <button
           onClick={() => router.back()}
-          className="text-xs tracking-widest uppercase"
-          style={{ color: "rgba(255,255,255,0.5)" }}
+          className="text-xs uppercase tracking-widest"
+          style={{ color: "var(--warm-gray)" }}
         >
           ← Back
         </button>
 
         <div className="text-center">
           <span
-            className="text-xs tracking-[0.3em] uppercase px-3 py-1 rounded-full"
-            style={{ background: `${color}22`, color: color, border: `1px solid ${color}44` }}
+            className="rounded-full px-3 py-1 text-xs uppercase tracking-[0.3em]"
+            style={{
+              background: "rgba(250,245,238,0.92)",
+              color: "var(--ink)",
+              border: "1px solid rgba(46,38,46,0.14)",
+            }}
           >
             {mineral.name} · {mineral.formula}
           </span>
@@ -68,127 +75,130 @@ export default function GlobePage() {
 
         <button
           onClick={() => setPanelOpen((v) => !v)}
-          className="text-xs tracking-widest uppercase"
-          style={{ color: "rgba(255,255,255,0.5)" }}
+          className="text-xs uppercase tracking-widest"
+          style={{ color: "var(--warm-gray)" }}
         >
           {panelOpen ? "Hide" : "Show"} cards
         </button>
       </div>
 
-      {/* Mine label */}
       <div className="absolute bottom-6 left-6 z-10">
-        <p className="text-xs tracking-[0.2em] uppercase" style={{ color: "rgba(255,255,255,0.4)" }}>
+        <p
+          className="text-xs uppercase tracking-[0.2em]"
+          style={{ color: "var(--warm-gray)" }}
+        >
           Mine location
         </p>
-        <p className="text-sm" style={{ color: "rgba(255,255,255,0.8)" }}>
+        <p className="text-sm" style={{ color: "var(--ink)" }}>
           {mineral.mineLocation.name}
         </p>
-        <p className="text-xs" style={{ color: "rgba(255,255,255,0.4)" }}>
+        <p className="text-xs" style={{ color: "var(--warm-gray)" }}>
           {mineral.mineLocation.country}
         </p>
       </div>
 
-      {/* Supply chain step labels */}
-      <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex gap-3 z-10">
+      <div className="absolute bottom-6 left-1/2 z-10 flex -translate-x-1/2 gap-3">
         {mineral.supplyChain.map((step, i) => (
           <div key={i} className="flex items-center gap-2">
             <span
-              className="text-xs px-2 py-0.5 rounded"
+              className="rounded px-2 py-0.5 text-xs"
               style={{
-                background: `${color}18`,
-                color: `${color}CC`,
-                border: `1px solid ${color}33`,
+                background: "rgba(250,245,238,0.94)",
+                color: "var(--ink)",
+                border: "1px solid rgba(46,38,46,0.14)",
               }}
             >
               {step.label}
             </span>
             {i < mineral.supplyChain.length - 1 && (
-              <span style={{ color: `${color}44`, fontSize: 10 }}>→</span>
+              <span style={{ color: "rgba(46,38,46,0.35)", fontSize: 10 }}>→</span>
             )}
           </div>
         ))}
       </div>
 
-      {/* Info card panel — slides in from right */}
       <div
-        className="absolute top-0 right-0 h-full flex flex-col z-10 card-scroll overflow-y-auto"
+        className="card-scroll absolute right-0 top-0 z-10 flex h-full flex-col overflow-y-auto"
         style={{
           width: 340,
-          background: "rgba(10,10,20,0.92)",
+          background: "rgba(250,245,238,0.94)",
           backdropFilter: "blur(16px)",
-          borderLeft: "1px solid rgba(255,255,255,0.07)",
+          borderLeft: "1px solid rgba(46,38,46,0.08)",
           transform: panelOpen ? "translateX(0)" : "translateX(100%)",
           transition: "transform 0.4s cubic-bezier(0.4,0,0.2,1)",
         }}
       >
-        <div className="px-7 pt-20 pb-6">
-          {/* Card nav dots */}
-          <div className="flex gap-2 mb-8">
+        <div className="px-7 pb-6 pt-20">
+          <div className="mb-8 flex gap-2">
             {mineral.cards.map((_, i) => (
               <button
                 key={i}
                 onClick={() => setActiveCard(i)}
-                className="w-2 h-2 rounded-full transition-all duration-200"
+                className="h-2 w-2 rounded-full transition-all duration-200"
                 style={{
-                  background: activeCard === i ? color : "rgba(255,255,255,0.2)",
+                  background:
+                    activeCard === i ? "var(--cranberry)" : "rgba(46,38,46,0.16)",
                   transform: activeCard === i ? "scale(1.3)" : "scale(1)",
                 }}
               />
             ))}
           </div>
 
-          {/* Card content */}
           <div key={activeCard} className="fade-up">
-            <h3
-              className="text-base mb-4 leading-snug"
-              style={{ color: "rgba(255,255,255,0.9)" }}
-            >
+            <h3 className="mb-4 text-base leading-snug" style={{ color: "var(--ink)" }}>
               {card.title}
             </h3>
             <p
-              className="text-sm leading-relaxed mb-6"
-              style={{ color: "rgba(255,255,255,0.6)" }}
+              className="mb-6 text-sm leading-relaxed"
+              style={{ color: "var(--warm-gray)" }}
             >
               {card.body}
             </p>
             <p
               className="text-xs italic"
-              style={{ color: "rgba(255,255,255,0.3)", borderTop: "1px solid rgba(255,255,255,0.07)", paddingTop: 12 }}
+              style={{
+                color: "var(--warm-gray)",
+                borderTop: "1px solid rgba(46,38,46,0.08)",
+                paddingTop: 12,
+              }}
             >
               {card.citation}
             </p>
           </div>
 
-          {/* Prev / Next */}
-          <div className="flex justify-between mt-8">
+          <div className="mt-8 flex justify-between">
             <button
               onClick={() => setActiveCard((v) => Math.max(0, v - 1))}
               disabled={activeCard === 0}
-              className="text-xs tracking-widest uppercase disabled:opacity-20 transition-opacity"
-              style={{ color: color }}
+              className="text-xs uppercase tracking-widest transition-opacity disabled:opacity-20"
+              style={{ color: "var(--cranberry)" }}
             >
               ← Prev
             </button>
             <button
-              onClick={() => setActiveCard((v) => Math.min(mineral.cards.length - 1, v + 1))}
+              onClick={() =>
+                setActiveCard((v) => Math.min(mineral.cards.length - 1, v + 1))
+              }
               disabled={activeCard === mineral.cards.length - 1}
-              className="text-xs tracking-widest uppercase disabled:opacity-20 transition-opacity"
-              style={{ color: color }}
+              className="text-xs uppercase tracking-widest transition-opacity disabled:opacity-20"
+              style={{ color: "var(--cranberry)" }}
             >
               Next →
             </button>
           </div>
         </div>
 
-        {/* Mineral legend */}
         <div
           className="mt-auto px-7 py-6"
-          style={{ borderTop: "1px solid rgba(255,255,255,0.07)" }}
+          style={{ borderTop: "1px solid rgba(46,38,46,0.08)" }}
         >
-          <p className="text-xs tracking-[0.2em] uppercase mb-3" style={{ color: "rgba(255,255,255,0.3)" }}>
+          <p
+            className="mb-3 text-xs uppercase tracking-[0.2em]"
+            style={{ color: "var(--warm-gray)" }}
+          >
             Component
           </p>
-          <p className="text-sm" style={{ color: "rgba(255,255,255,0.7)" }}>
+          <p className="text-sm" style={{ color: "var(--ink)" }}>
             {mineral.component}
           </p>
         </div>
