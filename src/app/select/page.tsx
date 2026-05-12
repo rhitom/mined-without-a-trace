@@ -23,6 +23,7 @@ export default function SelectPage() {
   // Drag state
   const [dragOffset, setDragOffset] = useState(0);
   const dragStartX = useRef<number | null>(null);
+  const dragDistRef = useRef(0);
   const wasDrag = useRef(false);
 
   const prev = useCallback(() => setActive((i) => Math.max(0, i - 1)), []);
@@ -49,6 +50,7 @@ export default function SelectPage() {
   // Drag handlers on the carousel container
   const onPointerDown = (e: React.PointerEvent<HTMLDivElement>) => {
     dragStartX.current = e.clientX;
+    dragDistRef.current = 0;
     wasDrag.current = false;
     (e.currentTarget as HTMLDivElement).setPointerCapture(e.pointerId);
   };
@@ -56,17 +58,20 @@ export default function SelectPage() {
   const onPointerMove = (e: React.PointerEvent<HTMLDivElement>) => {
     if (dragStartX.current === null) return;
     const delta = e.clientX - dragStartX.current;
+    dragDistRef.current = delta;
     setDragOffset(delta);
-    if (Math.abs(delta) > 8) wasDrag.current = true;
   };
 
   const onPointerUp = () => {
     if (dragStartX.current === null) return;
-    if (dragOffset < -72) next();
-    else if (dragOffset > 72) prev();
+    const dist = dragDistRef.current;
+    if (dist < -72) next();
+    else if (dist > 72) prev();
+    // Only suppress click if pointer clearly moved — 30px threshold avoids killing taps
+    wasDrag.current = Math.abs(dist) > 30;
     setDragOffset(0);
+    dragDistRef.current = 0;
     dragStartX.current = null;
-    // Keep wasDrag true for a tick so the onClick that follows doesn't fire
     setTimeout(() => { wasDrag.current = false; }, 50);
   };
 
@@ -178,9 +183,9 @@ export default function SelectPage() {
                     objectFit: "cover",
                     objectPosition: phone.objectPosition,
                     display: "block",
-                    borderRadius: 6,
+                    borderRadius: 22,
                     boxShadow: showGlow
-                      ? "0 0 0 2px var(--cranberry), 0 0 48px rgba(139,38,53,0.32), 0 0 96px rgba(139,38,53,0.12)"
+                      ? "0 0 40px rgba(139,38,53,0.38), 0 0 80px rgba(139,38,53,0.18)"
                       : "none",
                     transition: "box-shadow 0.25s ease",
                     userSelect: "none",
