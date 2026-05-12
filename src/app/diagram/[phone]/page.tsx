@@ -59,24 +59,24 @@ const PHONE_COMPONENTS: Record<string, { id: string; mineral: string }[]> = {
 // Phone-specific display labels for the annotated slots
 const SLOT_LABELS: Record<string, Record<string, string>> = {
   iphone: {
-    "front-camera": "front camera",
-    "rear-camera": "rear cameras",
+    "front-camera": "cameras",
+    "rear-camera": "processor",
     "circuit-board": "logic board",
     processor: "a18 chip",
     battery: "battery",
     display: "oled display",
   },
   galaxy: {
-    "front-camera": "front camera",
-    "rear-camera": "rear cameras",
+    "front-camera": "cameras",
+    "rear-camera": "processor",
     "circuit-board": "circuit board",
     processor: "snapdragon 8 elite",
     battery: "battery",
     display: "dynamic amoled",
   },
   pixel: {
-    "front-camera": "front camera",
-    "rear-camera": "rear cameras",
+    "front-camera": "cameras",
+    "rear-camera": "processor",
     "circuit-board": "circuit board",
     processor: "tensor g4",
     battery: "battery",
