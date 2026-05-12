@@ -44,8 +44,15 @@ export default function GlobePage() {
       className="relative h-screen w-full overflow-hidden"
       style={{ background: "var(--cream)" }}
     >
-      {/* Globe fills entire background */}
-      <div className="absolute inset-0">
+      {/* Globe — positioned below the top chrome, left of the panel */}
+      <div
+        className="absolute bottom-0 left-0 flex items-center justify-center overflow-hidden"
+        style={{
+          top: 158,
+          right: panelOpen ? 340 : 0,
+          transition: "right 0.4s cubic-bezier(0.4,0,0.2,1)",
+        }}
+      >
         <GlobeView
           mineLocation={mineral.mineLocation}
           supplyChain={mineral.supplyChain}
