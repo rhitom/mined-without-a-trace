@@ -4,17 +4,15 @@ import { useRouter } from "next/navigation";
 import { useState, useEffect, useCallback, useRef } from "react";
 
 const PHONES = [
-  { id: "pixel",   label: "pixel 9",   brand: "Google",  href: "/diagram/pixel",  xAdjust: 0 },
-  { id: "iphone",  label: "iphone 16", brand: "Apple",   href: "/diagram/iphone", xAdjust: 0 },
-  { id: "samsung", label: "galaxy s25", brand: "Samsung", href: "/diagram/galaxy", xAdjust: 0 },
+  { id: "pixel",   label: "pixel 9",   brand: "Google",  href: "/diagram/pixel",  objectPosition: "0% center" },
+  { id: "iphone",  label: "iphone 16", brand: "Apple",   href: "/diagram/iphone", objectPosition: "50% center" },
+  { id: "samsung", label: "galaxy s25", brand: "Samsung", href: "/diagram/galaxy", objectPosition: "100% center" },
 ];
 
-// Phone card display dimensions
-const CW = 248;                                      // container width px
-const CH = 468;                                      // container height px
-const IMG_W = CW * 3;                                // full SVG rendered across 3 card widths
-const IMG_H = Math.round(IMG_W * (1600 / 2150));     // maintain SVG aspect ratio (≈553px)
-const IMG_TOP = -Math.round((IMG_H - CH) / 2);      // vertically center the img in the container
+// Container dimensions derived so objectFit:cover scales by height → scaled SVG width = 3×CW
+// CH/CW = (1600×3)/2150 ≈ 2.233 ensures exactly one phone per card width
+const CW = 240;
+const CH = Math.round(CW * (1600 * 3) / 2150); // ≈ 536
 
 export default function SelectPage() {
   const router = useRouter();
@@ -169,35 +167,26 @@ export default function SelectPage() {
                 }}
               >
                 {/* Phone image crop */}
-                <div
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src="/illustrations/models.svg"
+                  alt={phone.label}
+                  draggable={false}
                   style={{
                     width: CW,
                     height: CH,
-                    overflow: "hidden",
-                    position: "relative",
+                    objectFit: "cover",
+                    objectPosition: phone.objectPosition,
+                    display: "block",
                     borderRadius: 6,
                     boxShadow: showGlow
                       ? "0 0 0 2px var(--cranberry), 0 0 48px rgba(139,38,53,0.32), 0 0 96px rgba(139,38,53,0.12)"
                       : "none",
                     transition: "box-shadow 0.25s ease",
+                    userSelect: "none",
+                    pointerEvents: "none",
                   }}
-                >
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img
-                    src="/illustrations/models.svg"
-                    alt={phone.label}
-                    draggable={false}
-                    style={{
-                      position: "absolute",
-                      width: IMG_W,
-                      height: IMG_H,
-                      left: -(i * CW) + phone.xAdjust,
-                      top: IMG_TOP,
-                      userSelect: "none",
-                      pointerEvents: "none",
-                    }}
-                  />
-                </div>
+                />
 
                 {/* Label pill */}
                 <div className="mt-4 flex justify-center">
