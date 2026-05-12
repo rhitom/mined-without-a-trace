@@ -1,0 +1,74 @@
+@import "tailwindcss";
+
+:root {
+  --cream: #FAF5EE;
+  --cranberry: #8B2635;
+  --ink: #2E262E;
+  --warm-gray: #B0AAA6;
+  --light-gray: #8C8484;
+}
+
+@theme inline {
+  --color-cream: var(--cream);
+  --color-cranberry: var(--cranberry);
+  --color-ink: var(--ink);
+  --color-warm-gray: var(--warm-gray);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  background: var(--cream);
+  color: var(--ink);
+  font-family: var(--font-playfair), Georgia, 'Times New Roman', serif;
+  overflow-x: hidden;
+}
+
+@keyframes buzz {
+  0%, 100% { transform: translate(0, 0) rotate(0deg); }
+  10%       { transform: translate(-3px, 1px) rotate(-1.5deg); }
+  20%       { transform: translate(3px, -1px) rotate(1.5deg); }
+  30%       { transform: translate(-3px, 1px) rotate(-1deg); }
+  40%       { transform: translate(3px, -1px) rotate(1deg); }
+  50%       { transform: translate(-2px, 0px) rotate(-0.5deg); }
+  60%       { transform: translate(2px, 0px) rotate(0.5deg); }
+  70%       { transform: translate(-1px, 0px) rotate(-0.25deg); }
+  80%       { transform: translate(1px, 0px) rotate(0.25deg); }
+  90%       { transform: translate(0, 0) rotate(0deg); }
+}
+
+/* SVG-safe buzz — uses translate() which works on SVG <g> elements.
+   transform-origin is set inline per element (SVG coordinate space). */
+@keyframes buzz-svg {
+  0%,  100% { transform: translate(0px,   0px) rotate(0deg); }
+  10%        { transform: translate(-4px,  2px) rotate(-1.8deg); }
+  25%        { transform: translate( 4px, -2px) rotate( 1.8deg); }
+  40%        { transform: translate(-3px,  1px) rotate(-1.2deg); }
+  55%        { transform: translate( 3px, -1px) rotate( 1.2deg); }
+  70%        { transform: translate(-2px,  0px) rotate(-0.6deg); }
+  85%        { transform: translate( 2px,  0px) rotate( 0.6deg); }
+}
+
+.buzz-hover:hover {
+  animation: buzz 0.5s ease-in-out;
+  cursor: pointer;
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.fade-up {
+  animation: fadeUp 0.6s ease-out forwards;
+}
+
+/* Card scrollbar */
+.card-scroll::-webkit-scrollbar { width: 4px; }
+.card-scroll::-webkit-scrollbar-track { background: transparent; }
+.card-scroll::-webkit-scrollbar-thumb { background: var(--warm-gray); border-radius: 2px; }

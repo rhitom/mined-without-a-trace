@@ -1,0 +1,173 @@
+[
+  {
+    "id": "iphone",
+    "name": "iPhone 16",
+    "brand": "Apple",
+    "status": "active",
+    "components": [
+      {
+        "id": "battery",
+        "label": "Battery",
+        "mineral": "cobalt",
+        "description": "3,561 mAh lithium-ion battery. Contains ~10g of cobalt.",
+        "hotspot": { "x": 50, "y": 68, "w": 36, "h": 22 }
+      },
+      {
+        "id": "processor",
+        "label": "A18 Chip",
+        "mineral": "rare-earths",
+        "description": "Apple A18 Bionic SoC. Rare earth elements in substrate and magnets.",
+        "hotspot": { "x": 35, "y": 38, "w": 22, "h": 16 }
+      },
+      {
+        "id": "display",
+        "label": "OLED Display",
+        "mineral": "rare-earths",
+        "description": "6.1\" Super Retina XDR OLED. Indium tin oxide touch layer.",
+        "hotspot": { "x": 20, "y": 15, "w": 60, "h": 8 }
+      },
+      {
+        "id": "circuit-board",
+        "label": "Logic Board",
+        "mineral": "tin",
+        "description": "Main PCB with tin solder connecting all components.",
+        "hotspot": { "x": 30, "y": 42, "w": 40, "h": 14 }
+      },
+      {
+        "id": "capacitors",
+        "label": "Capacitors",
+        "mineral": "tantalum",
+        "description": "Tantalum capacitors throughout the logic board regulate voltage.",
+        "hotspot": { "x": 62, "y": 40, "w": 14, "h": 10 }
+      },
+      {
+        "id": "vibration-motor",
+        "label": "Taptic Engine",
+        "mineral": "tungsten",
+        "description": "Tungsten-weighted linear actuator. Produces the haptic buzz.",
+        "hotspot": { "x": 58, "y": 58, "w": 18, "h": 10 }
+      },
+      {
+        "id": "connectors",
+        "label": "Connectors",
+        "mineral": "gold",
+        "description": "Gold-plated USB-C port, antenna connectors, and internal pins.",
+        "hotspot": { "x": 42, "y": 88, "w": 16, "h": 6 }
+      }
+    ]
+  },
+  {
+    "id": "galaxy",
+    "name": "Galaxy S25",
+    "brand": "Samsung",
+    "status": "active",
+    "components": [
+      {
+        "id": "battery",
+        "label": "battery",
+        "mineral": "cobalt",
+        "description": "4,000 mAh lithium-ion battery. Cobalt-oxide cathode chemistry.",
+        "hotspot": { "x": 50, "y": 68, "w": 36, "h": 22 }
+      },
+      {
+        "id": "processor",
+        "label": "snapdragon 8 elite",
+        "mineral": "rare-earths",
+        "description": "Qualcomm Snapdragon 8 Elite SoC. Rare earth elements in the substrate.",
+        "hotspot": { "x": 35, "y": 38, "w": 22, "h": 16 }
+      },
+      {
+        "id": "display",
+        "label": "dynamic amoled",
+        "mineral": "rare-earths",
+        "description": "6.2\" Dynamic AMOLED 2X. Indium and rare earths in touch and emitter layers.",
+        "hotspot": { "x": 20, "y": 15, "w": 60, "h": 8 }
+      },
+      {
+        "id": "circuit-board",
+        "label": "circuit board",
+        "mineral": "tin",
+        "description": "Main PCB with tin-silver solder throughout.",
+        "hotspot": { "x": 30, "y": 42, "w": 40, "h": 14 }
+      },
+      {
+        "id": "capacitors",
+        "label": "capacitors",
+        "mineral": "tantalum",
+        "description": "High-density tantalum capacitors regulate power across the board.",
+        "hotspot": { "x": 62, "y": 40, "w": 14, "h": 10 }
+      },
+      {
+        "id": "vibration-motor",
+        "label": "vibration motor",
+        "mineral": "tungsten",
+        "description": "Tungsten-weighted haptic motor in the lower chassis.",
+        "hotspot": { "x": 58, "y": 58, "w": 18, "h": 10 }
+      },
+      {
+        "id": "connectors",
+        "label": "connectors",
+        "mineral": "gold",
+        "description": "Gold-plated USB-C and antenna pins throughout.",
+        "hotspot": { "x": 42, "y": 88, "w": 16, "h": 6 }
+      }
+    ]
+  },
+  {
+    "id": "pixel",
+    "name": "Pixel 9",
+    "brand": "Google",
+    "status": "active",
+    "components": [
+      {
+        "id": "battery",
+        "label": "battery",
+        "mineral": "cobalt",
+        "description": "4,700 mAh lithium-ion battery. Cobalt in cathode chemistry.",
+        "hotspot": { "x": 50, "y": 68, "w": 36, "h": 22 }
+      },
+      {
+        "id": "processor",
+        "label": "tensor g4",
+        "mineral": "rare-earths",
+        "description": "Google Tensor G4 SoC. Rare earth elements in package substrate and magnets.",
+        "hotspot": { "x": 35, "y": 38, "w": 22, "h": 16 }
+      },
+      {
+        "id": "display",
+        "label": "actua oled",
+        "mineral": "rare-earths",
+        "description": "6.3\" Actua OLED display. Indium tin oxide touch layer, rare earths in emitters.",
+        "hotspot": { "x": 20, "y": 15, "w": 60, "h": 8 }
+      },
+      {
+        "id": "circuit-board",
+        "label": "circuit board",
+        "mineral": "tin",
+        "description": "Main PCB soldered throughout with tin-based alloys.",
+        "hotspot": { "x": 30, "y": 42, "w": 40, "h": 14 }
+      },
+      {
+        "id": "capacitors",
+        "label": "capacitors",
+        "mineral": "tantalum",
+        "description": "Tantalum capacitors manage voltage regulation across the logic board.",
+        "hotspot": { "x": 62, "y": 40, "w": 14, "h": 10 }
+      },
+      {
+        "id": "vibration-motor",
+        "label": "haptic motor",
+        "mineral": "tungsten",
+        "description": "Tungsten-weighted linear resonant actuator produces haptic feedback.",
+        "hotspot": { "x": 58, "y": 58, "w": 18, "h": 10 }
+      },
+      {
+        "id": "connectors",
+        "label": "connectors",
+        "mineral": "gold",
+        "description": "Gold-plated USB-C port and internal RF connectors.",
+        "hotspot": { "x": 42, "y": 88, "w": 16, "h": 6 }
+      }
+    ]
+  }
+]
