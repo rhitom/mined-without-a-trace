@@ -15,17 +15,31 @@ const DIAGRAM_SVG: Record<string, string> = {
   pixel: "/illustrations/pixel-components.svg",
 };
 
-// Label y-positions keyed by component id (same layout for all phones)
-const LABEL_Y: Record<string, number> = {
-  "front-camera": 552,
-  "rear-camera": 626,
-  "circuit-board": 738,
-  processor: 818,
-  battery: 964,
-  display: 1106,
-  capacitors: 880,
-  "vibration-motor": 1040,
-  connectors: 1180,
+// Label y-positions keyed by phone → component id
+const LABEL_Y: Record<string, Record<string, number>> = {
+  iphone: {
+    "front-camera": 552,
+    "rear-camera": 626,
+    "circuit-board": 738,
+    processor: 818,
+    battery: 964,
+    display: 1106,
+  },
+  galaxy: {
+    "front-camera": 300,
+    battery: 590,
+    "circuit-board": 800,
+    processor: 920,
+    display: 1130,
+  },
+  pixel: {
+    "front-camera": 552,
+    "rear-camera": 626,
+    "circuit-board": 738,
+    processor: 818,
+    battery: 964,
+    display: 1106,
+  },
 };
 
 // Canonical 6-slot component list per phone, ordered top-to-bottom
@@ -40,10 +54,9 @@ const PHONE_COMPONENTS: Record<string, { id: string; mineral: string }[]> = {
   ],
   galaxy: [
     { id: "front-camera", mineral: "rare-earths" },
-    { id: "rear-camera", mineral: "rare-earths" },
+    { id: "battery", mineral: "cobalt" },
     { id: "circuit-board", mineral: "tin" },
     { id: "processor", mineral: "rare-earths" },
-    { id: "battery", mineral: "cobalt" },
     { id: "display", mineral: "rare-earths" },
   ],
   pixel: [
@@ -68,10 +81,9 @@ const SLOT_LABELS: Record<string, Record<string, string>> = {
   },
   galaxy: {
     "front-camera": "cameras",
-    "rear-camera": "processor",
+    battery: "battery",
     "circuit-board": "circuit board",
     processor: "snapdragon 8 elite",
-    battery: "battery",
     display: "dynamic amoled",
   },
   pixel: {
@@ -153,7 +165,7 @@ export default function DiagramPage() {
             />
 
             {slots.map((slot) => {
-              const y = LABEL_Y[slot.id];
+              const y = (LABEL_Y[phone] ?? LABEL_Y.iphone)[slot.id];
               if (y === undefined) return null;
               const isActive = hovered === slot.id;
               const label = labels[slot.id] ?? slot.id;
