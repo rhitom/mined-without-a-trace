@@ -26,11 +26,11 @@ const LABEL_Y: Record<string, Record<string, number>> = {
     display: 1106,
   },
   galaxy: {
-    "front-camera": 300,
-    battery: 590,
-    "circuit-board": 800,
-    processor: 920,
-    display: 1130,
+    "front-camera": 650,
+    battery: 450,
+    "circuit-board": 550,
+    processor: 900,
+    display: 1100,
   },
   pixel: {
     "front-camera": 552,
@@ -83,8 +83,8 @@ const SLOT_LABELS: Record<string, Record<string, string>> = {
     "front-camera": "cameras",
     battery: "battery",
     "circuit-board": "circuit board",
-    processor: "snapdragon 8 elite",
-    display: "dynamic amoled",
+    processor: "processor",
+    display: "display",
   },
   pixel: {
     "front-camera": "cameras",
