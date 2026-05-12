@@ -37,7 +37,7 @@ export default function LandingPage() {
 
   return (
     <main
-      className="relative w-full h-screen overflow-hidden"
+      className="page-enter relative w-full h-screen overflow-hidden"
       style={{ background: "#FDF7EE" }}
     >
       <div

@@ -76,7 +76,7 @@ export default function SelectPage() {
 
   return (
     <main
-      className="relative flex min-h-screen flex-col overflow-hidden"
+      className="page-enter relative flex min-h-screen flex-col overflow-hidden"
       style={{ background: "var(--cream)" }}
     >
       {/* Full-screen cream exit overlay */}
@@ -110,7 +110,11 @@ export default function SelectPage() {
       >
         <p
           className="text-xs uppercase tracking-[0.32em]"
-          style={{ color: "var(--warm-gray)", fontFamily: "var(--font-mono), monospace" }}
+          style={{
+            color: "var(--warm-gray)",
+            fontFamily: "var(--font-mono), monospace",
+            animation: "pageEnter 0.5s cubic-bezier(0.22,1,0.36,1) 0.05s both",
+          }}
         >
           choose a device
         </p>

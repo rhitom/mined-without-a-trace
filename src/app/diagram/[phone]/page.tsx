@@ -27,9 +27,9 @@ const LABEL_Y: Record<string, Record<string, number>> = {
   },
   galaxy: {
     "front-camera": 650,
-    battery: 450,
+    battery: 460,
     "circuit-board": 550,
-    processor: 900,
+    processor: 880,
     display: 1100,
   },
   pixel: {
@@ -128,7 +128,7 @@ export default function DiagramPage() {
 
   return (
     <main
-      className="relative flex h-screen w-full items-center justify-center overflow-hidden"
+      className="page-enter relative flex h-screen w-full items-center justify-center overflow-hidden"
       style={{ background: "var(--cream)" }}
     >
       <button

@@ -41,7 +41,7 @@ export default function GlobePage() {
 
   return (
     <main
-      className="relative h-screen w-full overflow-hidden"
+      className="page-enter relative h-screen w-full overflow-hidden"
       style={{ background: "var(--cream)" }}
     >
       {/* Globe — positioned below the top chrome, left of the panel */}
@@ -177,7 +177,10 @@ export default function GlobePage() {
                           ? "1px solid rgba(139,38,53,0.35)"
                           : "1px solid rgba(46,38,46,0.18)",
                         fontFamily: "var(--font-mono), monospace",
-                        transform: isActive ? "scale(1.15)" : "scale(1)",
+                        transform: isActive ? "scale(1.22)" : "scale(1)",
+                        boxShadow: isActive
+                          ? "0 0 0 4px rgba(139,38,53,0.15), 0 0 12px rgba(139,38,53,0.18)"
+                          : "none",
                       }}
                     >
                       {String(i + 1).padStart(2, "0")}
@@ -226,59 +229,75 @@ export default function GlobePage() {
         className="card-scroll absolute right-0 top-0 z-10 flex h-full flex-col overflow-y-auto"
         style={{
           width: 340,
-          background: "rgba(250,245,238,0.97)",
-          backdropFilter: "blur(16px)",
-          borderLeft: "1px solid rgba(46,38,46,0.10)",
+          background: "rgba(253,247,238,0.98)",
+          backdropFilter: "blur(20px)",
+          borderLeft: "1px solid rgba(46,38,46,0.08)",
           transform: panelOpen ? "translateX(0)" : "translateX(100%)",
           transition: "transform 0.4s cubic-bezier(0.4,0,0.2,1)",
         }}
       >
-        <div className="px-7 pb-6 pt-24">
+        <div className="flex flex-1 flex-col px-8 pb-8 pt-24">
           {/* Dot nav */}
-          <div className="mb-8 flex gap-2">
+          <div className="mb-6 flex items-center gap-3">
             {mineral.cards.map((_, i) => (
               <button
                 key={i}
                 onClick={() => setActiveCard(i)}
-                className="h-2 w-2 rounded-full transition-all duration-200"
+                className="rounded-full transition-all duration-300"
                 style={{
-                  background:
-                    activeCard === i
-                      ? "var(--cranberry)"
-                      : "rgba(46,38,46,0.16)",
-                  transform: activeCard === i ? "scale(1.3)" : "scale(1)",
+                  width: activeCard === i ? 20 : 6,
+                  height: 6,
+                  background: activeCard === i
+                    ? "var(--cranberry)"
+                    : "rgba(46,38,46,0.18)",
                 }}
               />
             ))}
+            <span
+              className="ml-auto text-[0.6rem] uppercase tracking-[0.2em]"
+              style={{ color: "var(--warm-gray)", fontFamily: "var(--font-mono), monospace" }}
+            >
+              {activeCard + 1} / {mineral.cards.length}
+            </span>
           </div>
 
           {/* Card content */}
-          <div key={activeCard} className="fade-up">
+          <div key={activeCard} className="fade-up flex-1">
+            {/* Cranberry top rule */}
+            <div
+              className="mb-5"
+              style={{ width: 32, height: 2, background: "var(--cranberry)", borderRadius: 1 }}
+            />
             <h3
-              className="mb-4 text-xl leading-snug"
+              className="mb-3 leading-snug"
               style={{
                 color: "var(--ink)",
                 fontFamily: "var(--font-playfair), serif",
+                fontSize: "1.2rem",
+                fontStyle: "italic",
               }}
             >
               {card.title}
             </h3>
             <p
-              className="mb-6 text-sm leading-relaxed"
+              className="mb-5 text-[0.82rem] leading-[1.75]"
               style={{
-                color: "#1a1218",
+                color: "var(--ink)",
                 fontFamily: "var(--font-playfair), serif",
+                opacity: 0.88,
               }}
             >
               {card.body}
             </p>
             <p
-              className="text-xs italic"
+              className="text-[0.67rem] leading-relaxed"
               style={{
                 color: "var(--cranberry)",
-                borderTop: "1px solid rgba(46,38,46,0.08)",
-                paddingTop: 12,
+                borderTop: "1px solid rgba(139,38,53,0.15)",
+                paddingTop: 10,
                 fontFamily: "var(--font-mono), monospace",
+                opacity: 0.85,
+                fontStyle: "italic",
               }}
             >
               {card.citation}
@@ -286,13 +305,13 @@ export default function GlobePage() {
           </div>
 
           {/* PREV / NEXT */}
-          <div className="mt-8 flex justify-between gap-3">
+          <div className="mt-8 flex gap-2">
             <button
               onClick={() => setActiveCard((v) => Math.max(0, v - 1))}
               disabled={activeCard === 0}
-              className="flex-1 py-2 text-xs uppercase tracking-[0.22em] transition-opacity disabled:opacity-20"
+              className="flex-1 py-2.5 text-[0.65rem] uppercase tracking-[0.25em] transition-all hover:bg-[rgba(46,38,46,0.04)] disabled:opacity-20"
               style={{
-                border: "1px solid var(--ink)",
+                border: "1px solid rgba(46,38,46,0.28)",
                 color: "var(--ink)",
                 background: "transparent",
                 borderRadius: 0,
@@ -303,21 +322,16 @@ export default function GlobePage() {
               ← prev
             </button>
             <button
-              onClick={() =>
-                setActiveCard((v) => Math.min(mineral.cards.length - 1, v + 1))
-              }
+              onClick={() => setActiveCard((v) => Math.min(mineral.cards.length - 1, v + 1))}
               disabled={activeCard === mineral.cards.length - 1}
-              className="flex-1 py-2 text-xs uppercase tracking-[0.22em] transition-opacity disabled:opacity-20"
+              className="flex-1 py-2.5 text-[0.65rem] uppercase tracking-[0.25em] transition-all hover:bg-[rgba(46,38,46,0.04)] disabled:opacity-20"
               style={{
-                border: "1px solid var(--ink)",
+                border: "1px solid rgba(46,38,46,0.28)",
                 color: "var(--ink)",
                 background: "transparent",
                 borderRadius: 0,
                 fontFamily: "var(--font-mono), monospace",
-                cursor:
-                  activeCard === mineral.cards.length - 1
-                    ? "default"
-                    : "pointer",
+                cursor: activeCard === mineral.cards.length - 1 ? "default" : "pointer",
               }}
             >
               next →
@@ -327,23 +341,24 @@ export default function GlobePage() {
 
         {/* Component footer */}
         <div
-          className="mt-auto px-7 py-6"
-          style={{ borderTop: "1px solid rgba(46,38,46,0.08)" }}
+          className="px-8 py-5"
+          style={{ borderTop: "1px solid rgba(46,38,46,0.07)" }}
         >
           <p
-            className="mb-1 text-xs uppercase tracking-[0.2em]"
+            className="mb-0.5 text-[0.6rem] uppercase tracking-[0.22em]"
             style={{
               color: "var(--warm-gray)",
               fontFamily: "var(--font-mono), monospace",
             }}
           >
-            Component
+            found in
           </p>
           <p
-            className="text-sm"
+            className="text-[0.82rem]"
             style={{
               color: "var(--ink)",
               fontFamily: "var(--font-playfair), serif",
+              fontStyle: "italic",
             }}
           >
             {mineral.component}
