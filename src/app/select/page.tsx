@@ -52,7 +52,6 @@ export default function SelectPage() {
     dragStartX.current = e.clientX;
     dragDistRef.current = 0;
     wasDrag.current = false;
-    (e.currentTarget as HTMLDivElement).setPointerCapture(e.pointerId);
   };
 
   const onPointerMove = (e: React.PointerEvent<HTMLDivElement>) => {
