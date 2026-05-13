@@ -1,0 +1,38 @@
+# Root-level gitignore — catches any sensitive files placed outside projectv2/
+
+# env files
+.env
+.env.*
+.env.local
+.env.production
+.env.development
+
+# secrets / keys
+*.pem
+*.key
+*.p12
+*.pfx
+
+# OS
+.DS_Store
+Thumbs.db
+
+# editors
+.vscode/settings.json
+.idea/
+
+# debug logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Playwright MCP session artifacts
+.playwright-mcp/
+
+# screenshots / debug images (ad-hoc, not source)
+*.png
+*.jpg
+*.jpeg
+!projectv2/public/**
+!projectv3/public/**
+!source-art/**
