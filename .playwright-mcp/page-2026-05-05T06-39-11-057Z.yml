@@ -1,5 +1,0 @@
-- generic [active] [ref=e1]:
-  - main [ref=e2]:
-    - img [ref=e4]
-    - paragraph: tap to explore
-  - alert [ref=e8]
