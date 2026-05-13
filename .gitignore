@@ -26,6 +26,12 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
+# node_modules at any depth
+node_modules/
+
+# large research PDFs
+research/*.pdf
+
 # Playwright MCP session artifacts
 .playwright-mcp/
 
