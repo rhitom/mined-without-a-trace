@@ -10,8 +10,7 @@ const PANELS = [
   {
     src: "/illustrations/prologue-e.png",
     alt: "Feet tripping on a phone",
-    // Shoes are in the lower portion — shift crop down
-    objectPosition: "center 72%",
+    objectPosition: "center center",
   },
   {
     src: "/illustrations/prologue-d.png",
@@ -65,7 +64,7 @@ export default function ProloguePage() {
     setTimeout(() => {
       after();
       setTransitioning(false);
-    }, 720);
+    }, 1400);
   }
 
   function clickPanel(i: number) {
@@ -103,14 +102,14 @@ export default function ProloguePage() {
       {/* ── GRID VIEW ── */}
       {mode === "grid" && (
         <>
-          {/* 2×2 comic strip grid; gap + outer padding act as ink borders */}
+          {/* 1×4 horizontal comic strip; gap + outer padding act as ink borders */}
           <div
             style={{
               display: "grid",
-              gridTemplateColumns: "1fr 1fr",
-              gridTemplateRows: "1fr 1fr",
-              gap: 2,
-              padding: 2,
+              gridTemplateColumns: "1fr 1fr 1fr 1fr",
+              gridTemplateRows: "1fr",
+              gap: 6,
+              padding: 6,
               width: "100%",
               height: "100%",
               background: "var(--ink)",
@@ -302,7 +301,7 @@ export default function ProloguePage() {
             fill={BG}
             style={{
               clipPath: "inset(0 100% 0 0)",
-              animation: "ink-wipe 0.72s cubic-bezier(0.76,0,0.24,1) forwards",
+              animation: "ink-wipe 1.4s cubic-bezier(0.76,0,0.24,1) forwards",
             }}
           />
         </svg>
