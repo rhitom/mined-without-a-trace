@@ -38,16 +38,16 @@ const COMPONENTS: Record<string, CompDef[]> = {
   galaxy: [
     { id: "front-camera",  mineral: "rare-earths", label: "cameras",       ly: 650,  ax: 660, ay: 668,  rx: 92, ry: 26, rot: -2   },
     { id: "battery",       mineral: "cobalt",      label: "battery",       ly: 470,  ax: 655, ay: 418,  rx: 88, ry: 28, rot:  1.5 },
-    { id: "circuit-board", mineral: "tin",         label: "circuit board", ly: 550,  ax: 715, ay: 545,  rx: 95, ry: 25, rot: -1   },
+    { id: "circuit-board", mineral: "tin",         label: "circuit board", ly: 550,  ax: 725, ay: 545,  rx: 95, ry: 25, rot: -1   },
     { id: "processor",     mineral: "rare-earths", label: "processor",     ly: 865,  ax: 777, ay: 868,  rx: 90, ry: 27, rot:  2   },
     { id: "display",       mineral: "rare-earths", label: "display",       ly: 1100, ax: 650, ay: 1088, rx: 86, ry: 29, rot: -1.5 },
   ],
   pixel: [
-    { id: "display",      mineral: "indium",      label: "actual oled", ly: 560,  ax: 950, ay: 468,  rx: 93, ry: 26, rot: -2   },
-    { id: "logic-board",  mineral: "tin",         label: "logic board", ly: 695,  ax: 1050, ay: 650,  rx: 88, ry: 28, rot:  1.5 },
-    { id: "cameras",      mineral: "rare-earths", label: "cameras",     ly: 775,  ax: 1170, ay: 720,  rx: 92, ry: 26, rot: -1   },
-    { id: "processor",    mineral: "rare-earths", label: "tensor g4",   ly: 860,  ax: 1095, ay: 820,  rx: 90, ry: 27, rot:  2   },
-    { id: "battery",      mineral: "cobalt",      label: "battery",     ly: 990, ax: 1030, ay: 1010, rx: 86, ry: 29, rot: -1.5 },
+    { id: "display",      mineral: "indium",      label: "actual oled", ly: 560,  ax: 1150, ay: 468,  rx: 93, ry: 26, rot: -2   },
+    { id: "logic-board",  mineral: "tin",         label: "logic board", ly: 695,  ax: 1250, ay: 650,  rx: 88, ry: 28, rot:  1.5 },
+    { id: "cameras",      mineral: "rare-earths", label: "cameras",     ly: 775,  ax: 1370, ay: 720,  rx: 92, ry: 26, rot: -1   },
+    { id: "processor",    mineral: "rare-earths", label: "tensor g4",   ly: 860,  ax: 1295, ay: 820,  rx: 90, ry: 27, rot:  2   },
+    { id: "battery",      mineral: "cobalt",      label: "battery",     ly: 990, ax: 1230, ay: 1010, rx: 86, ry: 29, rot: -1.5 },
   ],
 };
 
