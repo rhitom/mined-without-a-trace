@@ -25,9 +25,8 @@ export const GLOBE_CARDS: Record<string, MineralCards> = {
     mine: {
       title: "The Mine",
       body: "Paul, aged 14, started mining at the age of 12 and worked in tunnels underground. Children said that they worked for up to 12 hours a day in the mines, carrying heavy loads, to earn between one and two dollars a day. Even those children who went to school worked 10–12 hours during the weekend and school holidays, and in the time before and after school. The children who were not attending school worked in the mines all year around.\n\nIn 2024, 76% of the world's cobalt was mined in two southeastern DRC provinces — Haut-Katanga and Lualaba. A 2025 survey of 1,431 artisanal miners around Kolwezi found that 36.8% met criteria for forced labour and 9.2% for child labour. Average daily income: $3.28.",
-      quote: "“I’d spend 24 hours down in the tunnels. I arrived in the morning and would leave the following morning.” — Paul, aged 14",
-      citation: "Blood Batteries, University of Nottingham / Rights Lab (Aug 2025); Amnesty International, 'This Is What We Die For' (2016)",
-      image: "/illustrations/congo_kid.png",
+      quote: “\”I’d spend 24 hours down in the tunnels. I arrived in the morning and would leave the following morning.\””,
+      citation: “Blood Batteries, University of Nottingham / Rights Lab (Aug 2025); Amnesty International, ‘This Is What We Die For’ (2016)”,
     },
     refinery: {
       title: "The Refiner",
@@ -135,6 +134,29 @@ export const GLOBE_CARDS: Record<string, MineralCards> = {
       title: "What Can Change",
       body: "The ITSCI (ITRI Tin Supply Chain Initiative) tags cassiterite sacks at DRC mine sites with numbered tickets to create an audit trail. The program covers significant volumes of DRC tin but doesn't reach all artisanal sites — and was suspended for fraud in 2024. Section 1502 of the Dodd-Frank Act requires US companies to disclose 3TG sourcing, but enforcement has been inconsistent. Critics note these programs often hurt artisanal miners more than the militia bosses who can evade sanctions.",
       citation: "ITSCI Program Report (2023); DRC Conflict Minerals Special Report (June 2025)",
+    },
+  },
+
+  indium: {
+    mine: {
+      title: "The Mine",
+      body: "Indium is not mined directly — it is a byproduct of zinc smelting, extracted from the slag and flue dust of zinc processing plants. China produces approximately 57% of the world's refined indium, primarily from zinc smelters in Yunnan and Inner Mongolia. The Fenghuang and Dachang districts in Guangxi hold some of the richest indium-bearing zinc deposits on earth. Unlike cobalt or tantalum, there are no artisanal miners — indium workers are industrial smelter workers, often exposed to cadmium and lead dust in inadequately ventilated facilities.\n\nA single smartphone contains roughly 50 milligrams of indium. Global reserves are estimated at just 16,000 tons — scarcer than silver. The US Geological Survey classifies indium as a critical mineral.",
+      citation: "USGS Indium Mineral Commodity Summary (2024); European Commission Critical Raw Materials (2023)",
+    },
+    refinery: {
+      title: "The Refiner",
+      body: "Refined indium metal is alloyed with tin to produce indium tin oxide (ITO) — a transparent, electrically conductive film applied in nanometer-thin layers onto glass panels. ITO is the material your finger actually touches when you use a touchscreen. The sputtering process that deposits ITO requires vacuum chambers and high-purity indium ingots. South Korea (LG, Samsung) and Japan (Sharp, JDI) dominate ITO-coated display glass production. China's Zhuzhou Smelter Group and Yunnan Germanium are the largest indium refiners.",
+      citation: "USGS Indium Commodity Summary (2024); ITO Market Report, Display Supply Chain Consultants (2023)",
+    },
+    assembly: {
+      title: "Final Assembly",
+      body: "ITO-coated glass panels ship from South Korean and Japanese fabs to display assembly plants in Vietnam and China, where they are laminated to OLED emitter layers and backplanes. The completed display module is the most expensive single component in a modern smartphone — roughly 25–30% of total bill of materials. Once soldered into the chassis, the indium is permanently embedded. There is no economically viable process to recover ITO indium from a discarded screen at scale.",
+      citation: "Display Supply Chain Consultants, Mobile Display Report (2024); iFixit iPhone 16 Teardown (2024)",
+    },
+    consumer: {
+      title: "What Can Change",
+      body: "Indium recovery from end-of-life electronics is technically possible but economically marginal — recovery rates remain below 1% globally. The European Union's Critical Raw Materials Act (2024) lists indium as a strategic material and sets a target of 15% domestic processing capacity by 2030. South Korea's K-Circular program offers subsidies for ITO reclaim from scrap glass. Longer device lifespans are the most effective lever: a phone used for five years instead of two uses less than half the indium per year of service.",
+      citation: "European Commission Critical Raw Materials Act (2024); USGS (2024); K-Circular Economy Initiative, Republic of Korea",
     },
   },
 

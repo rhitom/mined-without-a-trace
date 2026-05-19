@@ -33,22 +33,22 @@ const COMPONENTS: Record<string, CompDef[]> = {
     { id: "circuit-board", mineral: "tin",         label: "logic board",  ly: 738,  ax: 480, ay: 728,  rx: 95, ry: 25, rot: -1   },
     { id: "processor",     mineral: "rare-earths", label: "a18 chip",     ly: 818,  ax: 485, ay: 808,  rx: 90, ry: 27, rot:  2   },
     { id: "battery",       mineral: "cobalt",      label: "battery",      ly: 964,  ax: 470, ay: 952,  rx: 86, ry: 29, rot: -1.5 },
-    { id: "display",       mineral: "rare-earths", label: "oled display", ly: 1106, ax: 480, ay: 1094, rx: 93, ry: 26, rot:  1   },
+    { id: "display",       mineral: "indium",      label: "oled display", ly: 1106, ax: 480, ay: 1094, rx: 93, ry: 26, rot:  1   },
   ],
   galaxy: [
     { id: "front-camera",  mineral: "rare-earths", label: "cameras",       ly: 650,  ax: 640, ay: 638,  rx: 92, ry: 26, rot: -2   },
-    { id: "battery",       mineral: "cobalt",      label: "battery",       ly: 460,  ax: 600, ay: 448,  rx: 88, ry: 28, rot:  1.5 },
-    { id: "circuit-board", mineral: "tin",         label: "circuit board", ly: 550,  ax: 620, ay: 540,  rx: 95, ry: 25, rot: -1   },
-    { id: "processor",     mineral: "rare-earths", label: "processor",     ly: 880,  ax: 665, ay: 868,  rx: 90, ry: 27, rot:  2   },
-    { id: "display",       mineral: "rare-earths", label: "display",       ly: 1100, ax: 635, ay: 1088, rx: 86, ry: 29, rot: -1.5 },
+    { id: "battery",       mineral: "cobalt",      label: "battery",       ly: 460,  ax: 650, ay: 448,  rx: 88, ry: 28, rot:  1.5 },
+    { id: "circuit-board", mineral: "tin",         label: "circuit board", ly: 550,  ax: 670, ay: 540,  rx: 95, ry: 25, rot: -1   },
+    { id: "processor",     mineral: "rare-earths", label: "processor",     ly: 880,  ax: 745, ay: 868,  rx: 90, ry: 27, rot:  2   },
+    { id: "display",       mineral: "rare-earths", label: "display",       ly: 1100, ax: 685, ay: 1088, rx: 86, ry: 29, rot: -1.5 },
   ],
   // Pixel anchor coords are placeholders — adjust ax/ay and ly to match pixel-components.svg
   pixel: [
-    { id: "display",      mineral: "rare-earths", label: "actua oled",  ly: 480,  ax: 620, ay: 468,  rx: 93, ry: 26, rot: -2   },
-    { id: "logic-board",  mineral: "tin",         label: "logic board", ly: 640,  ax: 620, ay: 628,  rx: 88, ry: 28, rot:  1.5 },
-    { id: "cameras",      mineral: "rare-earths", label: "cameras",     ly: 780,  ax: 640, ay: 768,  rx: 92, ry: 26, rot: -1   },
-    { id: "processor",    mineral: "rare-earths", label: "tensor g4",   ly: 920,  ax: 665, ay: 908,  rx: 90, ry: 27, rot:  2   },
-    { id: "battery",      mineral: "cobalt",      label: "battery",     ly: 1060, ax: 600, ay: 1048, rx: 86, ry: 29, rot: -1.5 },
+    { id: "display",      mineral: "indium",      label: "actua oled",  ly: 580,  ax: 620, ay: 468,  rx: 93, ry: 26, rot: -2   },
+    { id: "logic-board",  mineral: "tin",         label: "logic board", ly: 740,  ax: 720, ay: 628,  rx: 88, ry: 28, rot:  1.5 },
+    { id: "cameras",      mineral: "rare-earths", label: "cameras",     ly: 780,  ax:840, ay: 768,  rx: 92, ry: 26, rot: -1   },
+    { id: "processor",    mineral: "rare-earths", label: "tensor g4",   ly: 820,  ax: 765, ay: 908,  rx: 90, ry: 27, rot:  2   },
+    { id: "battery",      mineral: "cobalt",      label: "battery",     ly: 960, ax: 700, ay: 1048, rx: 86, ry: 29, rot: -1.5 },
   ],
 };
 

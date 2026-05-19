@@ -100,6 +100,26 @@
     "cards": []
   },
   {
+    "id": "indium",
+    "name": "Indium",
+    "component": "Touchscreen",
+    "formula": "In",
+    "color": "#1C7ED6",
+    "mineLocation": {
+      "name": "Dachang Tin-Zinc District",
+      "country": "China",
+      "lat": 24.5,
+      "lng": 107.2
+    },
+    "supplyChain": [
+      { "label": "Zinc Smelter",     "locationLabel": "Guangxi, China",     "pinType": "mine",     "lat": 24.5,   "lng": 107.2  },
+      { "label": "ITO Production",   "locationLabel": "Zhuzhou, China",     "pinType": "refinery", "lat": 27.83,  "lng": 113.15 },
+      { "label": "Display Fab",      "locationLabel": "Asan, South Korea",  "pinType": "assembly", "lat": 36.79,  "lng": 127.00 },
+      { "label": "Consumer",         "locationLabel": "Chicago, USA",       "pinType": "consumer", "lat": 41.878, "lng": -87.630 }
+    ],
+    "cards": []
+  },
+  {
     "id": "rare-earths",
     "name": "Rare Earth Elements",
     "component": "Processor / Display",

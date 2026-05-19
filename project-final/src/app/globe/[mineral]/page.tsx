@@ -177,14 +177,14 @@ export default function GlobePage() {
             onClick={() => setCardOpen(false)}
           />
 
-          {/* Card — left edge, vertically centered in safe area */}
+          {/* Card — left edge, square */}
           <div
             className="fade-up absolute z-30 flex flex-col overflow-hidden"
             style={{
               left: 20,
-              top: CHROME_H + 12,
-              bottom: 20,
-              width: "min(380px, 44vw)",
+              top: CHROME_H + 20,
+              width: "min(360px, 42vw)",
+              height: "min(360px, 42vw)",
               background: "rgba(221,208,187,0.99)",
               backdropFilter: "blur(24px)",
               border: "1px solid rgba(46,38,46,0.10)",
@@ -298,33 +298,6 @@ export default function GlobePage() {
                 {card.citation}
               </p>
             </div>
-
-            {/* Figure strip — object-fit contain, full figure visible */}
-            {card.image && (
-              <div
-                style={{
-                  width: "100%",
-                  height: 180,
-                  flexShrink: 0,
-                  overflow: "hidden",
-                  background: "rgba(221,208,187,0.99)",
-                  position: "relative",
-                }}
-              >
-                <img
-                  src={card.image}
-                  alt="Illustration of a child miner"
-                  draggable={false}
-                  style={{
-                    width: "100%",
-                    height: "100%",
-                    objectFit: "contain",
-                    objectPosition: "center bottom",
-                    display: "block",
-                  }}
-                />
-              </div>
-            )}
 
             {/* BACK — always pinned at card bottom */}
             <button
