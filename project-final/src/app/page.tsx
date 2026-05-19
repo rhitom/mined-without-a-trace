@@ -1,7 +1,7 @@
 ﻿"use client";
 
 import { useRouter } from "next/navigation";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 
 // Path data extracted from public/illustrations/new_landing.svg
 // Layer 1: full body + pocket (static)
@@ -16,46 +16,45 @@ export default function LandingPage() {
   const [clicked, setClicked] = useState(false);
   const [buzzing, setBuzzing] = useState(false);
   const [showText, setShowText] = useState(false);
+  const [wiping, setWiping] = useState(false);
+  const buzzTimers = useRef<ReturnType<typeof setTimeout>[]>([]);
 
+  // Idle buzz: if no click after 5s, vibrate the phone
   useEffect(() => {
-    const t1 = setTimeout(() => setBuzzing(true), 3000);
-    const t2 = setTimeout(() => { setBuzzing(false); setShowText(true); }, 3600);
-    return () => { clearTimeout(t1); clearTimeout(t2); };
+    const t1 = setTimeout(() => setBuzzing(true), 5000);
+    const t2 = setTimeout(() => { setBuzzing(false); setShowText(true); }, 5700);
+    buzzTimers.current = [t1, t2];
+    return () => { t1 && clearTimeout(t1); t2 && clearTimeout(t2); };
   }, []);
 
   function handlePhoneClick() {
     if (clicked) return;
+    buzzTimers.current.forEach(clearTimeout);
+    setBuzzing(false);
     setClicked(true);
-    setTimeout(() => router.push("/prologue"), 750);
+    setWiping(true);
+    setTimeout(() => router.push("/prologue"), 720);
   }
 
   const phoneGroupStyle: React.CSSProperties = {
     cursor: "pointer",
     transformOrigin: "1200px 870px",
-    animation: buzzing && !clicked ? "buzz-svg 0.6s ease-in-out" : "none",
+    animation: buzzing && !clicked ? "buzz-svg 0.7s ease-in-out" : "none",
   };
 
   return (
     <main
       className="page-enter relative w-full h-screen overflow-hidden"
-      style={{ background: "#FDF7EE" }}
+      style={{ background: "var(--cream)" }}
     >
-      <div
-        className="w-full h-full absolute inset-0"
-        style={{
-          transition: "transform 0.75s cubic-bezier(0.4,0,0.2,1), opacity 0.5s ease",
-          transform: clicked ? "scale(2.4)" : "scale(1)",
-          opacity: clicked ? 0 : 1,
-          transformOrigin: "60% 55%",
-        }}
-      >
+      <div className="w-full h-full absolute inset-0">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 2150 1600"
           className="w-full h-full"
           preserveAspectRatio="xMidYMid slice"
         >
-          <path fill="#FDF7EE" d="M0 0h2150v1600H0z" style={{ pointerEvents: "none" }} />
+          <path fill="#FAF5EE" d="M0 0h2150v1600H0z" style={{ pointerEvents: "none" }} />
 
           {/* Static body */}
           <path fill="#2E272E" style={{ pointerEvents: "none" }} d={BODY} />
@@ -95,6 +94,31 @@ export default function LandingPage() {
       >
         tap to explore
       </p>
+
+      {/* Ink-wipe transition overlay — plays on click */}
+      {wiping && (
+        <svg
+          className="absolute inset-0 w-full h-full pointer-events-none z-50"
+          viewBox="0 0 100 100"
+          preserveAspectRatio="none"
+        >
+          <rect
+            x="0" y="0" width="100" height="100"
+            fill="var(--cream)"
+            style={{
+              clipPath: "inset(0 100% 0 0)",
+              animation: "ink-wipe-landing 0.72s cubic-bezier(0.76,0,0.24,1) forwards",
+            }}
+          />
+        </svg>
+      )}
+
+      <style>{`
+        @keyframes ink-wipe-landing {
+          from { clip-path: inset(0 100% 0 0); }
+          to   { clip-path: inset(0 0% 0 0); }
+        }
+      `}</style>
     </main>
   );
 }

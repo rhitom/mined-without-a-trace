@@ -31,7 +31,7 @@ export default function GlobeView({
     canvas.height = 2;
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
-    ctx.fillStyle = "#E8DECA";
+    ctx.fillStyle = "#FAF5EE";
     ctx.fillRect(0, 0, 2, 2);
     setCreamTexture(canvas.toDataURL());
   }, []);
@@ -97,9 +97,9 @@ export default function GlobeView({
       globeImageUrl={creamTexture || undefined}
       // Country polygon outlines — parchment land on cream ocean
       polygonsData={countries.features}
-      polygonCapColor={() => "#DDD1B6"}
+      polygonCapColor={() => "#D4C9B0"}
       polygonSideColor={() => "rgba(0,0,0,0)"}
-      polygonStrokeColor={() => "rgba(46,38,46,0.38)"}
+      polygonStrokeColor={() => "rgba(46,38,46,0.45)"}
       polygonAltitude={0.003}
       // Supply chain points
       pointsData={points}
