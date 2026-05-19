@@ -113,7 +113,7 @@ export default function GlobePage() {
             </p>
             <p
               className="text-[0.58rem] uppercase tracking-[0.2em]"
-              style={{ color: "var(--warm-gray)", fontFamily: "var(--font-mono), monospace", opacity: 0.7 }}
+              style={{ color: "var(--ink)", fontFamily: "var(--font-mono), monospace", opacity: 0.6 }}
             >
               {mineral.mineLocation.country}
             </p>
@@ -139,9 +139,9 @@ export default function GlobePage() {
                     <div
                       className="mb-1.5 flex h-6 w-6 items-center justify-center rounded-full text-[0.55rem] font-bold transition-all duration-300"
                       style={{
-                        background: isActive ? "var(--cranberry)" : isPast ? "rgba(139,38,53,0.15)" : "rgba(46,38,46,0.07)",
-                        color: isActive ? "var(--cream)" : isPast ? "var(--cranberry)" : "rgba(46,38,46,0.5)",
-                        border: isActive ? "none" : isPast ? "1px solid rgba(139,38,53,0.3)" : "1px solid rgba(46,38,46,0.15)",
+                        background: isActive ? "var(--cranberry)" : isPast ? "rgba(139,38,53,0.15)" : "rgba(46,38,46,0.10)",
+                        color: isActive ? "var(--cream)" : isPast ? "var(--cranberry)" : "rgba(46,38,46,0.75)",
+                        border: isActive ? "none" : isPast ? "1px solid rgba(139,38,53,0.5)" : "1px solid rgba(46,38,46,0.3)",
                         fontFamily: "var(--font-mono), monospace",
                         transform: isActive ? "scale(1.18)" : "scale(1)",
                         boxShadow: isActive ? "0 0 0 3px rgba(139,38,53,0.12)" : "none",
@@ -152,7 +152,7 @@ export default function GlobePage() {
                     <span
                       className="text-center text-[0.52rem] uppercase leading-tight tracking-[0.1em] transition-colors duration-300"
                       style={{
-                        color: isActive ? "var(--cranberry)" : isPast ? "rgba(139,38,53,0.6)" : "rgba(46,38,46,0.4)",
+                        color: isActive ? "var(--cranberry)" : isPast ? "rgba(139,38,53,0.8)" : "rgba(46,38,46,0.65)",
                         fontFamily: "var(--font-mono), monospace",
                         maxWidth: 60,
                         fontWeight: isActive ? 600 : 400,
@@ -170,7 +170,7 @@ export default function GlobePage() {
                         height: 1,
                         background: isPast
                           ? "repeating-linear-gradient(90deg, rgba(139,38,53,0.45) 0px, rgba(139,38,53,0.45) 3px, transparent 3px, transparent 7px)"
-                          : "repeating-linear-gradient(90deg, rgba(46,38,46,0.15) 0px, rgba(46,38,46,0.15) 3px, transparent 3px, transparent 7px)",
+                          : "repeating-linear-gradient(90deg, rgba(46,38,46,0.35) 0px, rgba(46,38,46,0.35) 3px, transparent 3px, transparent 7px)",
                       }}
                     />
                   )}
@@ -185,13 +185,24 @@ export default function GlobePage() {
       {showNext && (
         <button
           onClick={() => router.push("/ending")}
-          className="absolute bottom-6 right-6 z-30 text-[0.6rem] uppercase tracking-[0.28em] transition-opacity hover:opacity-50"
+          className="next-btn absolute bottom-6 right-6 z-30 text-[0.65rem] uppercase tracking-[0.28em]"
           style={{
-            color: "var(--warm-gray)",
+            color: "var(--ink)",
             fontFamily: "var(--font-mono), monospace",
-            border: "1px solid rgba(176,170,166,0.45)",
-            padding: "5px 12px",
+            border: "1px solid rgba(46,38,46,0.3)",
+            padding: "8px 18px",
             background: "transparent",
+            transition: "background 0.2s ease, color 0.2s ease, border-color 0.2s ease",
+          }}
+          onMouseEnter={e => {
+            (e.currentTarget as HTMLButtonElement).style.background = "var(--cranberry)";
+            (e.currentTarget as HTMLButtonElement).style.color = "var(--cream)";
+            (e.currentTarget as HTMLButtonElement).style.borderColor = "var(--cranberry)";
+          }}
+          onMouseLeave={e => {
+            (e.currentTarget as HTMLButtonElement).style.background = "transparent";
+            (e.currentTarget as HTMLButtonElement).style.color = "var(--ink)";
+            (e.currentTarget as HTMLButtonElement).style.borderColor = "rgba(46,38,46,0.3)";
           }}
         >
           next →
