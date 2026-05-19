@@ -30,12 +30,14 @@ export default function GlobePage() {
 
   useEffect(() => {
     try {
-      const prev = parseInt(localStorage.getItem("mwat-globe-visits") ?? "0", 10);
-      const next = prev + 1;
-      localStorage.setItem("mwat-globe-visits", String(next));
-      if (next >= 3) setShowNext(true);
+      const visited: string[] = JSON.parse(localStorage.getItem("mwat-visited-minerals") ?? "[]");
+      if (!visited.includes(mineralId)) {
+        visited.push(mineralId);
+        localStorage.setItem("mwat-visited-minerals", JSON.stringify(visited));
+      }
+      if (visited.length >= 3) setShowNext(true);
     } catch {}
-  }, []);
+  }, [mineralId]);
 
   const mineral = minerals.find((m) => m.id === mineralId);
   const mineralCards = GLOBE_CARDS[mineralId ?? ""];
