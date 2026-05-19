@@ -1,6 +1,7 @@
 {
-  "buildCommand": "cd project-final && npm install --ignore-scripts && npx next build",
-  "outputDirectory": "project-final/.next",
-  "installCommand": "cd project-final && npm install --ignore-scripts",
+  "rootDirectory": "project-final",
+  "buildCommand": "npm install --ignore-scripts && npx next build",
+  "outputDirectory": ".next",
+  "installCommand": "npm install --ignore-scripts",
   "framework": "nextjs"
 }
