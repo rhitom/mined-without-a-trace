@@ -186,7 +186,13 @@ export default function GlobePage() {
         <button
           onClick={() => router.push("/ending")}
           className="absolute bottom-6 right-6 z-30 text-[0.6rem] uppercase tracking-[0.28em] transition-opacity hover:opacity-50"
-          style={{ color: "var(--warm-gray)", fontFamily: "var(--font-mono), monospace" }}
+          style={{
+            color: "var(--warm-gray)",
+            fontFamily: "var(--font-mono), monospace",
+            border: "1px solid rgba(176,170,166,0.45)",
+            padding: "5px 12px",
+            background: "transparent",
+          }}
         >
           next →
         </button>
