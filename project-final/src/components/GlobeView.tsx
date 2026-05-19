@@ -66,10 +66,10 @@ function makePinElement(
     "display:flex",
     "align-items:center",
     "justify-content:center",
-    `background:${isActive ? "#8B2635" : "#FAF5EE"}`,
-    `border:1.5px solid ${isActive ? "#8B2635" : "rgba(46,38,46,0.5)"}`,
+    `background:${isActive ? "#8B2635" : "rgba(221,208,187,0.92)"}`,
+    `border:1px solid ${isActive ? "#8B2635" : "rgba(46,38,46,0.35)"}`,
     "transition:all 0.3s ease",
-    "box-shadow:0 1px 4px rgba(0,0,0,0.18)",
+    "box-shadow:0 1px 3px rgba(0,0,0,0.12)",
   ].join(";");
 
   iconBox.innerHTML = PIN_ICONS[pinType] ?? PIN_ICONS.factory;
@@ -82,17 +82,18 @@ function makePinElement(
 
   const label = document.createElement("div");
   label.style.cssText = [
-    "font-size:8px",
-    "font-family:monospace",
-    "color:#2E262E",
-    "letter-spacing:0.08em",
+    "font-size:7.5px",
+    "font-family:ui-monospace,monospace",
+    "color:rgba(46,38,46,0.72)",
+    "letter-spacing:0.11em",
     "text-transform:uppercase",
     "white-space:nowrap",
-    "background:rgba(250,245,238,0.88)",
-    "padding:1px 4px",
+    "background:rgba(221,208,187,0.82)",
+    "padding:1.5px 5px",
     "border-radius:2px",
-    "line-height:1.4",
+    "line-height:1.5",
     "pointer-events:none",
+    "border:0.5px solid rgba(46,38,46,0.1)",
   ].join(";");
   label.textContent = step.locationLabel ?? step.label;
 
