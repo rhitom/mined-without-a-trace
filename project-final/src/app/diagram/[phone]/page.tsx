@@ -6,7 +6,7 @@ import phones from "@/data/phones.json";
 
 const SVG_W = 2150;
 const SVG_H = 1600;
-const LX = 1000; // label ellipse center X (SVG units)
+const LX = 1200; // label ellipse center X (SVG units)
 
 // ─── Editable per-component config ───────────────────────────────────────────
 // ly  = ellipse center Y (SVG units) — tune to align with diagram

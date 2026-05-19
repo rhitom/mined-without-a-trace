@@ -213,11 +213,12 @@ export default function GlobePage() {
             style={{
               left: 20,
               top: CHROME_H + 20,
-              width: "min(360px, 42vw)",
-              height: "min(360px, 42vw)",
-              background: "rgba(221,208,187,0.99)",
+              width: "min(420px, 46vw)",
+              height: "min(420px, 46vw)",
+              background: "#ffffff",
               backdropFilter: "blur(24px)",
-              border: "1px solid rgba(46,38,46,0.10)",
+              border: "1.5px solid rgba(221,208,187,0.9)",
+              borderTop: "3px solid var(--cranberry)",
             }}
             onClick={(e) => e.stopPropagation()}
           >
