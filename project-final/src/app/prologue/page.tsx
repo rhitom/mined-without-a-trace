@@ -5,45 +5,46 @@ import { useState, useEffect } from "react";
 
 const BG = "#EDE8DC";
 
-// Each panel has a fixed rotation + offset so they look casually scattered.
-// landed: whether the drop animation has fired.
 const PANELS = [
   {
     src: "/illustrations/prologue-e.png",
     alt: "Feet tripping on a phone",
-    rotate: -4,
-    tx: "-6%",
-    ty: "-4%",
-    scale: 0.52,
-    delay: 0,
+    rotate: -5,
+    tx: "-14%",
+    ty: "-8%",
+    scale: 0.60,
   },
   {
     src: "/illustrations/prologue-d.png",
     alt: "Hand dropping the phone",
-    rotate: 2.5,
-    tx: "5%",
-    ty: "2%",
-    scale: 0.48,
-    delay: 220,
+    rotate: 3,
+    tx: "13%",
+    ty: "-6%",
+    scale: 0.57,
   },
   {
     src: "/illustrations/prologue-c.png",
     alt: "Cracked phone in a sewer grate",
-    rotate: -2,
-    tx: "-3%",
-    ty: "5%",
-    scale: 0.50,
-    delay: 460,
+    rotate: -2.5,
+    tx: "-8%",
+    ty: "9%",
+    scale: 0.59,
   },
   {
     src: "/illustrations/prologue-b.png",
     alt: "Desk with laptop showing InsideScoop",
-    rotate: 3.5,
-    tx: "4%",
-    ty: "-3%",
-    scale: 0.46,
-    delay: 700,
+    rotate: 4,
+    tx: "10%",
+    ty: "7%",
+    scale: 0.55,
   },
+];
+
+// Fixed ink splot positions — organic blobs scattered on the page
+const SPLOTS = [
+  { cx: "12%", cy: "18%", rx: 28, ry: 18, rotate: -15, seed: 3 },
+  { cx: "83%", cy: "74%", rx: 22, ry: 32, rotate: 25, seed: 9 },
+  { cx: "72%", cy: "14%", rx: 14, ry: 10, rotate: 8, seed: 5 },
 ];
 
 type Mode = "scatter" | "zoomed";
@@ -51,9 +52,9 @@ type Mode = "scatter" | "zoomed";
 export default function ProloguePage() {
   const router = useRouter();
   const [mode, setMode] = useState<Mode>("scatter");
+  const [revealedCount, setRevealedCount] = useState(0);
   const [zoomedIndex, setZoomedIndex] = useState(0);
   const [transitioning, setTransitioning] = useState(false);
-  const [landed, setLanded] = useState([false, false, false, false]);
 
   // Preload all panel images
   useEffect(() => {
@@ -61,17 +62,6 @@ export default function ProloguePage() {
       const img = new window.Image();
       img.src = p.src;
     });
-  }, []);
-
-  // Stagger panels dropping in
-  useEffect(() => {
-    const timers = PANELS.map((p, i) =>
-      setTimeout(
-        () => setLanded((v) => { const n = [...v]; n[i] = true; return n; }),
-        p.delay + 120
-      )
-    );
-    return () => timers.forEach(clearTimeout);
   }, []);
 
   function wipe(after: () => void) {
@@ -83,7 +73,15 @@ export default function ProloguePage() {
     }, 1400);
   }
 
+  function handlePageClick() {
+    if (mode !== "scatter") return;
+    if (revealedCount < PANELS.length) {
+      setRevealedCount((c) => c + 1);
+    }
+  }
+
   function clickPanel(i: number) {
+    if (revealedCount < PANELS.length) return; // still revealing
     wipe(() => {
       setZoomedIndex(i);
       setMode("zoomed");
@@ -100,48 +98,107 @@ export default function ProloguePage() {
     });
   }
 
+  const allRevealed = revealedCount >= PANELS.length;
   const isLastPanel = zoomedIndex === PANELS.length - 1;
 
   return (
     <main
+      onClick={handlePageClick}
       style={{
         width: "100vw",
         height: "100vh",
         overflow: "hidden",
         position: "relative",
         background: BG,
+        cursor: !allRevealed && mode === "scatter" ? "pointer" : "default",
       }}
     >
+      {/* ── SVG filter defs (hidden) ── */}
+      <svg style={{ position: "absolute", width: 0, height: 0, overflow: "hidden" }}>
+        <defs>
+          {/* Rough/hand-drawn border displacement */}
+          <filter id="rough" x="-5%" y="-5%" width="110%" height="110%">
+            <feTurbulence type="fractalNoise" baseFrequency="0.035" numOctaves="4" result="noise" />
+            <feDisplacementMap in="SourceGraphic" in2="noise" scale="3.5" xChannelSelector="R" yChannelSelector="G" />
+          </filter>
+          {/* Ink splot wobble */}
+          <filter id="splot" x="-20%" y="-20%" width="140%" height="140%">
+            <feTurbulence type="turbulence" baseFrequency="0.025" numOctaves="3" result="noise" />
+            <feDisplacementMap in="SourceGraphic" in2="noise" scale="10" xChannelSelector="R" yChannelSelector="G" />
+          </filter>
+        </defs>
+      </svg>
 
       {/* ── SCATTER VIEW ── */}
       {mode === "scatter" && (
         <>
+          {/* Ink splots — always visible beneath photos */}
+          {SPLOTS.map((s, si) => (
+            <svg
+              key={si}
+              style={{
+                position: "absolute",
+                left: s.cx,
+                top: s.cy,
+                transform: `translate(-50%,-50%) rotate(${s.rotate}deg)`,
+                overflow: "visible",
+                pointerEvents: "none",
+                zIndex: 0,
+                opacity: 0.82,
+              }}
+              width={s.rx * 2 + 20}
+              height={s.ry * 2 + 20}
+              viewBox={`0 0 ${s.rx * 2 + 20} ${s.ry * 2 + 20}`}
+            >
+              <ellipse
+                cx={s.rx + 10}
+                cy={s.ry + 10}
+                rx={s.rx}
+                ry={s.ry}
+                fill="#1a1218"
+                filter="url(#splot)"
+              />
+            </svg>
+          ))}
+
+          {/* Photo panels */}
           {PANELS.map((panel, i) => {
-            const isLanded = landed[i];
+            const isVisible = i < revealedCount;
             return (
               <div
                 key={panel.src}
-                onClick={() => clickPanel(i)}
+                onClick={(e) => {
+                  if (!allRevealed) return;
+                  e.stopPropagation();
+                  clickPanel(i);
+                }}
                 style={{
                   position: "absolute",
-                  // Center each panel, then nudge by tx/ty
                   left: `calc(50% + ${panel.tx})`,
                   top: `calc(50% + ${panel.ty})`,
                   width: `${panel.scale * 100}vmin`,
                   height: `${panel.scale * 100}vmin`,
-                  transform: isLanded
+                  transform: isVisible
                     ? `translate(-50%, -50%) rotate(${panel.rotate}deg)`
-                    : `translate(-50%, -80%) rotate(${panel.rotate * 0.5}deg) scale(0.92)`,
-                  opacity: isLanded ? 1 : 0,
-                  transition: isLanded
-                    ? "opacity 0.55s ease, transform 0.65s cubic-bezier(0.22,1,0.36,1)"
+                    : `translate(-50%, -130%) rotate(${panel.rotate * 0.6}deg) scale(0.88)`,
+                  opacity: isVisible ? 1 : 0,
+                  transition: isVisible
+                    ? "opacity 0.5s ease, transform 0.7s cubic-bezier(0.22,1,0.36,1)"
                     : "none",
-                  cursor: "pointer",
+                  cursor: allRevealed ? "pointer" : "default",
                   zIndex: i + 1,
-                  // Ink border — thick, like a physical photo
-                  outline: "5px solid var(--ink)",
-                  outlineOffset: "0px",
-                  boxShadow: "4px 6px 18px rgba(46,38,46,0.22)",
+                }}
+                onMouseEnter={(e) => {
+                  if (!allRevealed) return;
+                  const el = e.currentTarget as HTMLDivElement;
+                  el.style.zIndex = "10";
+                  el.style.transform = `translate(-50%, -50%) rotate(${panel.rotate * 0.35}deg) scale(1.025)`;
+                }}
+                onMouseLeave={(e) => {
+                  if (!allRevealed) return;
+                  const el = e.currentTarget as HTMLDivElement;
+                  el.style.zIndex = String(i + 1);
+                  el.style.transform = `translate(-50%, -50%) rotate(${panel.rotate}deg)`;
                 }}
               >
                 <img
@@ -158,26 +215,45 @@ export default function ProloguePage() {
                   }}
                 />
 
-                {/* Hover lift */}
-                <div
+                {/* Textured ink border — SVG overlay, rough filter */}
+                <svg
                   style={{
                     position: "absolute",
-                    inset: 0,
-                    transition: "box-shadow 0.2s ease",
+                    inset: -5,
+                    width: "calc(100% + 10px)",
+                    height: "calc(100% + 10px)",
+                    pointerEvents: "none",
+                    overflow: "visible",
                   }}
-                  onMouseEnter={(e) => {
-                    const el = e.currentTarget.parentElement as HTMLDivElement;
-                    el.style.zIndex = "10";
-                    el.style.boxShadow = "8px 12px 32px rgba(46,38,46,0.32)";
-                    el.style.transform = `translate(-50%, -50%) rotate(${panel.rotate * 0.4}deg) scale(1.03)`;
+                  viewBox="0 0 100 100"
+                  preserveAspectRatio="none"
+                >
+                  <rect
+                    x="2" y="2" width="96" height="96"
+                    fill="none"
+                    stroke="#1a1218"
+                    strokeWidth="4.5"
+                    filter="url(#rough)"
+                  />
+                </svg>
+
+                {/* Panel number */}
+                <span
+                  style={{
+                    position: "absolute",
+                    top: 8,
+                    left: 10,
+                    fontFamily: "var(--font-mono), monospace",
+                    fontSize: "0.55rem",
+                    letterSpacing: "0.18em",
+                    color: "var(--ink)",
+                    opacity: 0.4,
+                    pointerEvents: "none",
+                    userSelect: "none",
                   }}
-                  onMouseLeave={(e) => {
-                    const el = e.currentTarget.parentElement as HTMLDivElement;
-                    el.style.zIndex = String(i + 1);
-                    el.style.boxShadow = "4px 6px 18px rgba(46,38,46,0.22)";
-                    el.style.transform = `translate(-50%, -50%) rotate(${panel.rotate}deg)`;
-                  }}
-                />
+                >
+                  {String(i + 1).padStart(2, "0")}
+                </span>
               </div>
             );
           })}
@@ -194,15 +270,15 @@ export default function ProloguePage() {
               letterSpacing: "0.28em",
               textTransform: "uppercase",
               color: "var(--ink)",
-              opacity: landed[3] ? 0.38 : 0,
-              transition: "opacity 0.6s ease 0.3s",
+              opacity: revealedCount === 0 ? 0.38 : allRevealed ? 0.38 : 0,
+              transition: "opacity 0.5s ease",
               pointerEvents: "none",
               userSelect: "none",
               whiteSpace: "nowrap",
               zIndex: 20,
             }}
           >
-            click a photo to begin
+            {allRevealed ? "click a photo to begin" : "click to reveal"}
           </p>
         </>
       )}
@@ -221,21 +297,42 @@ export default function ProloguePage() {
             justifyContent: "center",
           }}
         >
-          <img
-            key={zoomedIndex}
-            src={PANELS[zoomedIndex].src}
-            alt={PANELS[zoomedIndex].alt}
-            draggable={false}
-            style={{
-              maxWidth: "88vw",
-              maxHeight: "88vh",
-              objectFit: "contain",
-              userSelect: "none",
-              display: "block",
-              outline: "5px solid var(--ink)",
-              boxShadow: "6px 10px 28px rgba(46,38,46,0.20)",
-            }}
-          />
+          <div style={{ position: "relative", display: "inline-block" }}>
+            <img
+              key={zoomedIndex}
+              src={PANELS[zoomedIndex].src}
+              alt={PANELS[zoomedIndex].alt}
+              draggable={false}
+              style={{
+                maxWidth: "84vw",
+                maxHeight: "84vh",
+                objectFit: "contain",
+                userSelect: "none",
+                display: "block",
+              }}
+            />
+            {/* Textured border on zoomed image */}
+            <svg
+              style={{
+                position: "absolute",
+                inset: -6,
+                width: "calc(100% + 12px)",
+                height: "calc(100% + 12px)",
+                pointerEvents: "none",
+                overflow: "visible",
+              }}
+              viewBox="0 0 100 100"
+              preserveAspectRatio="none"
+            >
+              <rect
+                x="2" y="2" width="96" height="96"
+                fill="none"
+                stroke="#1a1218"
+                strokeWidth="4"
+                filter="url(#rough)"
+              />
+            </svg>
+          </div>
 
           {/* Dot counter */}
           <div
@@ -295,7 +392,7 @@ export default function ProloguePage() {
             width: "100%",
             height: "100%",
             pointerEvents: "none",
-            zIndex: 20,
+            zIndex: 30,
           }}
           viewBox="0 0 100 100"
           preserveAspectRatio="none"
