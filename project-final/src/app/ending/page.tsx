@@ -99,6 +99,13 @@ export default function EndingPage() {
   const currentFinished = activeBlock >= 0 && charCount >= BLOCKS[activeBlock].length;
   const allDone = activeBlock === BLOCKS.length - 1 && currentFinished;
 
+  // Auto-show orgs 1.2s after last block finishes — no extra click required
+  useEffect(() => {
+    if (!allDone || orgsVisible) return;
+    const t = setTimeout(() => setOrgsVisible(true), 1200);
+    return () => clearTimeout(t);
+  }, [allDone, orgsVisible]);
+
   return (
     <main
       className="page-enter relative flex h-screen w-full overflow-hidden"
