@@ -18,11 +18,6 @@ const MINERAL_COLORS: Record<string, string> = {
 };
 
 type StopType = "mine" | "refinery" | "assembly" | "consumer";
-
-const PAUL_QUOTE =
-  "“I’d spend 24 hours down in the tunnels. I arrived in the morning and would leave the following morning.” — Paul, aged 14";
-
-// top chrome height + breathing room
 const CHROME_H = 148;
 
 export default function GlobePage() {
@@ -45,7 +40,6 @@ export default function GlobePage() {
   const color = MINERAL_COLORS[mineralId] || "var(--cranberry)";
   const activeStopType = (mineral.supplyChain[activeStep]?.pinType ?? "mine") as StopType;
   const card = mineralCards[activeStopType];
-  const isMineCard = activeStopType === "mine" && cardOpen;
 
   function openStep(i: number) {
     setActiveStep(i);
@@ -174,36 +168,34 @@ export default function GlobePage() {
         </div>
       </div>
 
-      {/* ── Modal backdrop — flex-centers the card, pads it within the safe area ── */}
+      {/* ── Modal — left-anchored, globe visible on the right ── */}
       {cardOpen && card && (
-        <div
-          className="absolute inset-0 z-20 flex items-center justify-center"
-          style={{
-            background: "rgba(46,38,46,0.22)",
-            backdropFilter: "blur(3px)",
-            // Top padding clears chrome; bottom padding clears Paul quote strip
-            paddingTop: CHROME_H + 8,
-            paddingBottom: isMineCard ? 72 : 24,
-            paddingLeft: 24,
-            paddingRight: 24,
-          }}
-          onClick={() => setCardOpen(false)}
-        >
-          {/* Card — constrained to the safe area above */}
+        <>
+          {/* Invisible full-screen backdrop for click-to-dismiss */}
           <div
-            className="fade-up relative flex w-full flex-col overflow-hidden"
+            className="absolute inset-0 z-20"
+            onClick={() => setCardOpen(false)}
+          />
+
+          {/* Card — left edge, vertically centered in safe area */}
+          <div
+            className="fade-up absolute z-30 flex flex-col overflow-hidden"
             style={{
-              maxWidth: 460,
-              maxHeight: "100%",
+              left: 20,
+              top: CHROME_H + 12,
+              bottom: 20,
+              width: "min(380px, 44vw)",
               background: "rgba(221,208,187,0.99)",
               backdropFilter: "blur(24px)",
               border: "1px solid rgba(46,38,46,0.10)",
             }}
             onClick={(e) => e.stopPropagation()}
           >
-            {/* Scrollable content area */}
-            <div className="flex flex-col overflow-y-auto" style={{ padding: "1.6rem 1.8rem 0" }}>
-
+            {/* Scrollable text area */}
+            <div
+              className="flex flex-col overflow-y-auto flex-1"
+              style={{ padding: "1.5rem 1.6rem 0" }}
+            >
               {/* Location + close */}
               <div className="mb-3 flex items-center justify-between flex-shrink-0">
                 <p
@@ -238,12 +230,12 @@ export default function GlobePage() {
                 ))}
               </div>
 
-              {/* Rule */}
+              {/* Cranberry rule */}
               <div className="mb-4" style={{ width: 24, height: 1.5, background: "var(--cranberry)", borderRadius: 1 }} />
 
               {/* Title */}
               <h3
-                className="mb-3 leading-tight"
+                className="mb-3 leading-tight flex-shrink-0"
                 style={{
                   color: "var(--ink)",
                   fontFamily: "var(--font-playfair), serif",
@@ -268,6 +260,29 @@ export default function GlobePage() {
                 {card.body}
               </p>
 
+              {/* Pull-quote blockquote — only if present */}
+              {card.quote && (
+                <blockquote
+                  className="mb-4"
+                  style={{
+                    borderLeft: "2px solid var(--cranberry)",
+                    marginLeft: 0,
+                    paddingLeft: "1rem",
+                  }}
+                >
+                  <p
+                    className="text-[0.82rem] leading-[1.75]"
+                    style={{
+                      color: "var(--ink)",
+                      fontFamily: "var(--font-playfair), serif",
+                      fontStyle: "italic",
+                    }}
+                  >
+                    {card.quote}
+                  </p>
+                </blockquote>
+              )}
+
               {/* Citation */}
               <p
                 className="text-[0.6rem] leading-relaxed mb-4"
@@ -284,14 +299,15 @@ export default function GlobePage() {
               </p>
             </div>
 
-            {/* Figure strip — sits at the bottom of the card, outside scroll area */}
+            {/* Figure strip — object-fit contain, full figure visible */}
             {card.image && (
               <div
                 style={{
                   width: "100%",
-                  height: 140,
+                  height: 180,
                   flexShrink: 0,
                   overflow: "hidden",
+                  background: "rgba(221,208,187,0.99)",
                   position: "relative",
                 }}
               >
@@ -302,27 +318,15 @@ export default function GlobePage() {
                   style={{
                     width: "100%",
                     height: "100%",
-                    objectFit: "cover",
-                    // Center horizontally on the figure (~37% from left in canvas),
-                    // bottom-align so feet touch the card floor
-                    objectPosition: "37% 62%",
-                    mixBlendMode: "multiply",
+                    objectFit: "contain",
+                    objectPosition: "center bottom",
                     display: "block",
-                  }}
-                />
-                {/* Subtle top fade so image dissolves up into text */}
-                <div
-                  style={{
-                    position: "absolute",
-                    inset: 0,
-                    background: "linear-gradient(to bottom, rgba(221,208,187,1) 0%, transparent 35%)",
-                    pointerEvents: "none",
                   }}
                 />
               </div>
             )}
 
-            {/* BACK — always pinned at the very bottom */}
+            {/* BACK — always pinned at card bottom */}
             <button
               onClick={() => setCardOpen(false)}
               className="w-full flex-shrink-0 py-2.5 text-[0.6rem] uppercase tracking-[0.32em] transition-all hover:bg-[rgba(46,38,46,0.06)]"
@@ -338,34 +342,8 @@ export default function GlobePage() {
               back
             </button>
           </div>
-        </div>
+        </>
       )}
-
-      {/* ── Paul quote — bottom strip, only on Mine card ── */}
-      <div
-        className="absolute left-0 right-0 z-30 flex items-end justify-center px-8 pb-4 pt-8"
-        style={{
-          bottom: 0,
-          background: "linear-gradient(to top, rgba(221,208,187,0.96) 55%, rgba(221,208,187,0))",
-          opacity: isMineCard ? 1 : 0,
-          transform: isMineCard ? "translateY(0)" : "translateY(8px)",
-          transition: "opacity 0.45s ease, transform 0.45s ease",
-          pointerEvents: "none",
-        }}
-      >
-        <p
-          className="text-center text-[0.7rem] leading-relaxed"
-          style={{
-            color: "var(--ink)",
-            fontFamily: "var(--font-playfair), serif",
-            fontStyle: "italic",
-            opacity: 0.7,
-            maxWidth: 500,
-          }}
-        >
-          {PAUL_QUOTE}
-        </p>
-      </div>
     </main>
   );
 }

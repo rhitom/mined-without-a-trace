@@ -7,6 +7,7 @@
 export type StopCard = {
   title: string;
   body: string;
+  quote?: string; // pull-quote rendered as blockquote, separate from body
   citation: string;
   image?: string; // path relative to /public
 };
@@ -23,7 +24,8 @@ export const GLOBE_CARDS: Record<string, MineralCards> = {
   cobalt: {
     mine: {
       title: "The Mine",
-      body: "Paul, aged 14, started mining at the age of 12 and worked in tunnels underground. Children said that they worked for up to 12 hours a day in the mines, carrying heavy loads, to earn between one and two dollars a day. Even those children who went to school worked 10–12 hours during the weekend and school holidays, and in the time before and after school. The children who were not attending school worked in the mines all year around. Paul told researchers he would often \"spend 24 hours down in the tunnels. I arrived in the morning and would leave the following morning.\"\n\nIn 2024, 76% of the world's cobalt was mined in two southeastern DRC provinces — Haut-Katanga and Lualaba. A 2025 survey of 1,431 artisanal miners around Kolwezi found that 36.8% met criteria for forced labour and 9.2% for child labour. Average daily income: $3.28.",
+      body: "Paul, aged 14, started mining at the age of 12 and worked in tunnels underground. Children said that they worked for up to 12 hours a day in the mines, carrying heavy loads, to earn between one and two dollars a day. Even those children who went to school worked 10–12 hours during the weekend and school holidays, and in the time before and after school. The children who were not attending school worked in the mines all year around.\n\nIn 2024, 76% of the world's cobalt was mined in two southeastern DRC provinces — Haut-Katanga and Lualaba. A 2025 survey of 1,431 artisanal miners around Kolwezi found that 36.8% met criteria for forced labour and 9.2% for child labour. Average daily income: $3.28.",
+      quote: "“I’d spend 24 hours down in the tunnels. I arrived in the morning and would leave the following morning.” — Paul, aged 14",
       citation: "Blood Batteries, University of Nottingham / Rights Lab (Aug 2025); Amnesty International, 'This Is What We Die For' (2016)",
       image: "/illustrations/congo_kid.png",
     },
