@@ -2,7 +2,7 @@
 
 import { useParams, useRouter } from "next/navigation";
 import dynamic from "next/dynamic";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import minerals from "@/data/minerals.json";
 import { GLOBE_CARDS } from "@/data/globe-cards";
 
@@ -14,6 +14,7 @@ const MINERAL_COLORS: Record<string, string> = {
   tungsten: "#8B2635",
   gold: "#8B2635",
   tin: "#8B2635",
+  indium: "#8B2635",
   "rare-earths": "#8B2635",
 };
 
@@ -24,7 +25,17 @@ export default function GlobePage() {
   const { mineral: mineralId } = useParams<{ mineral: string }>();
   const router = useRouter();
   const [activeStep, setActiveStep] = useState(0);
-  const [cardOpen, setCardOpen] = useState(false);
+  const [cardOpen, setCardOpen] = useState(true);
+  const [showNext, setShowNext] = useState(false);
+
+  useEffect(() => {
+    try {
+      const prev = parseInt(localStorage.getItem("mwat-globe-visits") ?? "0", 10);
+      const next = prev + 1;
+      localStorage.setItem("mwat-globe-visits", String(next));
+      if (next >= 3) setShowNext(true);
+    } catch {}
+  }, []);
 
   const mineral = minerals.find((m) => m.id === mineralId);
   const mineralCards = GLOBE_CARDS[mineralId ?? ""];
@@ -167,6 +178,17 @@ export default function GlobePage() {
           </div>
         </div>
       </div>
+
+      {/* ── Next → button — appears after 3 minerals visited ── */}
+      {showNext && (
+        <button
+          onClick={() => router.push("/ending")}
+          className="absolute bottom-6 right-6 z-30 text-[0.6rem] uppercase tracking-[0.28em] transition-opacity hover:opacity-50"
+          style={{ color: "var(--warm-gray)", fontFamily: "var(--font-mono), monospace" }}
+        >
+          next →
+        </button>
+      )}
 
       {/* ── Modal — left-anchored, globe visible on the right ── */}
       {cardOpen && card && (
