@@ -21,23 +21,23 @@
     "cards": [
       {
         "title": "The Mine",
-        "body": "Over 70% of the world's cobalt comes from the Democratic Republic of Congo — much of it from artisanal mines in the Kolwezi district where tens of thousands of informal miners, including children as young as six, dig by hand in tunnels without protective equipment.",
-        "citation": "Amnesty International, 'This Is What We Die For' (2016)"
+        "body": "The DRC produces 60% of the world's cobalt and holds 50% of its known reserves. Much of that comes from artisanal mines in the Kolwezi district where tens of thousands of informal miners — including children as young as six — dig by hand in tunnels without protective equipment. Cobalt is a byproduct of copper and nickel mining, so its extraction is inseparable from the broader extractive economy of the southeastern Copper Belt.",
+        "citation": "Amnesty International, 'This Is What We Die For' (2016); research brief (2025)"
       },
       {
         "title": "The Metal",
-        "body": "Cobalt is essential to lithium-ion batteries, giving them their energy density and stability. A single iPhone battery contains roughly 10 grams of cobalt — small enough to hold in your palm, costly enough in human terms to fill a report.",
-        "citation": "USGS Mineral Commodity Summaries (2024)"
+        "body": "Cobalt is essential to lithium-ion batteries, giving them their energy density and thermal stability. 41% of global cobalt demand is driven by batteries alone. A single smartphone battery contains roughly 10 grams — small enough to hold in your palm, costly enough in human terms to fill a report.",
+        "citation": "USGS Mineral Commodity Summaries (2024); research brief (2025)"
       },
       {
         "title": "The Journey",
-        "body": "Raw cobalt ore travels from Congolese mines to smelters in China, where it's refined into cobalt sulfate, then shipped to battery cell manufacturers, then to Apple's assembly partners in Zhengzhou — a journey of over 12,000 miles before the phone reaches a shelf.",
-        "citation": "Global Witness, 'Beneath the Shine' (2023)"
+        "body": "Raw cobalt ore travels from Congolese mines to smelters in China — which refines 60–70% of the world's cobalt despite extracting only 10–30% of it. From Chinese refineries it moves to battery cell manufacturers in Shanghai and Zhengzhou, then to assembly partners — a journey of over 12,000 miles before the phone reaches a shelf. China is the leading supplier of cobalt to the US, but that cobalt originates in Congo-Kinshasa.",
+        "citation": "Global Witness, 'Beneath the Shine' (2023); research brief (2025)"
       },
       {
         "title": "What Can Change",
-        "body": "Apple has committed to sourcing 100% of its cobalt from recycled sources by 2025. Progress is mixed. The Responsible Minerals Initiative audits smelters but does not reach artisanal mines. The gap between policy and practice remains wide.",
-        "citation": "Apple Conflict Minerals Report (2023)"
+        "body": "Fifteen of the 19 major copper-cobalt mining concessions in the DRC are majority-owned by Chinese mining companies — a structural dependence built through China's Belt and Road Initiative. Apple has committed to sourcing 100% of its cobalt from recycled sources, but progress is uneven. The Responsible Minerals Initiative audits smelters but does not reach artisanal mines. The gap between corporate pledges and conditions on the ground remains wide.",
+        "citation": "Apple Conflict Minerals Report (2023); research brief (2025)"
       }
     ]
   },
@@ -63,13 +63,23 @@
     "cards": [
       {
         "title": "Coltan",
-        "body": "Tantalum comes from columbite-tantalite, or 'coltan' — a dull gray ore mined predominantly in eastern DRC. Armed groups have long taxed coltan trade routes to finance conflict, making it one of the original 'conflict minerals' targeted by international regulation.",
-        "citation": "UN Group of Experts on the DRC (2022)"
+        "body": "Tantalum comes from columbite-tantalite — 'coltan' — a black, tar-like mineral mined predominantly in eastern DRC, which holds 64% of the world's known coltan reserves. When refined, coltan becomes a resistant powder capable of holding a high electric charge. Armed groups have long taxed coltan trade routes to finance conflict, making it one of the original 'conflict minerals' targeted by international regulation.",
+        "citation": "UN Group of Experts on the DRC (2022); research brief (2025)"
       },
       {
         "title": "The Component",
-        "body": "Tantalum capacitors regulate voltage and store charge in nearly every circuit board. A modern smartphone contains dozens. They are tiny, reliable, and almost impossible to make without tantalum.",
-        "citation": "ITRI, Tantalum in Electronics (2021)"
+        "body": "Tantalum capacitors regulate voltage and store charge in nearly every circuit board. A modern smartphone contains dozens. They are a vital element in creating devices that store energy — found in mobile phones, computer chips, and game consoles — and are almost impossible to manufacture without tantalum.",
+        "citation": "ITRI, Tantalum in Electronics (2021); USGS Minerals in Mobile Devices (2016)"
+      },
+      {
+        "title": "The Journey",
+        "body": "Coltan ore is dug by artisanal miners in North Kivu and moved overland through neighboring Rwanda, Uganda, and Burundi — countries that export far more tantalum than their own geology produces. This 'coltan exploitation chain' connects rebel militias to multinational corporations through a series of traders and intermediaries. The ore is then smelted in Japan and refined into tantalum powder before being pressed into the capacitors inside your phone.",
+        "citation": "UN Group of Experts on the DRC (2022); research brief (2025)"
+      },
+      {
+        "title": "What Can Change",
+        "body": "Section 1502 of the US Dodd-Frank Act requires publicly traded companies to audit whether their products contain 3TG conflict minerals from the DRC region. The law created audit trails but reduced investment in Congolese mining rather than eliminating armed group involvement. The OECD Due Diligence Guidance for Responsible Mineral Supply Chains provides a framework, but implementation across the full coltan exploitation chain remains incomplete. The Washington Accord (2025) between the DRC and Rwanda may open space for stronger governance.",
+        "citation": "OECD Due Diligence Guidance (2016); DRC Conflict Minerals Special Report (June 2025)"
       }
     ]
   },
@@ -95,8 +105,23 @@
     "cards": [
       {
         "title": "The Buzz",
-        "body": "The subtle vibration that tells you a message arrived — that's tungsten. The Taptic Engine in every iPhone uses a tungsten-weighted rotor. Tungsten's extreme density (nearly twice that of lead) makes it ideal for compact, powerful vibration motors.",
-        "citation": "iFixit iPhone 16 Teardown (2024)"
+        "body": "The subtle vibration that tells you a message arrived — that's tungsten. The Taptic Engine in every iPhone uses a tungsten-weighted rotor. Tungsten's extreme density (nearly twice that of lead) makes it ideal for compact, powerful vibration motors. Its source mineral, wolframite (Fe,Mn)WO4, is an iron-manganese tungstate mined in the eastern DRC.",
+        "citation": "iFixit iPhone 16 Teardown (2024); USGS Minerals in Mobile Devices (2016)"
+      },
+      {
+        "title": "The Mine",
+        "body": "Tungsten is one of the four 3TG conflict minerals — tin, tantalum, tungsten, and gold — whose extraction in North and South Kivu has been contested by dozens of armed militia groups for decades. Miners in South Kivu extract wolframite by hand from hard-rock deposits, often under the watch of armed actors who tax every sack that leaves the mine. Despite the DRC's mineral wealth, 74% of Congolese people lived on less than $2.15 per day in 2025.",
+        "citation": "DRC Conflict Minerals Special Report (June 2025)"
+      },
+      {
+        "title": "The Journey",
+        "body": "Wolframite ore is exported from South Kivu and processed — primarily in China's Yunnan and Jiangxi provinces — into ammonium paratungstate (APT), the industrial intermediate form of tungsten. From there it is fabricated into the dense weighted rotors used in haptic actuators, then shipped to electronics assembly plants. China refines the vast majority of the world's tungsten, maintaining dominant control over this strategic 3TG.",
+        "citation": "USGS Tungsten Commodity Summary (2024); research brief (2025)"
+      },
+      {
+        "title": "What Can Change",
+        "body": "On June 27, 2025, the DRC and Rwanda signed the Washington Accord — a US-brokered peace treaty intended to end the conflict in eastern DRC. The US committed to providing security guarantees in exchange for access to mineral territories, directly linking geopolitics to the 3TG supply chain. Despite the signing, violence continues. Durable change requires armed group demobilization, transparent mineral tagging at mine sites, and investment in Congolese processing capacity so that value is retained locally.",
+        "citation": "DRC Conflict Minerals Special Report (June 2025)"
       }
     ]
   },
@@ -122,8 +147,23 @@
     "cards": [
       {
         "title": "Gold in Your Phone",
-        "body": "Gold doesn't tarnish and conducts electricity reliably. It coats the connectors, pins, and bond wires inside your phone — roughly 0.034 grams per device. Globally, that adds up to 300 tons of gold mined annually for electronics.",
-        "citation": "World Gold Council, Electronics Report (2023)"
+        "body": "Gold doesn't tarnish and conducts electricity reliably. It coats the connectors, pins, and bond wires inside your phone — roughly 0.034 grams per device. Globally, that adds up to 300 tons of gold mined annually for electronics. Gold is also one of the four 3TG conflict minerals, whose extraction in eastern DRC has financed armed conflict for decades.",
+        "citation": "World Gold Council, Electronics Report (2023); research brief (2025)"
+      },
+      {
+        "title": "The Mine",
+        "body": "Gold is mined artisanally across Ituri Province and North and South Kivu in eastern DRC. As one of the 3TGs, it is the most liquid and hardest to trace conflict mineral — unlike tin or tantalum, raw gold needs no processing before it can be traded. Dozens of militia groups have sought to control gold territories in eastern Congo, taxing or directly operating artisanal mines to fund armed operations.",
+        "citation": "DRC Conflict Minerals Special Report (June 2025); UN Group of Experts on the DRC (2022)"
+      },
+      {
+        "title": "The Journey",
+        "body": "DRC artisanal gold moves through informal networks across porous borders into Uganda, Rwanda, and Burundi, entering formal refinery channels in Dubai, Switzerland, and Singapore where its origin becomes obscured. From refineries it is electroplated onto connectors and bond wires in electronics factories in Japan and South Korea, then shipped to assembly plants in China. The phone in your hand contains gold that crossed at least five borders before it arrived.",
+        "citation": "World Gold Council, Electronics Report (2023); USGS Mineral Commodity Summaries (2024)"
+      },
+      {
+        "title": "What Can Change",
+        "body": "The London Bullion Market Association (LBMA) Responsible Gold Guidance requires refineries to conduct enhanced due diligence on gold from conflict-affected regions. But the gap between formal refineries and artisanal miners remains wide — conflict gold enters the formal supply chain through smuggling networks before it ever reaches an audited refinery. The Washington Accord (2025) may improve security conditions in eastern DRC, but connecting peace on the ground to traceable supply chains requires sustained investment in local certification systems.",
+        "citation": "LBMA Responsible Gold Guidance (2023); DRC Conflict Minerals Special Report (June 2025)"
       }
     ]
   },
@@ -149,8 +189,23 @@
     "cards": [
       {
         "title": "Solder",
-        "body": "Tin is the primary ingredient in the solder that holds every component to a circuit board. Without tin, the logic board — the brain of your phone — cannot be assembled. Most of the tin in electronics originates from Indonesia, but DRC is a growing source.",
-        "citation": "ITRI, Tin in Electronics (2022)"
+        "body": "Tin is the primary ingredient in the solder that bonds every component to a circuit board. Without tin, the logic board — the brain of your phone — cannot be assembled. Tin also creates the transparent conductive layers in touchscreens as indium-tin-oxide. Its source mineral, cassiterite (SnO2), is one of the four 3TG conflict minerals mined in eastern DRC.",
+        "citation": "ITRI, Tin in Electronics (2022); USGS Minerals in Mobile Devices (2016)"
+      },
+      {
+        "title": "The Mine",
+        "body": "Cassiterite is mined in South Kivu and Maniema provinces in eastern DRC, where it is one of the four 3TG conflict minerals that have driven continuous civil war in North and South Kivu. Dozens of militia groups have sought to control cassiterite territories, taxing mine output to fund armed operations. The ore is extracted largely by artisanal miners using hand tools — the same method used for centuries, now feeding the most advanced electronics on earth.",
+        "citation": "DRC Conflict Minerals Special Report (June 2025); ITRI, Tin in Electronics (2022)"
+      },
+      {
+        "title": "The Journey",
+        "body": "DRC cassiterite is exported overland through Rwanda and Uganda or via Congolese river ports, then smelted primarily in Indonesia, Malaysia, and China into refined tin ingots. The tin is alloyed into solder paste and shipped to circuit board manufacturers, where it joins every component to the logic board inside your phone. Without tin solder, no smartphone — and no AI chip, EV battery pack, or aerospace circuit — can be assembled.",
+        "citation": "ITRI, Tin in Electronics (2022); USGS Mineral Commodity Summaries (2024)"
+      },
+      {
+        "title": "What Can Change",
+        "body": "The ITSCI (ITRI Tin Supply Chain Initiative) tags cassiterite sacks at mine sites in eastern DRC with numbered tickets to create an audit trail from pit to smelter. The program covers significant volumes of DRC tin but does not reach all artisanal sites. Section 1502 of the Dodd-Frank Act requires US companies to disclose 3TG sourcing, but enforcement has been inconsistent. The Washington Accord (2025) may open space for stronger mine-site governance if the security situation in eastern DRC stabilizes.",
+        "citation": "ITSCI Program Report (2023); DRC Conflict Minerals Special Report (June 2025)"
       }
     ]
   },
@@ -176,8 +231,23 @@
     "cards": [
       {
         "title": "17 Elements",
-        "body": "Rare earth elements — a group of 17 metals with names like neodymium, dysprosium, and yttrium — are used in everything from the magnets in your speaker to the phosphors that give your screen its color. China controls over 60% of global REE production.",
-        "citation": "USGS Rare Earth Statistics (2024)"
+        "body": "Rare earth elements — a group of 17 metals with names like neodymium, dysprosium, and yttrium — appear in everything from the magnets in your speaker to the phosphors that give your screen its color. Bastnaesite, the primary REE ore mineral, is refined into the compounds used in displays, speakers, microphones, and vibration motors.",
+        "citation": "USGS Rare Earth Statistics (2024); USGS Minerals in Mobile Devices (2016)"
+      },
+      {
+        "title": "The Mine",
+        "body": "China mines and refines approximately 90% of the world's rare earth elements and leads refining for 19 of 20 key energy-related minerals, averaging a 70% global market share. The Bayan Obo district in Inner Mongolia is the world's largest single REE deposit. Through the Belt and Road Initiative, Chinese-backed entities have invested nearly $57 billion in mineral projects across 19 countries, securing raw material flows into Chinese refining infrastructure.",
+        "citation": "International Energy Agency, Critical Minerals Report (2024); research brief (2025)"
+      },
+      {
+        "title": "The Journey",
+        "body": "REE ores are mined at Bayan Obo and separated into individual elements at processing facilities in Baotou — one of the most polluted cities in China due to the radioactive and acidic waste produced by REE separation. Purified elements are incorporated into display phosphors, speaker magnets, and chip substrates, then sent to display and semiconductor fabrication plants in South Korea and Taiwan before reaching assembly in China.",
+        "citation": "IEA Critical Minerals Report (2024); USGS Rare Earth Statistics (2024)"
+      },
+      {
+        "title": "What Can Change",
+        "body": "The US, EU, and Australia are investing billions to establish rare earth mining and processing outside China — from Wyoming to northern Australia. But building refining capacity takes a decade or more; China's dominant market share is the product of sustained industrial policy since the 1980s. Australia supplied nearly half of global lithium and ranked among the top five REE producers in 2023, signaling that supply diversification is beginning. In the near term, recycling REEs from discarded electronics offers the most immediately available alternative — but current recovery rates remain under 1%.",
+        "citation": "IEA Critical Minerals Report (2024); research brief (2025)"
       }
     ]
   }

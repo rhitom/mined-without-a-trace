@@ -9,7 +9,7 @@ const playfair = Playfair_Display({
   display: "swap",
 });
 
-const mono = IBM_Plex_Mono({
+const ibmMono = IBM_Plex_Mono({
   subsets: ["latin"],
   weight: ["400", "500"],
   variable: "--font-mono",
@@ -28,7 +28,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={`h-full ${playfair.variable} ${mono.variable}`}>
+    <html lang="en" className={`h-full ${playfair.variable} ${ibmMono.variable}`}>
       <body className="min-h-full" style={{ background: "var(--cream)" }}>
         {children}
         <Analytics />

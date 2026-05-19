@@ -1,149 +1,248 @@
 "use client";
 
-import { useState } from "react";
 import { useRouter } from "next/navigation";
-import phones from "@/data/phones.json";
+import { useState, useEffect, useCallback, useRef } from "react";
 
-// Phone positions mapped to prologue-a.png (browser mockup illustration).
-// Hotspots cover the full phone body including the drawn pill label beneath it.
-// All values are percentages of the container's rendered width/height.
 const PHONES = [
-  {
-    id: "pixel",
-    name: "Pixel 10",
-    brand: "Google",
-    // left phone — slightly tilted back
-    hotspot: { left: "5%", top: "18%", width: "27%", height: "64%" },
-  },
-  {
-    id: "iphone",
-    name: "iPhone 16 Pro Max",
-    brand: "Apple",
-    // center phone — tallest, most prominent
-    hotspot: { left: "31%", top: "12%", width: "36%", height: "76%" },
-  },
-  {
-    id: "galaxy",
-    name: "Samsung S25",
-    brand: "Samsung",
-    // right phone — angled right
-    hotspot: { left: "65%", top: "18%", width: "30%", height: "64%" },
-  },
+  { id: "pixel",   label: "pixel 9",   brand: "Google",  href: "/diagram/pixel",  objectPosition: "0% center" },
+  { id: "iphone",  label: "iphone 16", brand: "Apple",   href: "/diagram/iphone", objectPosition: "50% center" },
+  { id: "samsung", label: "galaxy s25", brand: "Samsung", href: "/diagram/galaxy", objectPosition: "100% center" },
 ];
+
+// Container dimensions derived so objectFit:cover scales by height → scaled SVG width = 3×CW
+// CH/CW = (1600×3)/2150 ≈ 2.233 ensures exactly one phone per card width
+const CW = 240;
+const CH = Math.round(CW * (1600 * 3) / 2150); // ≈ 536
 
 export default function SelectPage() {
   const router = useRouter();
-  const [hovered, setHovered] = useState<string | null>(null);
-  const [comingSoonPhone, setComingSoonPhone] = useState<string | null>(null);
+  const [active, setActive] = useState(1);
+  const [isExiting, setIsExiting] = useState(false);
+  const [hoveredCenter, setHoveredCenter] = useState(false);
 
-  function handleClick(phoneId: string) {
-    const phoneData = phones.find((p) => p.id === phoneId);
-    if (phoneData?.status === "active") {
-      router.push(`/diagram/${phoneId}`);
-    } else {
-      // Flash "coming soon" on stub phones
-      setComingSoonPhone(phoneId);
-      setTimeout(() => setComingSoonPhone(null), 1400);
-    }
-  }
+  // Drag state
+  const [dragOffset, setDragOffset] = useState(0);
+  const dragStartX = useRef<number | null>(null);
+  const dragDistRef = useRef(0);
+  const wasDrag = useRef(false);
+
+  const prev = useCallback(() => setActive((i) => Math.max(0, i - 1)), []);
+  const next = useCallback(() => setActive((i) => Math.min(PHONES.length - 1, i + 1)), []);
+
+  // Keyboard support
+  useEffect(() => {
+    const handler = (e: KeyboardEvent) => {
+      if (e.key === "ArrowLeft") prev();
+      else if (e.key === "ArrowRight") next();
+      else if (e.key === "Enter" && !isExiting) handleCenterClick();
+    };
+    window.addEventListener("keydown", handler);
+    return () => window.removeEventListener("keydown", handler);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [active, prev, next, isExiting]);
+
+  const handleCenterClick = useCallback(() => {
+    if (isExiting || wasDrag.current) return;
+    setIsExiting(true);
+    setTimeout(() => router.push(PHONES[active].href), 480);
+  }, [active, isExiting, router]);
+
+  // Drag handlers on the carousel container
+  const onPointerDown = (e: React.PointerEvent<HTMLDivElement>) => {
+    dragStartX.current = e.clientX;
+    dragDistRef.current = 0;
+    wasDrag.current = false;
+  };
+
+  const onPointerMove = (e: React.PointerEvent<HTMLDivElement>) => {
+    if (dragStartX.current === null) return;
+    const delta = e.clientX - dragStartX.current;
+    dragDistRef.current = delta;
+    setDragOffset(delta);
+  };
+
+  const onPointerUp = () => {
+    if (dragStartX.current === null) return;
+    const dist = dragDistRef.current;
+    if (dist < -72) next();
+    else if (dist > 72) prev();
+    // Only suppress click if pointer clearly moved — 30px threshold avoids killing taps
+    wasDrag.current = Math.abs(dist) > 30;
+    setDragOffset(0);
+    dragDistRef.current = 0;
+    dragStartX.current = null;
+    setTimeout(() => { wasDrag.current = false; }, 50);
+  };
 
   return (
     <main
-      className="relative w-full h-screen overflow-hidden"
+      className="page-enter relative flex min-h-screen flex-col overflow-hidden"
       style={{ background: "var(--cream)" }}
     >
-      {/* Back to prologue */}
+      {/* Full-screen cream exit overlay */}
+      <div
+        className="pointer-events-none fixed inset-0 z-50"
+        style={{
+          background: "var(--cream)",
+          opacity: isExiting ? 1 : 0,
+          transition: "opacity 0.48s ease",
+        }}
+      />
+
+      {/* Back button */}
       <button
+        type="button"
         onClick={() => router.push("/prologue")}
-        className="absolute top-5 left-5 z-20 text-xs tracking-widest uppercase"
-        style={{ fontFamily: "var(--font-mono)", color: "var(--warm-gray)" }}
+        className="absolute left-6 top-6 z-10 text-xs uppercase tracking-[0.32em] transition-opacity hover:opacity-60"
+        style={{
+          color: "var(--warm-gray)",
+          fontFamily: "var(--font-mono), monospace",
+          opacity: isExiting ? 0 : 1,
+          transition: "opacity 0.3s ease",
+        }}
       >
         ← back
       </button>
 
-      {/* Full-bleed illustration — the drawn InsideScoop browser window */}
       <div
-        className="absolute inset-0 flex items-center justify-center"
-        style={{ padding: "0" }}
+        className="flex flex-1 flex-col items-center justify-center gap-10 px-4 py-16"
+        style={{ opacity: isExiting ? 0 : 1, transition: "opacity 0.3s ease" }}
       >
-        <img
-          src="/illustrations/prologue-a.png"
-          alt="InsideScoop — Compare 2026's top 3 models"
-          className="w-full h-full object-contain select-none"
-          draggable={false}
-          style={{ background: "var(--cream)" }}
-        />
+        <p
+          className="text-xs uppercase tracking-[0.32em]"
+          style={{
+            color: "var(--warm-gray)",
+            fontFamily: "var(--font-mono), monospace",
+            animation: "pageEnter 0.5s cubic-bezier(0.22,1,0.36,1) 0.05s both",
+          }}
+        >
+          choose a device
+        </p>
+
+        {/* ── Draggable carousel ── */}
+        <div
+          className="flex items-end justify-center gap-5 select-none"
+          style={{
+            cursor: dragStartX.current !== null ? "grabbing" : "grab",
+            touchAction: "none",
+          }}
+          onPointerDown={onPointerDown}
+          onPointerMove={onPointerMove}
+          onPointerUp={onPointerUp}
+          onPointerLeave={onPointerUp}
+          onPointerCancel={onPointerUp}
+        >
+          {PHONES.map((phone, i) => {
+            const isCenter = i === active;
+            const offset = i - active;
+            const showGlow = isCenter && hoveredCenter && !isExiting;
+
+            // During drag, shift cards slightly for somatic feedback
+            const dragShift = isCenter
+              ? dragOffset * 0.18
+              : dragOffset * 0.08 * (i < active ? -1 : 1) * -1;
+
+            return (
+              <button
+                key={phone.id}
+                type="button"
+                aria-label={isCenter ? `Open ${phone.label}` : `Select ${phone.label}`}
+                onClick={() => {
+                  if (wasDrag.current) return;
+                  if (!isCenter) setActive(i);
+                  else handleCenterClick();
+                }}
+                onMouseEnter={() => isCenter && setHoveredCenter(true)}
+                onMouseLeave={() => setHoveredCenter(false)}
+                style={{
+                  transform: isExiting && isCenter
+                    ? "scale(9)"
+                    : `scale(${isCenter ? 1 : 0.72}) translateY(${isCenter ? 0 : 32}px) translateX(${dragShift}px)`,
+                  opacity: isExiting
+                    ? (isCenter ? 1 : 0)
+                    : (isCenter ? 1 : 0.45),
+                  transition: isExiting
+                    ? "transform 0.48s cubic-bezier(0.2,0,0.8,1), opacity 0.32s ease"
+                    : "transform 0.38s cubic-bezier(0.4,0,0.2,1), opacity 0.38s ease",
+                  transformOrigin: isExiting ? "center center" : "bottom center",
+                  zIndex: isCenter ? (isExiting ? 50 : 10) : 5 - Math.abs(offset),
+                  outline: "none",
+                  background: "transparent",
+                  border: "none",
+                  padding: 0,
+                  cursor: isCenter ? "pointer" : "pointer",
+                  flexShrink: 0,
+                }}
+              >
+                {/* Phone image crop */}
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src="/illustrations/models.svg"
+                  alt={phone.label}
+                  draggable={false}
+                  style={{
+                    width: CW,
+                    height: CH,
+                    objectFit: "cover",
+                    objectPosition: phone.objectPosition,
+                    display: "block",
+                    borderRadius: 22,
+                    boxShadow: showGlow
+                      ? "0 0 40px rgba(139,38,53,0.38), 0 0 80px rgba(139,38,53,0.18)"
+                      : "none",
+                    transition: "box-shadow 0.25s ease",
+                    userSelect: "none",
+                    pointerEvents: "none",
+                  }}
+                />
+
+                {/* Label pill */}
+                <div className="mt-4 flex justify-center">
+                  <span
+                    className="inline-flex items-center justify-center rounded-[18px] px-4 py-2 text-[0.7rem] uppercase tracking-[0.2em] transition-all duration-300"
+                    style={{
+                      fontFamily: "var(--font-mono), monospace",
+                      background: isCenter ? "var(--cranberry)" : "rgba(250,245,238,0.88)",
+                      color: isCenter ? "var(--cream)" : "var(--ink)",
+                      border: isCenter
+                        ? "1px solid rgba(139,38,53,0.7)"
+                        : "1px solid rgba(46,38,46,0.18)",
+                      opacity: isCenter ? 1 : 0.6,
+                    }}
+                  >
+                    {phone.label}
+                  </span>
+                </div>
+              </button>
+            );
+          })}
+        </div>
+
+        {/* Dot nav only — no arrows */}
+        <div className="flex gap-2">
+          {PHONES.map((_, i) => (
+            <button
+              key={i}
+              type="button"
+              onClick={() => setActive(i)}
+              className="h-1.5 rounded-full transition-all duration-300"
+              style={{
+                width: i === active ? 24 : 6,
+                background: i === active ? "var(--cranberry)" : "var(--warm-gray)",
+                opacity: i === active ? 1 : 0.4,
+              }}
+              aria-label={`Select phone ${i + 1}`}
+            />
+          ))}
+        </div>
+
+        <p
+          className="text-[0.65rem] uppercase tracking-[0.28em]"
+          style={{ color: "var(--warm-gray)", fontFamily: "var(--font-mono), monospace" }}
+        >
+          {active === 1 ? "tap to explore →" : "drag or tap to browse"}
+        </p>
       </div>
-
-      {/* Invisible hotspot overlays mapped to each drawn phone */}
-      {PHONES.map((phone) => {
-        const isHovered = hovered === phone.id;
-        const isComingSoon = comingSoonPhone === phone.id;
-        const isActive = phones.find((p) => p.id === phone.id)?.status === "active";
-
-        return (
-          <button
-            key={phone.id}
-            aria-label={`Select ${phone.name}`}
-            onMouseEnter={() => setHovered(phone.id)}
-            onMouseLeave={() => setHovered(null)}
-            onClick={() => handleClick(phone.id)}
-            className="absolute z-10 transition-all duration-200"
-            style={{
-              left: phone.hotspot.left,
-              top: phone.hotspot.top,
-              width: phone.hotspot.width,
-              height: phone.hotspot.height,
-              background: isHovered
-                ? isActive
-                  ? "rgba(139,38,53,0.07)"
-                  : "rgba(46,38,46,0.04)"
-                : "transparent",
-              border: isHovered
-                ? isActive
-                  ? "1.5px solid rgba(139,38,53,0.3)"
-                  : "1.5px solid rgba(46,38,46,0.12)"
-                : "1.5px solid transparent",
-              borderRadius: 6,
-              cursor: isActive ? "pointer" : "default",
-            }}
-          >
-            {/* "Coming soon" tooltip on stub phones */}
-            {isComingSoon && (
-              <span
-                className="absolute left-1/2 -translate-x-1/2 px-3 py-1 text-xs rounded-full fade-up"
-                style={{
-                  bottom: "calc(100% + 8px)",
-                  fontFamily: "var(--font-mono)",
-                  background: "var(--ink)",
-                  color: "var(--cream)",
-                  whiteSpace: "nowrap",
-                  pointerEvents: "none",
-                }}
-              >
-                coming soon
-              </span>
-            )}
-
-            {/* Hover label for the active phone */}
-            {isHovered && isActive && (
-              <span
-                className="absolute left-1/2 -translate-x-1/2 px-3 py-1 text-xs rounded-full fade-up"
-                style={{
-                  bottom: "calc(100% + 8px)",
-                  fontFamily: "var(--font-mono)",
-                  background: "var(--cranberry)",
-                  color: "var(--cream)",
-                  whiteSpace: "nowrap",
-                  pointerEvents: "none",
-                }}
-              >
-                explore internals →
-              </span>
-            )}
-          </button>
-        );
-      })}
     </main>
   );
 }

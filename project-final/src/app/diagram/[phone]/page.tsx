@@ -8,51 +8,93 @@ const SVG_WIDTH = 2150;
 const SVG_HEIGHT = 1600;
 const LABEL_COLUMN_X = 1000;
 
-type DiagramComponent = {
-  id: string;
-  label: string;
-  mineral: string;
-  labelPos: { x: number; y: number };
+// Per-phone diagram SVG — falls back to components.svg until real art lands
+const DIAGRAM_SVG: Record<string, string> = {
+  iphone: "/illustrations/components.svg",
+  galaxy: "/illustrations/samsung-components.svg",
+  pixel: "/illustrations/pixel-components.svg",
 };
 
-const COMPONENTS: DiagramComponent[] = [
-  {
-    id: "front-camera",
-    label: "Front Camera",
-    mineral: "rare-earths",
-    labelPos: { x: LABEL_COLUMN_X, y: 552 },
+// Label y-positions keyed by phone → component id
+const LABEL_Y: Record<string, Record<string, number>> = {
+  iphone: {
+    "front-camera": 552,
+    "rear-camera": 626,
+    "circuit-board": 738,
+    processor: 818,
+    battery: 964,
+    display: 1106,
   },
-  {
-    id: "rear-camera",
-    label: "Rear Cameras",
-    mineral: "rare-earths",
-    labelPos: { x: LABEL_COLUMN_X, y: 626 },
+  galaxy: {
+    "front-camera": 650,
+    battery: 460,
+    "circuit-board": 550,
+    processor: 880,
+    display: 1100,
   },
-  {
-    id: "circuit-board",
-    label: "Circuit Board",
-    mineral: "tin",
-    labelPos: { x: LABEL_COLUMN_X, y: 738 },
+  pixel: {
+    "front-camera": 552,
+    "rear-camera": 626,
+    "circuit-board": 738,
+    processor: 818,
+    battery: 964,
+    display: 1106,
   },
-  {
-    id: "processor",
-    label: "Processor",
-    mineral: "rare-earths",
-    labelPos: { x: LABEL_COLUMN_X, y: 818 },
+};
+
+// Canonical 6-slot component list per phone, ordered top-to-bottom
+const PHONE_COMPONENTS: Record<string, { id: string; mineral: string }[]> = {
+  iphone: [
+    { id: "front-camera", mineral: "rare-earths" },
+    { id: "rear-camera", mineral: "rare-earths" },
+    { id: "circuit-board", mineral: "tin" },
+    { id: "processor", mineral: "rare-earths" },
+    { id: "battery", mineral: "cobalt" },
+    { id: "display", mineral: "rare-earths" },
+  ],
+  galaxy: [
+    { id: "front-camera", mineral: "rare-earths" },
+    { id: "battery", mineral: "cobalt" },
+    { id: "circuit-board", mineral: "tin" },
+    { id: "processor", mineral: "rare-earths" },
+    { id: "display", mineral: "rare-earths" },
+  ],
+  pixel: [
+    { id: "front-camera", mineral: "rare-earths" },
+    { id: "rear-camera", mineral: "rare-earths" },
+    { id: "circuit-board", mineral: "tin" },
+    { id: "processor", mineral: "rare-earths" },
+    { id: "battery", mineral: "cobalt" },
+    { id: "display", mineral: "rare-earths" },
+  ],
+};
+
+// Phone-specific display labels for the annotated slots
+const SLOT_LABELS: Record<string, Record<string, string>> = {
+  iphone: {
+    "front-camera": "cameras",
+    "rear-camera": "processor",
+    "circuit-board": "logic board",
+    processor: "a18 chip",
+    battery: "battery",
+    display: "oled display",
   },
-  {
-    id: "battery",
-    label: "Battery",
-    mineral: "cobalt",
-    labelPos: { x: LABEL_COLUMN_X, y: 964 },
+  galaxy: {
+    "front-camera": "cameras",
+    battery: "battery",
+    "circuit-board": "circuit board",
+    processor: "processor",
+    display: "display",
   },
-  {
-    id: "display",
-    label: "Display",
-    mineral: "rare-earths",
-    labelPos: { x: LABEL_COLUMN_X, y: 1106 },
+  pixel: {
+    "front-camera": "cameras",
+    "rear-camera": "processor",
+    "circuit-board": "circuit board",
+    processor: "tensor g4",
+    battery: "battery",
+    display: "actua oled",
   },
-];
+};
 
 function toPercentX(value: number) {
   return `${(value / SVG_WIDTH) * 100}%`;
@@ -75,28 +117,32 @@ export default function DiagramPage() {
         className="flex h-screen w-full items-center justify-center"
         style={{ background: "var(--cream)" }}
       >
-        <p style={{ color: "var(--warm-gray)" }}>Phone not found or coming soon.</p>
+        <p style={{ color: "var(--warm-gray)" }}>coming soon.</p>
       </main>
     );
   }
 
+  const svgSrc = DIAGRAM_SVG[phone] ?? "/illustrations/components.svg";
+  const slots = PHONE_COMPONENTS[phone] ?? PHONE_COMPONENTS.iphone;
+  const labels = SLOT_LABELS[phone] ?? SLOT_LABELS.iphone;
+
   return (
     <main
-      className="relative flex h-screen w-full items-center justify-center overflow-hidden"
+      className="page-enter relative flex h-screen w-full items-center justify-center overflow-hidden"
       style={{ background: "var(--cream)" }}
     >
       <button
         onClick={() => router.push("/select")}
         className="absolute left-5 top-5 z-20 text-xs uppercase tracking-widest sm:left-6 sm:top-6"
-        style={{ color: "var(--warm-gray)" }}
+        style={{ color: "var(--warm-gray)", fontFamily: "var(--font-mono), monospace" }}
       >
-        ← Devices
+        ← devices
       </button>
 
       <div className="absolute left-1/2 top-5 z-20 -translate-x-1/2 text-center sm:top-6">
         <p
           className="text-xs uppercase tracking-[0.3em]"
-          style={{ color: "var(--warm-gray)" }}
+          style={{ color: "var(--warm-gray)", fontFamily: "var(--font-mono), monospace" }}
         >
           {phoneData.brand}
         </p>
@@ -112,28 +158,31 @@ export default function DiagramPage() {
             style={{ transform: "translateX(6%) scale(1.06)" }}
           >
             <img
-              src="/illustrations/components.svg"
-              alt="iPhone 16 component diagram"
+              src={svgSrc}
+              alt={`${phoneData.name} component diagram`}
               className="h-full w-full select-none object-contain"
               draggable={false}
             />
 
-            {COMPONENTS.map((component) => {
-              const isActive = hovered === component.id;
+            {slots.map((slot) => {
+              const y = (LABEL_Y[phone] ?? LABEL_Y.iphone)[slot.id];
+              if (y === undefined) return null;
+              const isActive = hovered === slot.id;
+              const label = labels[slot.id] ?? slot.id;
 
               return (
                 <button
-                  key={component.id}
+                  key={slot.id}
                   type="button"
-                  onClick={() => router.push(`/globe/${component.mineral}`)}
-                  onMouseEnter={() => setHovered(component.id)}
+                  onClick={() => router.push(`/globe/${slot.mineral}`)}
+                  onMouseEnter={() => setHovered(slot.id)}
                   onMouseLeave={() => setHovered(null)}
-                  onFocus={() => setHovered(component.id)}
+                  onFocus={() => setHovered(slot.id)}
                   onBlur={() => setHovered(null)}
                   className="absolute z-10 text-left"
                   style={{
-                    left: toPercentX(component.labelPos.x),
-                    top: toPercentY(component.labelPos.y),
+                    left: toPercentX(LABEL_COLUMN_X),
+                    top: toPercentY(y),
                     transform: "translateY(-50%)",
                     border: "none",
                     outline: "none",
@@ -145,16 +194,18 @@ export default function DiagramPage() {
                     className="block whitespace-nowrap rounded-[999px] border px-3 py-1 text-[10px] uppercase tracking-[0.24em] sm:px-3.5 sm:py-1.5 sm:text-xs"
                     style={{
                       color: isActive ? "var(--cream)" : "var(--ink)",
-                      background: isActive ? "var(--cranberry)" : "rgba(250,245,238,0.92)",
+                      background: isActive
+                        ? "var(--cranberry)"
+                        : "rgba(250,245,238,0.92)",
                       borderColor: isActive
                         ? "var(--cranberry)"
                         : "rgba(46,38,46,0.22)",
                       transition:
                         "color 0.15s ease, background-color 0.15s ease, border-color 0.15s ease",
-                      fontFamily: "Georgia, 'Times New Roman', serif",
+                      fontFamily: "var(--font-mono), monospace",
                     }}
                   >
-                    {component.label}
+                    {label}
                   </span>
                 </button>
               );
