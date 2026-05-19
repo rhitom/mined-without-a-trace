@@ -55,14 +55,11 @@ const COMPONENTS: Record<string, CompDef[]> = {
 const DIAGRAM_SVG: Record<string, string> = {
   iphone: "/illustrations/components.svg",
   galaxy: "/illustrations/samsung-components.svg",
-  pixel:  "/illustrations/pixel-components.svg",
+  pixel:  "/illustrations/pixel.png",
 };
 
-// Line draw-in + label fade stagger constants
-const LINE_DURATION  = 600;  // ms
-const LABEL_FADE_IN  = 220;  // ms — duration of ellipse/text fade
-const STAGGER        = 150;  // ms between each label
-const LINE_DASHARRAY = 600;  // SVG units — must exceed longest possible line
+const LABEL_FADE_IN = 220;  // ms
+const STAGGER       = 150;  // ms between each label
 
 export default function DiagramPage() {
   const { phone } = useParams<{ phone: string }>();
@@ -140,11 +137,8 @@ export default function DiagramPage() {
             >
               {comps.map((c, i) => {
                 const isHovered = hovered === c.id;
-                const lineDelay  = ready ? i * STAGGER : 99999;
-                const labelDelay = ready ? i * STAGGER + LINE_DURATION - 80 : 99999;
-
-                // Line endpoint: left edge of ellipse
-                const lineEndX = LX - c.rx - 3;
+                const labelDelay = ready ? i * STAGGER : 99999;
+                const rx = c.rx, ry = c.ry;
 
                 return (
                   <g
@@ -154,43 +148,35 @@ export default function DiagramPage() {
                     onMouseEnter={() => setHovered(c.id)}
                     onMouseLeave={() => setHovered(null)}
                   >
-                    {/* Annotation line — draws in from anchor to ellipse */}
-                    <line
-                      x1={c.ax}
-                      y1={c.ay}
-                      x2={lineEndX}
-                      y2={c.ly}
-                      stroke={isHovered ? "var(--cranberry)" : "var(--ink)"}
-                      strokeWidth={1.2}
-                      strokeDasharray={LINE_DASHARRAY}
-                      strokeDashoffset={ready ? 0 : LINE_DASHARRAY}
+                    {/* Cranberry fill — sweeps left-to-right on hover via clip-path */}
+                    <rect
+                      x={LX - rx}
+                      y={c.ly - ry}
+                      width={rx * 2}
+                      height={ry * 2}
+                      fill="var(--cranberry)"
                       style={{
-                        transition: isHovered ? "stroke 0.15s ease" : undefined,
-                        animation: ready
-                          ? `diagram-draw ${LINE_DURATION}ms ease forwards`
-                          : "none",
-                        animationDelay: `${lineDelay}ms`,
+                        clipPath: isHovered
+                          ? "inset(0 0% 0 0)"
+                          : "inset(0 100% 0 0)",
+                        transition: "clip-path 0.22s ease",
                       }}
                     />
 
-                    {/* Ellipse */}
-                    <ellipse
-                      cx={LX}
-                      cy={c.ly}
-                      rx={c.rx}
-                      ry={c.ry}
-                      fill={isHovered ? "var(--cranberry)" : "var(--cream)"}
-                      stroke={isHovered ? "var(--cranberry)" : "var(--ink)"}
-                      strokeWidth={1.2}
+                    {/* Invisible hit-area rect */}
+                    <rect
+                      x={LX - rx}
+                      y={c.ly - ry}
+                      width={rx * 2}
+                      height={ry * 2}
+                      fill="transparent"
                       style={{
                         opacity: 0,
-                        transition: "fill 0.15s ease, stroke 0.15s ease",
                         animation: ready
                           ? `diagram-fade ${LABEL_FADE_IN}ms ease forwards`
                           : "none",
                         animationDelay: `${labelDelay}ms`,
                       }}
-                      transform={`rotate(${c.rot}, ${LX}, ${c.ly})`}
                     />
 
                     {/* Label text */}
@@ -205,7 +191,7 @@ export default function DiagramPage() {
                       fill={isHovered ? "var(--cream)" : "var(--ink)"}
                       style={{
                         opacity: 0,
-                        transition: "fill 0.15s ease",
+                        transition: "fill 0.22s ease",
                         userSelect: "none",
                         animation: ready
                           ? `diagram-fade ${LABEL_FADE_IN}ms ease forwards`
@@ -218,14 +204,6 @@ export default function DiagramPage() {
                       {c.label}
                     </text>
 
-                    {/* Invisible hit-area — wide enough to catch hovers across the full label+line */}
-                    <rect
-                      x={c.ax - 8}
-                      y={Math.min(c.ay, c.ly) - 20}
-                      width={lineEndX - c.ax + c.rx * 2 + 16}
-                      height={Math.abs(c.ay - c.ly) + 40}
-                      fill="transparent"
-                    />
                   </g>
                 );
               })}
@@ -235,10 +213,6 @@ export default function DiagramPage() {
       </section>
 
       <style>{`
-        @keyframes diagram-draw {
-          from { stroke-dashoffset: ${LINE_DASHARRAY}; }
-          to   { stroke-dashoffset: 0; }
-        }
         @keyframes diagram-fade {
           from { opacity: 0; }
           to   { opacity: 1; }
