@@ -6,7 +6,7 @@ import phones from "@/data/phones.json";
 
 const SVG_W = 2150;
 const SVG_H = 1600;
-const LX = 1050; // label ellipse center X (SVG units)
+const LX = 1100; // label ellipse center X (SVG units)
 
 // ─── Editable per-component config ───────────────────────────────────────────
 // ly  = ellipse center Y (SVG units) — tune to align with diagram
@@ -28,26 +28,26 @@ type CompDef = {
 
 const COMPONENTS: Record<string, CompDef[]> = {
   iphone: [
-    { id: "front-camera",  mineral: "rare-earths", label: "cameras",      ly: 552,  ax: 490, ay: 540,  rx: 92, ry: 26, rot: -2   },
-    { id: "rear-camera",   mineral: "rare-earths", label: "processor",    ly: 626,  ax: 510, ay: 618,  rx: 88, ry: 28, rot:  1.5 },
-    { id: "circuit-board", mineral: "tin",         label: "logic board",  ly: 738,  ax: 480, ay: 728,  rx: 95, ry: 25, rot: -1   },
-    { id: "processor",     mineral: "rare-earths", label: "a18 chip",     ly: 818,  ax: 485, ay: 808,  rx: 90, ry: 27, rot:  2   },
-    { id: "battery",       mineral: "cobalt",      label: "battery",      ly: 964,  ax: 470, ay: 952,  rx: 86, ry: 29, rot: -1.5 },
-    { id: "display",       mineral: "indium",      label: "oled display", ly: 1106, ax: 480, ay: 1094, rx: 93, ry: 26, rot:  1   },
+    { id: "front-camera",  mineral: "rare-earths", label: "cameras",      ly: 550,  ax: 495, ay: 540,  rx: 92, ry: 26, rot: -2   },
+    { id: "rear-camera",   mineral: "rare-earths", label: "processor",    ly: 620,  ax: 515, ay: 618,  rx: 88, ry: 28, rot:  1.5 },
+    { id: "circuit-board", mineral: "tin",         label: "logic board",  ly: 730,  ax: 490, ay: 728,  rx: 95, ry: 25, rot: -1   },
+    { id: "processor",     mineral: "rare-earths", label: "a18 chip",     ly: 818,  ax: 490, ay: 808,  rx: 90, ry: 27, rot:  2   },
+    { id: "battery",       mineral: "cobalt",      label: "battery",      ly: 960,  ax: 470, ay: 952,  rx: 86, ry: 29, rot: -1.5 },
+    { id: "display",       mineral: "indium",      label: "oled display", ly: 1106, ax: 485, ay: 1094, rx: 93, ry: 26, rot:  1   },
   ],
   galaxy: [
-    { id: "front-camera",  mineral: "rare-earths", label: "cameras",       ly: 680,  ax: 640, ay: 668,  rx: 92, ry: 26, rot: -2   },
-    { id: "battery",       mineral: "cobalt",      label: "battery",       ly: 430,  ax: 650, ay: 418,  rx: 88, ry: 28, rot:  1.5 },
-    { id: "circuit-board", mineral: "tin",         label: "circuit board", ly: 555,  ax: 670, ay: 545,  rx: 95, ry: 25, rot: -1   },
-    { id: "processor",     mineral: "rare-earths", label: "processor",     ly: 880,  ax: 745, ay: 868,  rx: 90, ry: 27, rot:  2   },
+    { id: "front-camera",  mineral: "rare-earths", label: "cameras",       ly: 650,  ax: 660, ay: 668,  rx: 92, ry: 26, rot: -2   },
+    { id: "battery",       mineral: "cobalt",      label: "battery",       ly: 400,  ax: 660, ay: 418,  rx: 88, ry: 28, rot:  1.5 },
+    { id: "circuit-board", mineral: "tin",         label: "circuit board", ly: 555,  ax: 690, ay: 545,  rx: 95, ry: 25, rot: -1   },
+    { id: "processor",     mineral: "rare-earths", label: "processor",     ly: 860,  ax: 775, ay: 868,  rx: 90, ry: 27, rot:  2   },
     { id: "display",       mineral: "rare-earths", label: "display",       ly: 1100, ax: 685, ay: 1088, rx: 86, ry: 29, rot: -1.5 },
   ],
   pixel: [
-    { id: "display",      mineral: "indium",      label: "actual oled", ly: 555,  ax: 620, ay: 468,  rx: 93, ry: 26, rot: -2   },
-    { id: "logic-board",  mineral: "tin",         label: "logic board", ly: 690,  ax: 720, ay: 650,  rx: 88, ry: 28, rot:  1.5 },
-    { id: "cameras",      mineral: "rare-earths", label: "cameras",     ly: 790,  ax: 840, ay: 720,  rx: 92, ry: 26, rot: -1   },
-    { id: "processor",    mineral: "rare-earths", label: "tensor g4",   ly: 890,  ax: 765, ay: 820,  rx: 90, ry: 27, rot:  2   },
-    { id: "battery",      mineral: "cobalt",      label: "battery",     ly: 1010, ax: 700, ay: 1010, rx: 86, ry: 29, rot: -1.5 },
+    { id: "display",      mineral: "indium",      label: "actual oled", ly: 555,  ax: 670, ay: 468,  rx: 93, ry: 26, rot: -2   },
+    { id: "logic-board",  mineral: "tin",         label: "logic board", ly: 690,  ax: 770, ay: 650,  rx: 88, ry: 28, rot:  1.5 },
+    { id: "cameras",      mineral: "rare-earths", label: "cameras",     ly: 790,  ax: 890, ay: 720,  rx: 92, ry: 26, rot: -1   },
+    { id: "processor",    mineral: "rare-earths", label: "tensor g4",   ly: 890,  ax: 815, ay: 820,  rx: 90, ry: 27, rot:  2   },
+    { id: "battery",      mineral: "cobalt",      label: "battery",     ly: 1010, ax: 750, ay: 1010, rx: 86, ry: 29, rot: -1.5 },
   ],
 };
 
