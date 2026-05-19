@@ -16,6 +16,7 @@ const DIAGRAM_SVG: Record<string, string> = {
 };
 
 // Label y-positions keyed by phone → component id
+// Pixel values are placeholders — adjust to match pixel-components.svg
 const LABEL_Y: Record<string, Record<string, number>> = {
   iphone: {
     "front-camera": 552,
@@ -33,12 +34,11 @@ const LABEL_Y: Record<string, Record<string, number>> = {
     display: 1100,
   },
   pixel: {
-    "front-camera": 552,
-    "rear-camera": 626,
-    "circuit-board": 738,
-    processor: 818,
-    battery: 964,
-    display: 1106,
+    display: 480,
+    "logic-board": 640,
+    cameras: 780,
+    processor: 920,
+    battery: 1060,
   },
 };
 
@@ -60,12 +60,11 @@ const PHONE_COMPONENTS: Record<string, { id: string; mineral: string }[]> = {
     { id: "display", mineral: "rare-earths" },
   ],
   pixel: [
-    { id: "front-camera", mineral: "rare-earths" },
-    { id: "rear-camera", mineral: "rare-earths" },
-    { id: "circuit-board", mineral: "tin" },
-    { id: "processor", mineral: "rare-earths" },
-    { id: "battery", mineral: "cobalt" },
-    { id: "display", mineral: "rare-earths" },
+    { id: "display",     mineral: "rare-earths" },
+    { id: "logic-board", mineral: "tin" },
+    { id: "cameras",     mineral: "rare-earths" },
+    { id: "processor",   mineral: "rare-earths" },
+    { id: "battery",     mineral: "cobalt" },
   ],
 };
 
@@ -87,12 +86,11 @@ const SLOT_LABELS: Record<string, Record<string, string>> = {
     display: "display",
   },
   pixel: {
-    "front-camera": "cameras",
-    "rear-camera": "processor",
-    "circuit-board": "circuit board",
-    processor: "tensor g4",
-    battery: "battery",
-    display: "actua oled",
+    display:      "actua oled",
+    "logic-board": "logic board",
+    cameras:      "cameras",
+    processor:    "tensor g4",
+    battery:      "battery",
   },
 };
 
