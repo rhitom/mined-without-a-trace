@@ -30,7 +30,6 @@ const PANELS = [
     ty: "9%",
     maxH: "56vh",
   },
-  // Last panel — expands to fill the page
   {
     src: "/illustrations/prologue-b.png",
     alt: "Desk with laptop showing InsideScoop",
@@ -48,10 +47,14 @@ const SPLOTS = [
 ];
 
 const LAST = PANELS.length - 1;
+// Slight settle: tiny overshoot that reads as physical weight, not a bounce
+const SETTLE = "cubic-bezier(0.34, 1.06, 0.64, 1)";
 
 export default function ProloguePage() {
   const router = useRouter();
   const [revealedCount, setRevealedCount] = useState(0);
+  // "expanding" = fullscreen overlay is fading in; "lastExpanded" = it's fully there
+  const [expanding, setExpanding] = useState(false);
   const [lastExpanded, setLastExpanded] = useState(false);
   const [exiting, setExiting] = useState(false);
 
@@ -62,33 +65,36 @@ export default function ProloguePage() {
     });
   }, []);
 
-  // First panel drops in automatically
+  // First panel drops automatically
   useEffect(() => {
     const t = setTimeout(() => setRevealedCount(1), 400);
     return () => clearTimeout(t);
   }, []);
 
-  // When all panels revealed, expand the last one after a beat
-  useEffect(() => {
-    if (revealedCount < PANELS.length) return;
-    const t = setTimeout(() => setLastExpanded(true), 150);
-    return () => clearTimeout(t);
-  }, [revealedCount]);
-
   function handleClick() {
-    if (exiting) return;
+    if (exiting || expanding) return;
 
-    // Exit: zoom-fade the last panel out, then navigate
     if (lastExpanded) {
+      // Fade entire page out, then navigate
       setExiting(true);
-      setTimeout(() => router.push("/select"), 750);
+      setTimeout(() => router.push("/select"), 850);
       return;
     }
 
-    if (revealedCount < PANELS.length) {
-      setRevealedCount((c) => c + 1);
+    if (revealedCount === PANELS.length) {
+      // All photos down — expand last one to fullscreen via overlay crossfade
+      setExpanding(true);
+      setTimeout(() => {
+        setLastExpanded(true);
+        setExpanding(false);
+      }, 950);
+      return;
     }
+
+    setRevealedCount((c) => c + 1);
   }
+
+  const showHint = revealedCount > 0 && !lastExpanded && !expanding;
 
   return (
     <main
@@ -100,9 +106,12 @@ export default function ProloguePage() {
         position: "relative",
         background: BG,
         cursor: "pointer",
+        // Whole-page fade-out on exit
+        opacity: exiting ? 0 : 1,
+        transition: exiting ? "opacity 0.8s ease" : undefined,
       }}
     >
-      {/* SVG filter for ink splots only */}
+      {/* SVG filter for ink splots */}
       <svg style={{ position: "absolute", width: 0, height: 0, overflow: "hidden" }}>
         <defs>
           <filter id="splot" x="-20%" y="-20%" width="140%" height="140%">
@@ -141,9 +150,13 @@ export default function ProloguePage() {
         </svg>
       ))}
 
-      {/* Panels 1–3: scattered, natural aspect ratio */}
-      {PANELS.slice(0, LAST).map((panel, i) => {
+      {/* All four scattered photos */}
+      {PANELS.map((panel, i) => {
         const isVisible = i < revealedCount;
+        const isLast = i === LAST;
+        // Hide the last scattered photo once the fullscreen overlay is live
+        const hiddenByExpansion = isLast && lastExpanded;
+
         return (
           <div
             key={panel.src}
@@ -154,10 +167,10 @@ export default function ProloguePage() {
               width: "fit-content",
               transform: isVisible
                 ? `translate(-50%, -50%) rotate(${panel.rotate}deg)`
-                : `translate(-50%, -140%) rotate(${panel.rotate * 0.4}deg)`,
-              opacity: isVisible ? 1 : 0,
+                : `translate(-50%, -145%) rotate(${panel.rotate * 0.4}deg)`,
+              opacity: isVisible && !hiddenByExpansion ? 1 : 0,
               transition: isVisible
-                ? "opacity 0.6s ease-out, transform 0.8s ease-out"
+                ? `opacity 0.55s ease, transform 0.85s ${SETTLE}`
                 : "none",
               zIndex: i + 1,
               pointerEvents: "none",
@@ -172,6 +185,8 @@ export default function ProloguePage() {
                 width: "auto",
                 display: "block",
                 userSelect: "none",
+                // Soft shadow lifts photo off cream background
+                filter: "drop-shadow(0 6px 20px rgba(46,38,46,0.16)) drop-shadow(0 2px 5px rgba(46,38,46,0.10))",
               }}
             />
             <PanelNumber n={i + 1} />
@@ -179,81 +194,60 @@ export default function ProloguePage() {
         );
       })}
 
-      {/* Panel 4: drops in as scattered photo, then expands to fill page */}
-      {(() => {
-        const panel = PANELS[LAST];
-        const isVisible = revealedCount >= PANELS.length;
-        return (
-          <div
-            key={panel.src}
+      {/* Fullscreen overlay — fades in when user clicks to expand last panel */}
+      {(expanding || lastExpanded) && (
+        <div
+          style={{
+            position: "absolute",
+            inset: 0,
+            zIndex: 20,
+            pointerEvents: "none",
+            opacity: lastExpanded ? 1 : 0,
+            transform: lastExpanded ? "scale(1)" : "scale(1.04)",
+            transition: "opacity 0.9s ease, transform 0.9s ease",
+          }}
+        >
+          <img
+            src={PANELS[LAST].src}
+            alt={PANELS[LAST].alt}
+            draggable={false}
             style={{
-              position: "absolute",
-              left: lastExpanded ? 0 : `calc(50% + ${panel.tx})`,
-              top: lastExpanded ? 0 : `calc(50% + ${panel.ty})`,
-              width: lastExpanded ? "100vw" : "fit-content",
-              height: lastExpanded ? "100vh" : "auto",
-              transform: exiting
-                ? "scale(1.07)"
-                : lastExpanded
-                  ? "none"
-                  : isVisible
-                    ? `translate(-50%, -50%) rotate(${panel.rotate}deg)`
-                    : `translate(-50%, -140%) rotate(${panel.rotate * 0.4}deg)`,
-              opacity: exiting ? 0 : isVisible ? 1 : 0,
-              transition: isVisible
-                ? exiting
-                  ? "opacity 0.65s ease, transform 0.65s ease"
-                  : lastExpanded
-                    ? "left 0.9s ease-out, top 0.9s ease-out, width 0.9s ease-out, height 0.9s ease-out, transform 0.9s ease-out"
-                    : "opacity 0.6s ease-out, transform 0.8s ease-out"
-                : "none",
-              zIndex: lastExpanded ? 15 : LAST + 1,
-              pointerEvents: "none",
+              width: "100%",
+              height: "100%",
+              objectFit: "cover",
+              objectPosition: "center center",
+              display: "block",
+              userSelect: "none",
             }}
-          >
-            <img
-              src={panel.src}
-              alt={panel.alt}
-              draggable={false}
+          />
+
+          {lastExpanded && (
+            <p
               style={{
-                width: lastExpanded ? "100%" : "auto",
-                height: lastExpanded ? "100%" : panel.maxH,
-                objectFit: lastExpanded ? "cover" : undefined,
-                objectPosition: "center center",
-                display: "block",
+                position: "absolute",
+                bottom: 28,
+                left: "50%",
+                transform: "translateX(-50%)",
+                fontFamily: "var(--font-mono), monospace",
+                fontSize: "0.6rem",
+                letterSpacing: "0.28em",
+                textTransform: "uppercase",
+                color: "#EDE8DC",
+                opacity: 0.65,
+                pointerEvents: "none",
                 userSelect: "none",
+                whiteSpace: "nowrap",
+                textShadow: "0 1px 6px rgba(0,0,0,0.4)",
               }}
-            />
-            {!lastExpanded && <PanelNumber n={PANELS.length} />}
+            >
+              click to continue →
+            </p>
+          )}
+        </div>
+      )}
 
-            {lastExpanded && !exiting && (
-              <p
-                style={{
-                  position: "absolute",
-                  bottom: 28,
-                  left: "50%",
-                  transform: "translateX(-50%)",
-                  fontFamily: "var(--font-mono), monospace",
-                  fontSize: "0.6rem",
-                  letterSpacing: "0.28em",
-                  textTransform: "uppercase",
-                  color: "#EDE8DC",
-                  opacity: 0.7,
-                  pointerEvents: "none",
-                  userSelect: "none",
-                  whiteSpace: "nowrap",
-                  textShadow: "0 1px 6px rgba(0,0,0,0.35)",
-                }}
-              >
-                click to continue →
-              </p>
-            )}
-          </div>
-        );
-      })()}
-
-      {/* "click to continue" hint while still revealing */}
-      {revealedCount > 0 && !lastExpanded && (
+      {/* Hint text */}
+      {showHint && (
         <p
           style={{
             position: "absolute",
@@ -265,7 +259,7 @@ export default function ProloguePage() {
             letterSpacing: "0.28em",
             textTransform: "uppercase",
             color: "var(--ink)",
-            opacity: 0.35,
+            opacity: 0.32,
             pointerEvents: "none",
             userSelect: "none",
             whiteSpace: "nowrap",
@@ -290,7 +284,7 @@ function PanelNumber({ n }: { n: number }) {
         fontSize: "0.55rem",
         letterSpacing: "0.18em",
         color: "#1a1218",
-        opacity: 0.35,
+        opacity: 0.32,
         pointerEvents: "none",
         userSelect: "none",
       }}
