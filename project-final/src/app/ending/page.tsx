@@ -6,7 +6,7 @@ import { useState, useEffect, useRef } from "react";
 const BLOCKS = [
   "In 2025, after the Democratic Republic of the Congo filed a suit against the tech giant, Apple began a transition to MP Materials. A vertically integrated domestic minerals supplier, MP Materials sources minerals from deposits in California, refining them onsite.",
   "Samsung and Pixel have long since outpaced Apple in sustainability practices. Samsung is beginning to source materials locally, and claims their Cobalt and Coltan is conflict-free, although from what we’ve seen, that might be difficult to imagine. Google uses 36% recycled minerals in their Pixel 10, sourcing from MP Materials as well.",
-  "Things are changing for the better. Pressure works.\n\nNow that you know what’s in your phone, what will you choose?",
+  "Things are changing for the better. Pressure works. Now that you know what’s in your phone, what will you choose?",
 ];
 
 const ORGS = [
@@ -109,7 +109,7 @@ export default function EndingPage() {
   return (
     <main
       className="page-enter relative flex h-screen w-full overflow-hidden"
-      style={{ background: "var(--cream)", cursor: allDone ? "default" : "pointer" }}
+      style={{ background: "#EDE8DC", cursor: allDone ? "default" : "pointer" }}
       onClick={handleClick}
     >
       {/* Nav */}
@@ -121,9 +121,9 @@ export default function EndingPage() {
         ← back
       </button>
 
-      {/* Left — illustration */}
+      {/* Left — illustration, cropped to content */}
       <div
-        className="flex h-full w-[45%] flex-shrink-0 items-center justify-center"
+        className="relative h-full w-[48%] flex-shrink-0 overflow-hidden"
         style={{
           opacity: illustReady ? 1 : 0,
           transition: `opacity ${ILLUS_FADE_MS}ms ease`,
@@ -132,8 +132,9 @@ export default function EndingPage() {
         <img
           src="/illustrations/final.png"
           alt="A brand new iPhone in its box"
-          className="w-[72%] select-none object-contain"
+          className="absolute inset-0 h-full w-full select-none object-cover object-left-top"
           draggable={false}
+          style={{ transform: "scale(1.12)", transformOrigin: "left top" }}
         />
       </div>
 
@@ -194,7 +195,7 @@ export default function EndingPage() {
           {orgsVisible && (
             <div
               className="mt-10"
-              style={{ opacity: 0, animation: "diagram-fade 0.9s ease 0.1s forwards" }}
+              style={{ opacity: 0, animation: "ending-fade 0.9s ease 0.1s forwards" }}
               onClick={(e) => e.stopPropagation()}
             >
               <div
@@ -219,8 +220,8 @@ export default function EndingPage() {
                     onClick={(e) => e.stopPropagation()}
                   >
                     <span
-                      className="text-[0.68rem] font-semibold uppercase tracking-[0.14em] transition-colors duration-200 group-hover:text-[#8B2635]"
-                      style={{ color: "var(--ink)", fontFamily: "var(--font-mono), monospace" }}
+                      className="text-[0.68rem] font-semibold uppercase tracking-[0.14em] transition-colors duration-200 group-hover:opacity-70"
+                      style={{ color: "var(--cranberry)", fontFamily: "var(--font-mono), monospace" }}
                     >
                       {org.name}
                     </span>
@@ -242,6 +243,10 @@ export default function EndingPage() {
         @keyframes cursor-blink {
           0%, 100% { opacity: 0.35; }
           50%       { opacity: 0; }
+        }
+        @keyframes ending-fade {
+          from { opacity: 0; transform: translateY(6px); }
+          to   { opacity: 1; transform: translateY(0); }
         }
       `}</style>
     </main>
