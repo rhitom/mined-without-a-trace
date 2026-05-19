@@ -125,7 +125,7 @@ export default function GlobeView({
     canvas.height = 2;
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
-    ctx.fillStyle = "#FAF5EE";
+    ctx.fillStyle = "#DDD0BB";
     ctx.fillRect(0, 0, 2, 2);
     setCreamTexture(canvas.toDataURL());
   }, []);
@@ -163,7 +163,7 @@ export default function GlobeView({
     if (!globe) return;
     const step = supplyChain[activeStepIndex];
     if (!step) return;
-    globe.pointOfView({ lat: step.lat, lng: step.lng, altitude: 1.7 }, 1100);
+    globe.pointOfView({ lat: step.lat, lng: step.lng, altitude: 1.4 }, 1100);
   }, [activeStepIndex, supplyChain]);
 
   const arcs = supplyChain.slice(0, -1).map((_, i) => ({
@@ -189,9 +189,9 @@ export default function GlobeView({
       globeImageUrl={creamTexture || undefined}
       // Country polygon outlines — parchment land on cream ocean
       polygonsData={countries.features}
-      polygonCapColor={() => "#D4C9B0"}
+      polygonCapColor={() => "#B8A98A"}
       polygonSideColor={() => "rgba(0,0,0,0)"}
-      polygonStrokeColor={() => "rgba(46,38,46,0.45)"}
+      polygonStrokeColor={() => "rgba(46,38,46,0.50)"}
       polygonAltitude={0.003}
       // HTML icon markers
       htmlElementsData={htmlPins}
