@@ -78,14 +78,15 @@ export default function GlobePage() {
       <div
         className="absolute left-0 right-0 top-0 z-10 px-8 pt-6 pb-5"
         style={{
-          background: "linear-gradient(to bottom, rgba(221,208,187,0.97) 58%, rgba(221,208,187,0))",
+          background: "var(--cream)",
+          borderBottom: "1px solid rgba(46,38,46,0.10)",
         }}
       >
         <div className="flex items-center justify-between">
           <button
             onClick={() => router.back()}
             className="text-[0.65rem] uppercase tracking-[0.28em] transition-opacity hover:opacity-50"
-            style={{ color: "var(--warm-gray)", fontFamily: "var(--font-mono), monospace" }}
+            style={{ color: "var(--ink)", fontFamily: "var(--font-mono), monospace" }}
           >
             ← back
           </button>
@@ -100,7 +101,7 @@ export default function GlobePage() {
               </h1>
               <span
                 className="text-[0.7rem] uppercase tracking-[0.32em]"
-                style={{ color: "var(--warm-gray)", fontFamily: "var(--font-mono), monospace" }}
+                style={{ color: "var(--ink)", fontFamily: "var(--font-mono), monospace", opacity: 0.5 }}
               >
                 {mineral.formula}
               </span>
@@ -122,8 +123,11 @@ export default function GlobePage() {
           <div style={{ width: 48 }} />
         </div>
 
+        {/* Divider */}
+        <div style={{ height: 1, background: "rgba(46,38,46,0.08)", margin: "12px 0 0" }} />
+
         {/* Pipeline */}
-        <div className="mt-4 flex items-start justify-center">
+        <div className="mt-3 flex items-start justify-center">
           <div className="flex items-start">
             {mineral.supplyChain.map((step, i) => {
               const isActive = i === activeStep && cardOpen;

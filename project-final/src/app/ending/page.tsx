@@ -109,7 +109,7 @@ export default function EndingPage() {
   return (
     <main
       className="page-enter relative flex h-screen w-full overflow-hidden"
-      style={{ background: "#EDE8DC", cursor: allDone ? "default" : "pointer" }}
+      style={{ background: "var(--cream)", cursor: allDone ? "default" : "pointer" }}
       onClick={handleClick}
     >
       {/* Nav */}

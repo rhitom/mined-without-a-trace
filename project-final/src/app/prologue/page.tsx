@@ -3,7 +3,7 @@
 import { useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
 
-const BG = "#EDE8DC";
+const BG = "#FAF5EE";
 
 const PANELS = [
   {
@@ -232,7 +232,7 @@ export default function ProloguePage() {
                 fontSize: "0.6rem",
                 letterSpacing: "0.28em",
                 textTransform: "uppercase",
-                color: "#EDE8DC",
+                color: "var(--warm-gray)",
                 opacity: 0.65,
                 pointerEvents: "none",
                 userSelect: "none",
