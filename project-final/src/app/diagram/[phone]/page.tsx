@@ -28,12 +28,12 @@ type CompDef = {
 
 const COMPONENTS: Record<string, CompDef[]> = {
   iphone: [
-    { id: "front-camera",  mineral: "rare-earths", label: "cameras",      ly: 552,  ax: 640, ay: 540,  rx: 92, ry: 26, rot: -2   },
-    { id: "rear-camera",   mineral: "rare-earths", label: "processor",    ly: 626,  ax: 670, ay: 618,  rx: 88, ry: 28, rot:  1.5 },
-    { id: "circuit-board", mineral: "tin",         label: "logic board",  ly: 738,  ax: 620, ay: 728,  rx: 95, ry: 25, rot: -1   },
-    { id: "processor",     mineral: "rare-earths", label: "a18 chip",     ly: 818,  ax: 665, ay: 808,  rx: 90, ry: 27, rot:  2   },
-    { id: "battery",       mineral: "cobalt",      label: "battery",      ly: 964,  ax: 600, ay: 952,  rx: 86, ry: 29, rot: -1.5 },
-    { id: "display",       mineral: "rare-earths", label: "oled display", ly: 1106, ax: 635, ay: 1094, rx: 93, ry: 26, rot:  1   },
+    { id: "front-camera",  mineral: "rare-earths", label: "cameras",      ly: 552,  ax: 490, ay: 540,  rx: 92, ry: 26, rot: -2   },
+    { id: "rear-camera",   mineral: "rare-earths", label: "processor",    ly: 626,  ax: 510, ay: 618,  rx: 88, ry: 28, rot:  1.5 },
+    { id: "circuit-board", mineral: "tin",         label: "logic board",  ly: 738,  ax: 480, ay: 728,  rx: 95, ry: 25, rot: -1   },
+    { id: "processor",     mineral: "rare-earths", label: "a18 chip",     ly: 818,  ax: 485, ay: 808,  rx: 90, ry: 27, rot:  2   },
+    { id: "battery",       mineral: "cobalt",      label: "battery",      ly: 964,  ax: 470, ay: 952,  rx: 86, ry: 29, rot: -1.5 },
+    { id: "display",       mineral: "rare-earths", label: "oled display", ly: 1106, ax: 480, ay: 1094, rx: 93, ry: 26, rot:  1   },
   ],
   galaxy: [
     { id: "front-camera",  mineral: "rare-earths", label: "cameras",       ly: 650,  ax: 640, ay: 638,  rx: 92, ry: 26, rot: -2   },
