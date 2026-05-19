@@ -79,7 +79,6 @@ export default function GlobePage() {
         className="absolute left-0 right-0 top-0 z-10 px-8 pt-6 pb-5"
         style={{
           background: "var(--cream)",
-          borderBottom: "1px solid rgba(46,38,46,0.10)",
         }}
       >
         <div className="flex items-center justify-between">
