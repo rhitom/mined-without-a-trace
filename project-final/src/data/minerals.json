@@ -12,11 +12,11 @@
       "lng": 25.4656
     },
     "supplyChain": [
-      { "label": "Artisanal Mine", "lat": -10.7148, "lng": 25.4656 },
-      { "label": "Smelter", "lat": 22.5431, "lng": 114.0579 },
-      { "label": "Battery Factory", "lat": 31.2304, "lng": 121.4737 },
-      { "label": "Assembly", "lat": 24.4798, "lng": 118.0894 },
-      { "label": "Consumer", "lat": 41.8781, "lng": -87.6298 }
+      { "label": "Artisanal Mine", "locationLabel": "Kolwezi, DRC", "pinType": "mine", "lat": -10.7148, "lng": 25.4656 },
+      { "label": "Smelter", "locationLabel": "Shenzhen, China", "pinType": "refinery", "lat": 22.5431, "lng": 114.0579 },
+      { "label": "Battery Factory", "locationLabel": "Shanghai, China", "pinType": "factory", "lat": 31.2304, "lng": 121.4737 },
+      { "label": "Assembly", "locationLabel": "Zhengzhou, China", "pinType": "factory", "lat": 24.4798, "lng": 118.0894 },
+      { "label": "Consumer", "locationLabel": "Chicago, USA", "pinType": "consumer", "lat": 41.8781, "lng": -87.6298 }
     ],
     "cards": [
       {
@@ -54,11 +54,11 @@
       "lng": 29.0
     },
     "supplyChain": [
-      { "label": "Coltan Mine", "lat": -1.5, "lng": 29.0 },
-      { "label": "Smelter", "lat": 35.6762, "lng": 139.6503 },
-      { "label": "Component Fab", "lat": 35.0116, "lng": 135.7681 },
-      { "label": "Assembly", "lat": 24.4798, "lng": 118.0894 },
-      { "label": "Consumer", "lat": 51.5074, "lng": -0.1278 }
+      { "label": "Coltan Mine", "locationLabel": "North Kivu, DRC", "pinType": "mine", "lat": -1.5, "lng": 29.0 },
+      { "label": "Smelter", "locationLabel": "Tokyo, Japan", "pinType": "refinery", "lat": 35.6762, "lng": 139.6503 },
+      { "label": "Component Fab", "locationLabel": "Kyoto, Japan", "pinType": "factory", "lat": 35.0116, "lng": 135.7681 },
+      { "label": "Assembly", "locationLabel": "Zhengzhou, China", "pinType": "factory", "lat": 24.4798, "lng": 118.0894 },
+      { "label": "Consumer", "locationLabel": "London, UK", "pinType": "consumer", "lat": 51.5074, "lng": -0.1278 }
     ],
     "cards": [
       {
@@ -96,11 +96,11 @@
       "lng": 28.6
     },
     "supplyChain": [
-      { "label": "Wolframite Mine", "lat": -2.8, "lng": 28.6 },
-      { "label": "Processing", "lat": 25.0, "lng": 102.7 },
-      { "label": "Motor Factory", "lat": 22.3, "lng": 114.2 },
-      { "label": "Assembly", "lat": 24.4798, "lng": 118.0894 },
-      { "label": "Consumer", "lat": 40.7128, "lng": -74.006 }
+      { "label": "Wolframite Mine", "locationLabel": "South Kivu, DRC", "pinType": "mine", "lat": -2.8, "lng": 28.6 },
+      { "label": "Processing", "locationLabel": "Yunnan, China", "pinType": "refinery", "lat": 25.0, "lng": 102.7 },
+      { "label": "Motor Factory", "locationLabel": "Shenzhen, China", "pinType": "factory", "lat": 22.3, "lng": 114.2 },
+      { "label": "Assembly", "locationLabel": "Zhengzhou, China", "pinType": "factory", "lat": 24.4798, "lng": 118.0894 },
+      { "label": "Consumer", "locationLabel": "New York, USA", "pinType": "consumer", "lat": 40.7128, "lng": -74.006 }
     ],
     "cards": [
       {
@@ -138,11 +138,11 @@
       "lng": 30.0
     },
     "supplyChain": [
-      { "label": "Artisanal Mine", "lat": 1.8, "lng": 30.0 },
-      { "label": "Refinery", "lat": 1.3521, "lng": 103.8198 },
-      { "label": "Plating", "lat": 35.6762, "lng": 139.6503 },
-      { "label": "Assembly", "lat": 24.4798, "lng": 118.0894 },
-      { "label": "Consumer", "lat": 37.7749, "lng": -122.4194 }
+      { "label": "Artisanal Mine", "locationLabel": "Ituri, DRC", "pinType": "mine", "lat": 1.8, "lng": 30.0 },
+      { "label": "Refinery", "locationLabel": "Singapore", "pinType": "refinery", "lat": 1.3521, "lng": 103.8198 },
+      { "label": "Plating", "locationLabel": "Tokyo, Japan", "pinType": "factory", "lat": 35.6762, "lng": 139.6503 },
+      { "label": "Assembly", "locationLabel": "Zhengzhou, China", "pinType": "factory", "lat": 24.4798, "lng": 118.0894 },
+      { "label": "Consumer", "locationLabel": "San Francisco, USA", "pinType": "consumer", "lat": 37.7749, "lng": -122.4194 }
     ],
     "cards": [
       {
@@ -180,11 +180,11 @@
       "lng": 27.5
     },
     "supplyChain": [
-      { "label": "Cassiterite Mine", "lat": -3.5, "lng": 27.5 },
-      { "label": "Smelter", "lat": -7.9558, "lng": 112.6131 },
-      { "label": "Solder Fab", "lat": 22.5431, "lng": 114.0579 },
-      { "label": "Assembly", "lat": 24.4798, "lng": 118.0894 },
-      { "label": "Consumer", "lat": 48.8566, "lng": 2.3522 }
+      { "label": "Cassiterite Mine", "locationLabel": "South Kivu, DRC", "pinType": "mine", "lat": -3.5, "lng": 27.5 },
+      { "label": "Smelter", "locationLabel": "East Java, Indonesia", "pinType": "refinery", "lat": -7.9558, "lng": 112.6131 },
+      { "label": "Solder Fab", "locationLabel": "Shenzhen, China", "pinType": "factory", "lat": 22.5431, "lng": 114.0579 },
+      { "label": "Assembly", "locationLabel": "Zhengzhou, China", "pinType": "factory", "lat": 24.4798, "lng": 118.0894 },
+      { "label": "Consumer", "locationLabel": "Paris, France", "pinType": "consumer", "lat": 48.8566, "lng": 2.3522 }
     ],
     "cards": [
       {
@@ -222,11 +222,11 @@
       "lng": 109.9667
     },
     "supplyChain": [
-      { "label": "REE Mine", "lat": 41.7667, "lng": 109.9667 },
-      { "label": "Separation Plant", "lat": 40.8077, "lng": 111.6543 },
-      { "label": "Display / Chip Fab", "lat": 37.5665, "lng": 126.978 },
-      { "label": "Assembly", "lat": 24.4798, "lng": 118.0894 },
-      { "label": "Consumer", "lat": 34.0522, "lng": -118.2437 }
+      { "label": "REE Mine", "locationLabel": "Bayan Obo, China", "pinType": "mine", "lat": 41.7667, "lng": 109.9667 },
+      { "label": "Separation Plant", "locationLabel": "Baotou, China", "pinType": "refinery", "lat": 40.8077, "lng": 111.6543 },
+      { "label": "Display / Chip Fab", "locationLabel": "Seoul, South Korea", "pinType": "factory", "lat": 37.5665, "lng": 126.978 },
+      { "label": "Assembly", "locationLabel": "Zhengzhou, China", "pinType": "factory", "lat": 24.4798, "lng": 118.0894 },
+      { "label": "Consumer", "locationLabel": "Los Angeles, USA", "pinType": "consumer", "lat": 34.0522, "lng": -118.2437 }
     ],
     "cards": [
       {

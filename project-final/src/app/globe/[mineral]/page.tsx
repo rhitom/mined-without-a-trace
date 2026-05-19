@@ -4,6 +4,7 @@ import { useParams, useRouter } from "next/navigation";
 import dynamic from "next/dynamic";
 import { useState } from "react";
 import minerals from "@/data/minerals.json";
+import { GLOBE_CARDS } from "@/data/globe-cards";
 
 const GlobeView = dynamic(() => import("@/components/GlobeView"), { ssr: false });
 
@@ -37,7 +38,8 @@ export default function GlobePage() {
   }
 
   const color = MINERAL_COLORS[mineralId] || "var(--cranberry)";
-  const card = mineral.cards[activeCard];
+  const cards = GLOBE_CARDS[mineralId] ?? mineral.cards;
+  const card = cards[activeCard];
 
   return (
     <main
@@ -66,7 +68,7 @@ export default function GlobePage() {
         className="absolute left-0 right-0 top-0 z-10 px-6 pt-5 pb-6"
         style={{
           background:
-            "linear-gradient(to bottom, rgba(253,247,238,0.98) 65%, rgba(253,247,238,0))",
+            "linear-gradient(to bottom, rgba(232,222,208,0.98) 65%, rgba(232,222,208,0))",
         }}
       >
         {/* Row 1: nav + mineral identity + panel toggle */}
@@ -229,7 +231,7 @@ export default function GlobePage() {
         className="card-scroll absolute right-0 top-0 z-10 flex h-full flex-col overflow-y-auto"
         style={{
           width: 340,
-          background: "rgba(253,247,238,0.98)",
+          background: "rgba(232,222,208,0.98)",
           backdropFilter: "blur(20px)",
           borderLeft: "1px solid rgba(46,38,46,0.08)",
           transform: panelOpen ? "translateX(0)" : "translateX(100%)",
@@ -239,7 +241,7 @@ export default function GlobePage() {
         <div className="flex flex-1 flex-col px-8 pb-8 pt-24">
           {/* Dot nav */}
           <div className="mb-6 flex items-center gap-3">
-            {mineral.cards.map((_, i) => (
+            {cards.map((_, i) => (
               <button
                 key={i}
                 onClick={() => setActiveCard(i)}
@@ -257,7 +259,7 @@ export default function GlobePage() {
               className="ml-auto text-[0.6rem] uppercase tracking-[0.2em]"
               style={{ color: "var(--warm-gray)", fontFamily: "var(--font-mono), monospace" }}
             >
-              {activeCard + 1} / {mineral.cards.length}
+              {activeCard + 1} / {cards.length}
             </span>
           </div>
 
@@ -322,7 +324,7 @@ export default function GlobePage() {
               ← prev
             </button>
             <button
-              onClick={() => setActiveCard((v) => Math.min(mineral.cards.length - 1, v + 1))}
+              onClick={() => setActiveCard((v) => Math.min(cards.length - 1, v + 1))}
               disabled={activeCard === mineral.cards.length - 1}
               className="flex-1 py-2.5 text-[0.65rem] uppercase tracking-[0.25em] transition-all hover:bg-[rgba(46,38,46,0.04)] disabled:opacity-20"
               style={{
