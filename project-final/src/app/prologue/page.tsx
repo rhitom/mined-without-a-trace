@@ -3,43 +3,59 @@
 import { useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
 
-// Background color sampled from the prologue illustrations
 const BG = "#EDE8DC";
 
+// Each panel has a fixed rotation + offset so they look casually scattered.
+// landed: whether the drop animation has fired.
 const PANELS = [
   {
     src: "/illustrations/prologue-e.png",
     alt: "Feet tripping on a phone",
-    objectPosition: "center center",
+    rotate: -4,
+    tx: "-6%",
+    ty: "-4%",
+    scale: 0.52,
+    delay: 0,
   },
   {
     src: "/illustrations/prologue-d.png",
     alt: "Hand dropping the phone",
-    objectPosition: "center center",
+    rotate: 2.5,
+    tx: "5%",
+    ty: "2%",
+    scale: 0.48,
+    delay: 220,
   },
   {
     src: "/illustrations/prologue-c.png",
     alt: "Cracked phone in a sewer grate",
-    objectPosition: "center center",
+    rotate: -2,
+    tx: "-3%",
+    ty: "5%",
+    scale: 0.50,
+    delay: 460,
   },
   {
     src: "/illustrations/prologue-b.png",
     alt: "Desk with laptop showing InsideScoop",
-    objectPosition: "center center",
+    rotate: 3.5,
+    tx: "4%",
+    ty: "-3%",
+    scale: 0.46,
+    delay: 700,
   },
 ];
 
-type Mode = "grid" | "zoomed";
+type Mode = "scatter" | "zoomed";
 
 export default function ProloguePage() {
   const router = useRouter();
-  const [mode, setMode] = useState<Mode>("grid");
+  const [mode, setMode] = useState<Mode>("scatter");
   const [zoomedIndex, setZoomedIndex] = useState(0);
   const [transitioning, setTransitioning] = useState(false);
-  const [visible, setVisible] = useState([false, false, false, false]);
-  const [hintVisible, setHintVisible] = useState(true);
+  const [landed, setLanded] = useState([false, false, false, false]);
 
-  // Preload all panel images upfront
+  // Preload all panel images
   useEffect(() => {
     PANELS.forEach((p) => {
       const img = new window.Image();
@@ -47,12 +63,12 @@ export default function ProloguePage() {
     });
   }, []);
 
-  // Stagger panels in on mount
+  // Stagger panels dropping in
   useEffect(() => {
-    const timers = PANELS.map((_, i) =>
+    const timers = PANELS.map((p, i) =>
       setTimeout(
-        () => setVisible((v) => { const n = [...v]; n[i] = true; return n; }),
-        80 + i * 160
+        () => setLanded((v) => { const n = [...v]; n[i] = true; return n; }),
+        p.delay + 120
       )
     );
     return () => timers.forEach(clearTimeout);
@@ -68,7 +84,6 @@ export default function ProloguePage() {
   }
 
   function clickPanel(i: number) {
-    setHintVisible(false);
     wipe(() => {
       setZoomedIndex(i);
       setMode("zoomed");
@@ -76,7 +91,6 @@ export default function ProloguePage() {
   }
 
   function advanceZoomed() {
-    setHintVisible(false);
     wipe(() => {
       if (zoomedIndex >= PANELS.length - 1) {
         router.push("/select");
@@ -99,35 +113,35 @@ export default function ProloguePage() {
       }}
     >
 
-      {/* ── GRID VIEW ── */}
-      {mode === "grid" && (
+      {/* ── SCATTER VIEW ── */}
+      {mode === "scatter" && (
         <>
-          {/* 1×4 horizontal comic strip; gap + outer padding act as ink borders */}
-          <div
-            style={{
-              display: "grid",
-              gridTemplateColumns: "1fr 1fr 1fr 1fr",
-              gridTemplateRows: "1fr",
-              gap: 6,
-              padding: 6,
-              width: "100%",
-              height: "100%",
-              background: "var(--ink)",
-              boxSizing: "border-box",
-            }}
-          >
-            {PANELS.map((panel, i) => (
+          {PANELS.map((panel, i) => {
+            const isLanded = landed[i];
+            return (
               <div
                 key={panel.src}
                 onClick={() => clickPanel(i)}
                 style={{
-                  position: "relative",
-                  overflow: "hidden",
+                  position: "absolute",
+                  // Center each panel, then nudge by tx/ty
+                  left: `calc(50% + ${panel.tx})`,
+                  top: `calc(50% + ${panel.ty})`,
+                  width: `${panel.scale * 100}vmin`,
+                  height: `${panel.scale * 100}vmin`,
+                  transform: isLanded
+                    ? `translate(-50%, -50%) rotate(${panel.rotate}deg)`
+                    : `translate(-50%, -80%) rotate(${panel.rotate * 0.5}deg) scale(0.92)`,
+                  opacity: isLanded ? 1 : 0,
+                  transition: isLanded
+                    ? "opacity 0.55s ease, transform 0.65s cubic-bezier(0.22,1,0.36,1)"
+                    : "none",
                   cursor: "pointer",
-                  background: BG,
-                  opacity: visible[i] ? 1 : 0,
-                  transform: visible[i] ? "scale(1)" : "scale(0.975)",
-                  transition: "opacity 0.45s ease, transform 0.45s ease",
+                  zIndex: i + 1,
+                  // Ink border — thick, like a physical photo
+                  outline: "5px solid var(--ink)",
+                  outlineOffset: "0px",
+                  boxShadow: "4px 6px 18px rgba(46,38,46,0.22)",
                 }}
               >
                 <img
@@ -138,54 +152,41 @@ export default function ProloguePage() {
                     width: "100%",
                     height: "100%",
                     objectFit: "cover",
-                    objectPosition: panel.objectPosition,
+                    objectPosition: "center center",
                     display: "block",
                     userSelect: "none",
                   }}
                 />
 
-                {/* Hover overlay — subtle darkening */}
+                {/* Hover lift */}
                 <div
                   style={{
                     position: "absolute",
                     inset: 0,
-                    background: "rgba(46,38,46,0)",
-                    transition: "background 0.2s ease",
+                    transition: "box-shadow 0.2s ease",
                   }}
-                  onMouseEnter={(e) =>
-                    ((e.currentTarget as HTMLDivElement).style.background = "rgba(46,38,46,0.05)")
-                  }
-                  onMouseLeave={(e) =>
-                    ((e.currentTarget as HTMLDivElement).style.background = "rgba(46,38,46,0)")
-                  }
+                  onMouseEnter={(e) => {
+                    const el = e.currentTarget.parentElement as HTMLDivElement;
+                    el.style.zIndex = "10";
+                    el.style.boxShadow = "8px 12px 32px rgba(46,38,46,0.32)";
+                    el.style.transform = `translate(-50%, -50%) rotate(${panel.rotate * 0.4}deg) scale(1.03)`;
+                  }}
+                  onMouseLeave={(e) => {
+                    const el = e.currentTarget.parentElement as HTMLDivElement;
+                    el.style.zIndex = String(i + 1);
+                    el.style.boxShadow = "4px 6px 18px rgba(46,38,46,0.22)";
+                    el.style.transform = `translate(-50%, -50%) rotate(${panel.rotate}deg)`;
+                  }}
                 />
-
-                {/* Panel number */}
-                <span
-                  style={{
-                    position: "absolute",
-                    top: 10,
-                    left: 12,
-                    fontFamily: "var(--font-mono), monospace",
-                    fontSize: "0.6rem",
-                    letterSpacing: "0.18em",
-                    color: "var(--ink)",
-                    opacity: 0.35,
-                    pointerEvents: "none",
-                    userSelect: "none",
-                  }}
-                >
-                  {String(i + 1).padStart(2, "0")}
-                </span>
               </div>
-            ))}
-          </div>
+            );
+          })}
 
-          {/* Grid hint */}
+          {/* Hint */}
           <p
             style={{
               position: "absolute",
-              bottom: 20,
+              bottom: 24,
               left: "50%",
               transform: "translateX(-50%)",
               fontFamily: "var(--font-mono), monospace",
@@ -193,14 +194,15 @@ export default function ProloguePage() {
               letterSpacing: "0.28em",
               textTransform: "uppercase",
               color: "var(--ink)",
-              opacity: hintVisible ? 0.38 : 0,
-              transition: "opacity 0.4s ease",
+              opacity: landed[3] ? 0.38 : 0,
+              transition: "opacity 0.6s ease 0.3s",
               pointerEvents: "none",
               userSelect: "none",
-              zIndex: 5,
+              whiteSpace: "nowrap",
+              zIndex: 20,
             }}
           >
-            click a panel to begin
+            click a photo to begin
           </p>
         </>
       )}
@@ -225,11 +227,13 @@ export default function ProloguePage() {
             alt={PANELS[zoomedIndex].alt}
             draggable={false}
             style={{
-              width: "100%",
-              height: "100%",
+              maxWidth: "88vw",
+              maxHeight: "88vh",
               objectFit: "contain",
               userSelect: "none",
               display: "block",
+              outline: "5px solid var(--ink)",
+              boxShadow: "6px 10px 28px rgba(46,38,46,0.20)",
             }}
           />
 
