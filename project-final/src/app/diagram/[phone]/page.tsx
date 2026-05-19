@@ -1,111 +1,80 @@
 "use client";
 
 import { useParams, useRouter } from "next/navigation";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import phones from "@/data/phones.json";
 
-const SVG_WIDTH = 2150;
-const SVG_HEIGHT = 1600;
-const LABEL_COLUMN_X = 1000;
+const SVG_W = 2150;
+const SVG_H = 1600;
+const LX = 1000; // label ellipse center X (SVG units)
 
-// Per-phone diagram SVG — falls back to components.svg until real art lands
+// ─── Editable per-component config ───────────────────────────────────────────
+// ly  = ellipse center Y (SVG units) — tune to align with diagram
+// ax/ay = anchor point where annotation line touches the illustration
+// rx/ry = ellipse axes (vary slightly for hand-drawn feel)
+// rot = label text rotation in degrees
+// ─────────────────────────────────────────────────────────────────────────────
+type CompDef = {
+  id: string;
+  mineral: string;
+  label: string;
+  ly: number;
+  ax: number;
+  ay: number;
+  rx: number;
+  ry: number;
+  rot: number;
+};
+
+const COMPONENTS: Record<string, CompDef[]> = {
+  iphone: [
+    { id: "front-camera",  mineral: "rare-earths", label: "cameras",      ly: 552,  ax: 620, ay: 540,  rx: 92, ry: 26, rot: -2   },
+    { id: "rear-camera",   mineral: "rare-earths", label: "processor",    ly: 626,  ax: 650, ay: 618,  rx: 88, ry: 28, rot:  1.5 },
+    { id: "circuit-board", mineral: "tin",         label: "logic board",  ly: 738,  ax: 600, ay: 728,  rx: 95, ry: 25, rot: -1   },
+    { id: "processor",     mineral: "rare-earths", label: "a18 chip",     ly: 818,  ax: 645, ay: 808,  rx: 90, ry: 27, rot:  2   },
+    { id: "battery",       mineral: "cobalt",      label: "battery",      ly: 964,  ax: 580, ay: 952,  rx: 86, ry: 29, rot: -1.5 },
+    { id: "display",       mineral: "rare-earths", label: "oled display", ly: 1106, ax: 615, ay: 1094, rx: 93, ry: 26, rot:  1   },
+  ],
+  galaxy: [
+    { id: "front-camera",  mineral: "rare-earths", label: "cameras",       ly: 650,  ax: 620, ay: 638,  rx: 92, ry: 26, rot: -2   },
+    { id: "battery",       mineral: "cobalt",      label: "battery",       ly: 460,  ax: 580, ay: 448,  rx: 88, ry: 28, rot:  1.5 },
+    { id: "circuit-board", mineral: "tin",         label: "circuit board", ly: 550,  ax: 600, ay: 540,  rx: 95, ry: 25, rot: -1   },
+    { id: "processor",     mineral: "rare-earths", label: "processor",     ly: 880,  ax: 645, ay: 868,  rx: 90, ry: 27, rot:  2   },
+    { id: "display",       mineral: "rare-earths", label: "display",       ly: 1100, ax: 615, ay: 1088, rx: 86, ry: 29, rot: -1.5 },
+  ],
+  // Pixel anchor coords are placeholders — adjust ax/ay and ly to match pixel-components.svg
+  pixel: [
+    { id: "display",      mineral: "rare-earths", label: "actua oled",  ly: 480,  ax: 610, ay: 468,  rx: 93, ry: 26, rot: -2   },
+    { id: "logic-board",  mineral: "tin",         label: "logic board", ly: 640,  ax: 600, ay: 628,  rx: 88, ry: 28, rot:  1.5 },
+    { id: "cameras",      mineral: "rare-earths", label: "cameras",     ly: 780,  ax: 620, ay: 768,  rx: 92, ry: 26, rot: -1   },
+    { id: "processor",    mineral: "rare-earths", label: "tensor g4",   ly: 920,  ax: 645, ay: 908,  rx: 90, ry: 27, rot:  2   },
+    { id: "battery",      mineral: "cobalt",      label: "battery",     ly: 1060, ax: 580, ay: 1048, rx: 86, ry: 29, rot: -1.5 },
+  ],
+};
+
 const DIAGRAM_SVG: Record<string, string> = {
   iphone: "/illustrations/components.svg",
   galaxy: "/illustrations/samsung-components.svg",
-  pixel: "/illustrations/pixel-components.svg",
+  pixel:  "/illustrations/pixel-components.svg",
 };
 
-// Label y-positions keyed by phone → component id
-// Pixel values are placeholders — adjust to match pixel-components.svg
-const LABEL_Y: Record<string, Record<string, number>> = {
-  iphone: {
-    "front-camera": 552,
-    "rear-camera": 626,
-    "circuit-board": 738,
-    processor: 818,
-    battery: 964,
-    display: 1106,
-  },
-  galaxy: {
-    "front-camera": 650,
-    battery: 460,
-    "circuit-board": 550,
-    processor: 880,
-    display: 1100,
-  },
-  pixel: {
-    display: 480,
-    "logic-board": 640,
-    cameras: 780,
-    processor: 920,
-    battery: 1060,
-  },
-};
-
-// Canonical 6-slot component list per phone, ordered top-to-bottom
-const PHONE_COMPONENTS: Record<string, { id: string; mineral: string }[]> = {
-  iphone: [
-    { id: "front-camera", mineral: "rare-earths" },
-    { id: "rear-camera", mineral: "rare-earths" },
-    { id: "circuit-board", mineral: "tin" },
-    { id: "processor", mineral: "rare-earths" },
-    { id: "battery", mineral: "cobalt" },
-    { id: "display", mineral: "rare-earths" },
-  ],
-  galaxy: [
-    { id: "front-camera", mineral: "rare-earths" },
-    { id: "battery", mineral: "cobalt" },
-    { id: "circuit-board", mineral: "tin" },
-    { id: "processor", mineral: "rare-earths" },
-    { id: "display", mineral: "rare-earths" },
-  ],
-  pixel: [
-    { id: "display",     mineral: "rare-earths" },
-    { id: "logic-board", mineral: "tin" },
-    { id: "cameras",     mineral: "rare-earths" },
-    { id: "processor",   mineral: "rare-earths" },
-    { id: "battery",     mineral: "cobalt" },
-  ],
-};
-
-// Phone-specific display labels for the annotated slots
-const SLOT_LABELS: Record<string, Record<string, string>> = {
-  iphone: {
-    "front-camera": "cameras",
-    "rear-camera": "processor",
-    "circuit-board": "logic board",
-    processor: "a18 chip",
-    battery: "battery",
-    display: "oled display",
-  },
-  galaxy: {
-    "front-camera": "cameras",
-    battery: "battery",
-    "circuit-board": "circuit board",
-    processor: "processor",
-    display: "display",
-  },
-  pixel: {
-    display:      "actua oled",
-    "logic-board": "logic board",
-    cameras:      "cameras",
-    processor:    "tensor g4",
-    battery:      "battery",
-  },
-};
-
-function toPercentX(value: number) {
-  return `${(value / SVG_WIDTH) * 100}%`;
-}
-
-function toPercentY(value: number) {
-  return `${(value / SVG_HEIGHT) * 100}%`;
-}
+// Line draw-in + label fade stagger constants
+const LINE_DURATION  = 600;  // ms
+const LABEL_FADE_IN  = 220;  // ms — duration of ellipse/text fade
+const STAGGER        = 150;  // ms between each label
+const LINE_DASHARRAY = 600;  // SVG units — must exceed longest possible line
 
 export default function DiagramPage() {
   const { phone } = useParams<{ phone: string }>();
   const router = useRouter();
   const [hovered, setHovered] = useState<string | null>(null);
+  const [ready, setReady] = useState(false);
+
+  // Trigger animations after first paint
+  useEffect(() => {
+    const t = setTimeout(() => setReady(true), 80);
+    return () => clearTimeout(t);
+  }, []);
 
   const phoneData = phones.find((p) => p.id === phone);
 
@@ -121,14 +90,14 @@ export default function DiagramPage() {
   }
 
   const svgSrc = DIAGRAM_SVG[phone] ?? "/illustrations/components.svg";
-  const slots = PHONE_COMPONENTS[phone] ?? PHONE_COMPONENTS.iphone;
-  const labels = SLOT_LABELS[phone] ?? SLOT_LABELS.iphone;
+  const comps = COMPONENTS[phone] ?? COMPONENTS.iphone;
 
   return (
     <main
       className="page-enter relative flex h-screen w-full items-center justify-center overflow-hidden"
       style={{ background: "var(--cream)" }}
     >
+      {/* Nav */}
       <button
         onClick={() => router.push("/select")}
         className="absolute left-5 top-5 z-20 text-xs uppercase tracking-widest sm:left-6 sm:top-6"
@@ -155,6 +124,7 @@ export default function DiagramPage() {
             className="relative aspect-[2150/1600] w-full max-w-[1240px]"
             style={{ transform: "translateX(6%) scale(1.06)" }}
           >
+            {/* Diagram illustration */}
             <img
               src={svgSrc}
               alt={`${phoneData.name} component diagram`}
@@ -162,55 +132,118 @@ export default function DiagramPage() {
               draggable={false}
             />
 
-            {slots.map((slot) => {
-              const y = (LABEL_Y[phone] ?? LABEL_Y.iphone)[slot.id];
-              if (y === undefined) return null;
-              const isActive = hovered === slot.id;
-              const label = labels[slot.id] ?? slot.id;
+            {/* SVG annotation overlay — same coordinate space as illustration */}
+            <svg
+              viewBox={`0 0 ${SVG_W} ${SVG_H}`}
+              className="absolute inset-0 h-full w-full overflow-visible"
+              style={{ pointerEvents: "none" }}
+            >
+              {comps.map((c, i) => {
+                const isHovered = hovered === c.id;
+                const lineDelay  = ready ? i * STAGGER : 99999;
+                const labelDelay = ready ? i * STAGGER + LINE_DURATION - 80 : 99999;
 
-              return (
-                <button
-                  key={slot.id}
-                  type="button"
-                  onClick={() => router.push(`/globe/${slot.mineral}`)}
-                  onMouseEnter={() => setHovered(slot.id)}
-                  onMouseLeave={() => setHovered(null)}
-                  onFocus={() => setHovered(slot.id)}
-                  onBlur={() => setHovered(null)}
-                  className="absolute z-10 text-left"
-                  style={{
-                    left: toPercentX(LABEL_COLUMN_X),
-                    top: toPercentY(y),
-                    transform: "translateY(-50%)",
-                    border: "none",
-                    outline: "none",
-                    background: "transparent",
-                    cursor: "pointer",
-                  }}
-                >
-                  <span
-                    className="block whitespace-nowrap rounded-[999px] border px-3 py-1 text-[10px] uppercase tracking-[0.24em] sm:px-3.5 sm:py-1.5 sm:text-xs"
-                    style={{
-                      color: isActive ? "var(--cream)" : "var(--ink)",
-                      background: isActive
-                        ? "var(--cranberry)"
-                        : "rgba(250,245,238,0.92)",
-                      borderColor: isActive
-                        ? "var(--cranberry)"
-                        : "rgba(46,38,46,0.22)",
-                      transition:
-                        "color 0.15s ease, background-color 0.15s ease, border-color 0.15s ease",
-                      fontFamily: "var(--font-mono), monospace",
-                    }}
+                // Line endpoint: left edge of ellipse
+                const lineEndX = LX - c.rx - 3;
+
+                return (
+                  <g
+                    key={c.id}
+                    style={{ pointerEvents: "all", cursor: "pointer" }}
+                    onClick={() => router.push(`/globe/${c.mineral}`)}
+                    onMouseEnter={() => setHovered(c.id)}
+                    onMouseLeave={() => setHovered(null)}
                   >
-                    {label}
-                  </span>
-                </button>
-              );
-            })}
+                    {/* Annotation line — draws in from anchor to ellipse */}
+                    <line
+                      x1={c.ax}
+                      y1={c.ay}
+                      x2={lineEndX}
+                      y2={c.ly}
+                      stroke={isHovered ? "var(--cranberry)" : "var(--ink)"}
+                      strokeWidth={1.2}
+                      strokeDasharray={LINE_DASHARRAY}
+                      strokeDashoffset={ready ? 0 : LINE_DASHARRAY}
+                      style={{
+                        transition: isHovered ? "stroke 0.15s ease" : undefined,
+                        animation: ready
+                          ? `diagram-draw ${LINE_DURATION}ms ease forwards`
+                          : "none",
+                        animationDelay: `${lineDelay}ms`,
+                      }}
+                    />
+
+                    {/* Ellipse */}
+                    <ellipse
+                      cx={LX}
+                      cy={c.ly}
+                      rx={c.rx}
+                      ry={c.ry}
+                      fill={isHovered ? "var(--cranberry)" : "var(--cream)"}
+                      stroke={isHovered ? "var(--cranberry)" : "var(--ink)"}
+                      strokeWidth={1.2}
+                      style={{
+                        opacity: 0,
+                        transition: "fill 0.15s ease, stroke 0.15s ease",
+                        animation: ready
+                          ? `diagram-fade ${LABEL_FADE_IN}ms ease forwards`
+                          : "none",
+                        animationDelay: `${labelDelay}ms`,
+                      }}
+                      transform={`rotate(${c.rot}, ${LX}, ${c.ly})`}
+                    />
+
+                    {/* Label text */}
+                    <text
+                      x={LX}
+                      y={c.ly}
+                      textAnchor="middle"
+                      dominantBaseline="central"
+                      fontFamily="'Playfair Display', Georgia, serif"
+                      fontStyle="italic"
+                      fontSize={24}
+                      fill={isHovered ? "var(--cream)" : "var(--ink)"}
+                      style={{
+                        opacity: 0,
+                        transition: "fill 0.15s ease",
+                        userSelect: "none",
+                        animation: ready
+                          ? `diagram-fade ${LABEL_FADE_IN}ms ease forwards`
+                          : "none",
+                        animationDelay: `${labelDelay}ms`,
+                        pointerEvents: "none",
+                      }}
+                      transform={`rotate(${c.rot}, ${LX}, ${c.ly})`}
+                    >
+                      {c.label}
+                    </text>
+
+                    {/* Invisible hit-area — wide enough to catch hovers across the full label+line */}
+                    <rect
+                      x={c.ax - 8}
+                      y={Math.min(c.ay, c.ly) - 20}
+                      width={lineEndX - c.ax + c.rx * 2 + 16}
+                      height={Math.abs(c.ay - c.ly) + 40}
+                      fill="transparent"
+                    />
+                  </g>
+                );
+              })}
+            </svg>
           </div>
         </div>
       </section>
+
+      <style>{`
+        @keyframes diagram-draw {
+          from { stroke-dashoffset: ${LINE_DASHARRAY}; }
+          to   { stroke-dashoffset: 0; }
+        }
+        @keyframes diagram-fade {
+          from { opacity: 0; }
+          to   { opacity: 1; }
+        }
+      `}</style>
     </main>
   );
 }
