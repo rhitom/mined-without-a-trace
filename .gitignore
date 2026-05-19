@@ -41,4 +41,5 @@ research/*.pdf
 *.jpeg
 !projectv2/public/**
 !projectv3/public/**
+!project-final/public/**
 !source-art/**
