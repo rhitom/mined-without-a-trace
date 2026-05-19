@@ -7,104 +7,144 @@ An interactive visual website that traces the conflict mineral supply chain insi
 ```
 project/
 |- projectv1/          # v1 prototype (HTML/CSS static pages - reference only)
-|- projectv2/          # v2 active development (Next.js app)
+|- projectv2/          # v2 legacy (Next.js, reference only)
+|- projectv3/          # v3 polished prototype (deployed, reference)
+|- project-final/      # ACTIVE — current production build
+|- research/           # PDFs: research brief, Blood Batteries, DRC Conflict Minerals, IEA, etc.
+|- vercel.json         # Root-level Vercel config — builds from project-final/
 `- CLAUDE.md
 ```
 
-## v2 Tech Stack
-- **Framework:** Next.js 16 (App Router)
-- **Styling:** Tailwind CSS v4
-- **Animations:** CSS keyframes (`buzz-svg`, `fadeUp`) — Framer Motion installed but not yet wired
-- **Globe:** react-globe.gl (dynamic import - requires `'use client'` + `ssr: false` due to WebGL)
-- **Deployment target:** Vercel
+**Active branch:** `project-final`  
+**Vercel deployment:** builds from `project-final/` subdirectory via root `vercel.json`
+
+## Tech Stack (project-final)
+- **Framework:** Next.js 16 (App Router, `src/app/`)
+- **Styling:** Tailwind CSS v4 + custom CSS tokens in `globals.css`
+- **Animations:** CSS keyframes (`buzz-svg`, `ink-wipe`, `ink-wipe-landing`, `fade-up`, `pageEnter`)
+- **Globe:** react-globe.gl (dynamic import, `ssr: false` — WebGL requirement)
+- **Analytics:** `@vercel/analytics` in `layout.tsx`
+- **Fonts:** Playfair Display + IBM Plex Mono via `next/font/google`
+- **Deployment:** Vercel — `buildCommand: cd project-final && npm install --ignore-scripts && npx next build`
 
 ## Design System
 | Token | Value | Usage |
 |---|---|---|
-| Cream | `#FDF7EE` | Page backgrounds |
-| Cranberry | `#8B2635` | Accents, active states, hover |
-| Near-black | `#2E272E` | Text, illustration ink (matches SVG) |
-| Warm gray | `#B0AAA6` | Secondary text, disabled states |
+| Cream | `#FAF5EE` (CSS: `var(--cream)`) | Page backgrounds, globe ocean |
+| Cranberry | `#8B2635` (CSS: `var(--cranberry)`) | Accents, active states, hover |
+| Ink | `#2E262E` (CSS: `var(--ink)`) | Text, illustration ink |
+| Warm gray | `#B0AAA6` (CSS: `var(--warm-gray)`) | Secondary text, disabled states |
+| Panel bg | `rgba(232,222,208,0.98)` | Globe info panel + top chrome (darkened cream) |
 
 **Aesthetic:** Hand-drawn, zine-style. Illustrations are PNGs/SVGs digitized from physical drawings. No drop shadows, no gradients — flat ink on cream.
 
-**Typography:** Playfair Display (body/headings) + IBM Plex Mono (labels, nav, tracking elements). Loaded via `next/font/google` with CSS variables `--font-playfair` and `--font-mono`.
+**Typography:** Playfair Display (body/headings) + IBM Plex Mono (labels, nav, mono elements). CSS vars: `--font-playfair`, `--font-mono`.
 
 ## Page Routes
 | Route | Purpose |
 |---|---|
-| `/` | Landing — new_landing.svg inline, phone auto-buzzes at 3s, landing_text.svg fades in after buzz, zoom-click transition to /select |
-| `/select` | Device selection — phone-select.png with invisible hotspot buttons |
-| `/diagram/[phone]` | Component diagram — components.svg with SVG-coordinate-positioned pill labels |
-| `/globe/[mineral]` | 3D globe — mine location + supply chain arcs, info card panel |
+| `/` | Landing — `new_landing.svg` inline, phone auto-buzzes at 5s idle, ink-wipe on click → `/prologue` |
+| `/prologue` | 4-panel comic strip — click-through with ink-wipe transitions, tripping panel stagger |
+| `/select` | Device selection — `models.svg` draggable carousel, all 3 phones, zoom-exit transition |
+| `/diagram/[phone]` | Component diagram — per-phone SVG, pill label buttons → `/globe/[mineral]` |
+| `/globe/[mineral]` | 3D globe — HTML icon markers, supply chain arcs, research-grounded info card panel |
 
 ## Data Architecture
-All content lives in `src/data/` as JSON — no database. Swap content without touching components.
+All content in `src/data/` — no database.
 
-- `minerals.json` — mineral name, mine coords, supply chain arcs, info cards
-- `phones.json` — phone name, status (active/stub)
+- **`minerals.json`** — 6 minerals (cobalt, tantalum, tungsten, gold, tin, rare-earths). Each entry has: `id`, `name`, `component`, `formula`, `mineLocation {name, country, lat, lng}`, `supplyChain [{label, locationLabel, pinType, lat, lng}]`, `cards []` (legacy fallback)
+- **`globe-cards.ts`** — **Primary card content.** Exports `GLOBE_CARDS: Record<string, Card[]>` with 4 research-grounded cards per mineral. Globe page uses this over `minerals.json` cards. Edit this file to update card text.
+- **`phones.json`** — phone list with status
+
+### Supply chain `pinType` values
+| Value | Icon on globe | Meaning |
+|---|---|---|
+| `"mine"` | Pickaxe SVG | Artisanal/industrial mine |
+| `"refinery"` | Gear/sun SVG | Smelter or separation plant |
+| `"factory"` | Gear/sun SVG | Component fab or assembly |
+| `"consumer"` | Smartphone SVG | End consumer market |
 
 ## SVG / Illustration Notes
 
 ### Landing (`/`)
 - Illustration: `public/illustrations/new_landing.svg` (viewBox `0 0 2150 1600`)
-- **Layer structure:**
-  - `svg-layer-0`: cream background
-  - `svg-layer-1`: full body (body, legs, pocket, arm) — **static**, `pointerEvents: none`
-  - `svg-layer-2/3/4`: the phone — **animated group**, auto-buzzes 3s after page load, click navigates
-- Path `d` attributes inlined directly in `src/app/page.tsx` as `BODY`, `PHONE_A`, `PHONE_B`, `PHONE_C` constants
-- Transform-origin for buzz: `1200px 870px` (approximate phone center in SVG space)
+- Layer structure: `svg-layer-0` cream bg, `svg-layer-1` body (static), `svg-layer-2/3/4` phone (animated)
+- Path `d` constants inlined in `src/app/page.tsx`: `BODY`, `PHONE_A`, `PHONE_B`, `PHONE_C`
+- Transform-origin for buzz: `1200px 870px` (phone center in SVG space)
+- Auto-buzz at 5s idle via `useEffect`; cancelled on click. Click → ink-wipe → `/prologue`
+
+### Prologue (`/prologue`)
+- 4 panels: `prologue-e.png` (tripping), `prologue-d.png` (dropping), `prologue-c.png` (cracked/sewer), `prologue-b.png` (desk/laptop)
+- Panel 0 (tripping): 3 clipped `<img>` copies reveal sequentially — left shoe (120ms), right shoe (750ms), exclamation (1450ms) — using `clip-path: inset()`
+- Ink-wipe transition: 0.72s `cubic-bezier(0.76,0,0.24,1)`; last panel navigates to `/select`
 
 ### Select (`/select`)
-- Illustration: `public/illustrations/phone-select.png`
-- Three invisible `<button>` overlays positioned over each phone
-- Only center phone (iPhone 16) navigates to `/diagram/iphone`
+- Illustration: `public/illustrations/models.svg` — draggable carousel, all 3 phones active
+- Pointer drag + keyboard arrow nav; exit: cream overlay fade + scale(9) zoom on active card
 
 ### Component Diagram (`/diagram/[phone]`)
-- Illustration: `public/illustrations/components.svg` (viewBox `0 0 2150 1600`)
-- 6 labels positioned at annotation line endpoints using `(x/2150*100)%` / `(y/1600*100)%`
-- Label order top-to-bottom: front camera, rear camera, circuit board, processor, battery, display
-- Labels are pill-shaped buttons; hover → cranberry fill; click → navigates to `/globe/[mineral]`
-- Label x-positions all share `LABEL_COLUMN_X = 1000` (SVG units); y-positions per component
-- **No red overlay / no side panel** — labels are the only UI layer on the diagram
+- Per-phone SVGs: `components.svg` (iPhone), `samsung-components.svg` (Galaxy), `pixel-components.svg` (Pixel)
+- Pill label buttons at SVG-coordinate-derived positions; hover → cranberry; click → `/globe/[mineral]`
+- `LABEL_COLUMN_X = 1000` (SVG units); y-positions per component in `LABEL_Y`
 
 ### Globe (`/globe/[mineral]`)
 - `react-globe.gl` loaded via `next/dynamic` with `ssr: false`
-- Globe texture: `public/illustrations/globe-political-atlas.svg`
-- Slide-in right panel with dot-nav info cards; cobalt has 4 full cards
+- Ocean texture: canvas 2×2 data URL filled `#FAF5EE`
+- Land polygons: GeoJSON fetched from `raw.githubusercontent.com` (CSP allows this host in `connect-src`)
+- **HTML icon markers** via `htmlElementsData`: pickaxe/gear/smartphone SVGs, 28px circles, active = cranberry fill
+- Location label beneath each icon (e.g. "Kolwezi, DRC")
+- Right panel: slide-in, `rgba(232,222,208,0.98)` background, dot-nav, 4 cards per mineral from `globe-cards.ts`
+- Top chrome: interactive supply chain pipeline with clickable step nodes → rotates globe camera
 
 ## Key Decisions & Constraints
-- **One phone fully complete:** iPhone 16. Galaxy S25 and Pixel 9 are stubs.
-- **react-globe.gl** must be dynamically imported — WebGL breaks on the server
-- **No auth, no database** — all data is static JSON
-- Path data inlined in `page.tsx` instead of loading the SVG file to allow per-layer React event handling
+- **Vercel build:** Root `vercel.json` points at `project-final/`. `--ignore-scripts` in install/build commands skips Husky (not available in Vercel CI).
+- **CSP:** `connect-src` must include `https://raw.githubusercontent.com` for GeoJSON fetch — already in `next.config.ts`
+- **react-globe.gl:** Must be `next/dynamic` with `ssr: false` — WebGL breaks SSR
+- **No auth, no database** — all data is static JSON/TS
+- **Globe cards vs minerals.json cards:** `globe-cards.ts` is the source of truth; `mineral.cards` is only a fallback if a mineral key is missing from `GLOBE_CARDS`
+- **One phone fully complete (diagram):** iPhone 16 has full label set. Galaxy S25 and Pixel 9 have per-phone label configs but simpler SVGs.
 
 ## Current Build Status
-- [x] Landing page — new_landing.svg, phone-only auto-buzz at 3s, landing_text.svg overlay, zoom-click transition
-- [x] Select page — phone-select.png with hotspot buttons
-- [x] Component diagram — components.svg with 6 pill labels, no overlays
-- [x] Globe page — react-globe.gl, political atlas texture, info card panel
-- [x] Global styles — cream/cranberry/ink tokens, `buzz-svg` and `fadeUp` keyframes
-- [x] Data — minerals.json (6 minerals, full supply chain), phones.json
-- [x] Typography — Playfair Display + IBM Plex Mono via next/font/google
-- [x] Security headers — X-Frame-Options, CSP, X-Content-Type-Options in next.config.ts
+- [x] Landing page — ink-wipe on click, idle buzz at 5s, `landing_text.svg` overlay
+- [x] Prologue — 4 panels, tripping stagger animation, ink-wipe transitions
+- [x] Select page — `models.svg` draggable carousel, all 3 phones, zoom-exit
+- [x] Component diagram — per-phone SVGs, 6 pill labels, no overlays
+- [x] Globe page — react-globe.gl, parchment land polygons, HTML icon markers, location labels
+- [x] Globe cards — research-grounded content in `globe-cards.ts` (6 minerals × 4 cards)
+- [x] Global styles — design tokens, all keyframes
+- [x] Data — `minerals.json` (6 minerals, pinType + locationLabel on all steps), `phones.json`
+- [x] Typography — Playfair Display + IBM Plex Mono
+- [x] Security headers — X-Frame-Options, CSP, X-Content-Type-Options
+- [x] Vercel deployment — root `vercel.json`, `--ignore-scripts`
 
 ## Illustrations in Use
 | File | Page | Notes |
 |---|---|---|
-| `public/illustrations/new_landing.svg` | `/` | 4-layer SVG; layers 2-4 are the phone (auto-buzzes at 3s) |
-| `public/illustrations/landing_text.svg` | `/` | Text bubble overlay; fades in after buzz completes (~3.6s) |
-| `public/illustrations/phone-select.png` | `/select` | Three-phone illustration with hotspot overlays |
-| `public/illustrations/components.svg` | `/diagram/iphone` | Exploded view; annotation line endpoints drive label positions |
-| `public/illustrations/globe-political-atlas.svg` | `/globe/[mineral]` | Archival political atlas globe texture |
+| `public/illustrations/new_landing.svg` | `/` | 4-layer SVG; layers 2-4 are the phone |
+| `public/illustrations/landing_text.svg` | `/` | Text bubble overlay; fades in after buzz |
+| `public/illustrations/models.svg` | `/select` | Draggable carousel, all 3 phones |
+| `public/illustrations/prologue-e.png` | `/prologue` panel 0 | Tripping (staggered reveal) |
+| `public/illustrations/prologue-d.png` | `/prologue` panel 1 | Hand dropping phone |
+| `public/illustrations/prologue-c.png` | `/prologue` panel 2 | Cracked phone in sewer grate |
+| `public/illustrations/prologue-b.png` | `/prologue` panel 3 | Desk with laptop / InsideScoop |
+| `public/illustrations/components.svg` | `/diagram/iphone` | Exploded view, iPhone |
+| `public/illustrations/samsung-components.svg` | `/diagram/galaxy` | Exploded view, Galaxy S25 |
+| `public/illustrations/pixel-components.svg` | `/diagram/pixel` | Exploded view, Pixel 9 |
 
-## TODOs
-- [x] **Typography:** Playfair Display + IBM Plex Mono — implemented via next/font/google
-- [ ] **Globe rendering:** Refine camera altitude and starting angle per mineral; explore sketch/crosshatch shader overlay to match the hand-drawn aesthetic
-- [ ] **Select page animations:** Entrance animation for the three phones; active-phone scale or tilt effect
-- [ ] **Diagram animations:** Label stagger-in on page load; consider drawing the annotation lines with SVG `stroke-dashoffset` animation
-- [ ] **Framer Motion page transitions:** Wire `AnimatePresence` in the root layout; slide or fade between routes
-- [ ] **More info cards:** Expand minerals.json cards for tantalum, tungsten, gold, tin, rare-earths
+## Research Sources (for card content)
+All PDFs in `research/` folder:
+- **Blood Batteries** — Univ. of Nottingham / Rights Lab, Aug 2025. Key stats: 36.8% forced labour, 9.2% child labour, $3.28/day avg income, $0.34/hr implied wage among 1,431 ASM miners near Kolwezi.
+- **DRC Conflict Minerals Special Report** — Genocide Watch, June 2025. M23 Rubaya mine $300k/month, ITSCI suspended 2024, Washington Accord June 27 2025, criminal complaints against Apple filed France/Belgium Dec 2024.
+- **research brief** — project brief / narrative context. Arthur (age 13), Paul (age 14), $1-2/day wages.
+- **IEA Critical Minerals Report (2024)** — China refines 90% REE, $57B BRI mineral investment, Australia top-5 REE.
+- **Apple Full Year 2025 Report** — $416.2B total revenue, $209.6B iPhone.
+
+## TODOs (next session)
+- [ ] **Globe icon click → portrait card overlay** (BUILDPLAN_FINAL 2.3): clicking a pin opens a portrait-style card replacing or overlaying the info panel
+- [ ] **Diagram label draw-in animation** (BUILDPLAN_FINAL 2.1): SVG `stroke-dashoffset` animation on annotation lines; staggered circle label entrance
+- [ ] **Sequential arc animation on globe**: arcs draw in one at a time as user advances pipeline steps
+- [ ] **Framer Motion page transitions**: wire `AnimatePresence` in root layout
+- [ ] **Select page entrance animation**: stagger phones in on load
 
 ## Session Log
 
@@ -112,13 +152,23 @@ All content lives in `src/data/` as JSON — no database. Swap content without t
 Bootstrapped the entire v2 project. Built all five pages (landing, select, diagram, globe, info cards). Wrote minerals.json and phones.json. Global CSS design tokens and buzz keyframe.
 
 ### Week 7 — Animation & Diagram Overhaul
-- **Landing:** Replaced compound-path group with new_landing.svg whose layer structure cleanly separates the body (static) from the phone (layers 2–4, animated). `transformOrigin` centred on phone at `1200px 870px`.
-- **Diagram:** Rewrote `/diagram/[phone]` entirely. Removed hotspot overlays, floating tooltip, and side-panel component list. Now renders 6 pill-label buttons at SVG-coordinate-derived positions (`LABEL_COLUMN_X = 1000`, y per component). Hover fills the pill cranberry; click navigates directly to `/globe/[mineral]`. All labels lowercase.
-- **Select:** Removed cranberry active-state border/background overlay from phone hotspot buttons.
-- **Components:** Removed red highlight overlay from diagram hotspot interaction.
+- **Landing:** Replaced compound-path group with `new_landing.svg` with clean layer separation. `transformOrigin` at `1200px 870px`.
+- **Diagram:** Rewrote `/diagram/[phone]`. Removed hotspot overlays, floating tooltip, side panel. Now renders 6 pill-label buttons at SVG-coordinate-derived positions. Hover → cranberry; click → `/globe/[mineral]`.
+- **Select:** Removed cranberry active-state overlay from phone hotspot buttons.
 
-### Week 8 — Typography, Landing Animation, and Security
-- **Typography:** Selected Playfair Display + IBM Plex Mono. Imported via `next/font/google` in `layout.tsx` with CSS variables `--font-playfair` and `--font-mono`. `globals.css` body font updated to `var(--font-playfair)`. Mono applied inline to all nav buttons, component pill labels, brand captions, and hint text across all four pages.
-- **Landing animation overhaul:** Removed hover-triggered buzz. Phone now auto-buzzes 3 seconds after page load via `useEffect` + `setTimeout`. At 3.6s the buzz ends and `landing_text.svg` fades in as a full-canvas `<img>` overlay (`pointer-events: none`, 0.8s opacity transition), revealing the illustrated text bubbles from the original hand-drawn artwork.
-- **Security headers:** Added HTTP response headers to `next.config.ts` via `async headers()`: `X-Frame-Options: DENY`, `X-Content-Type-Options: nosniff`, `Referrer-Policy`, and a `Content-Security-Policy` scoped to self + Google Fonts + the `unsafe-inline`/`unsafe-eval` required by Next.js and WebGL.
-- **Security audit:** Conducted a full 7-layer audit. Findings: no secrets in source or git history, no API routes or auth surfaces, no LLM usage, no CI/pre-commit hooks (medium severity gap), one npm audit moderate (`postcss` bundled in Next.js 16 — no safe fix without downgrading Next), and Playwright MCP `browser_run_code_unsafe` flagged as high severity. Recommended agent deny list for `AGENTS.md`.
+### Week 8 — Typography, Landing Animation, Security
+- **Typography:** Playfair Display + IBM Plex Mono via `next/font/google`. CSS vars `--font-playfair`, `--font-mono`.
+- **Landing animation:** Phone auto-buzzes 3s after load. `landing_text.svg` fades in at 3.6s.
+- **Security headers:** CSP, X-Frame-Options, X-Content-Type-Options, Referrer-Policy in `next.config.ts`.
+
+### Week 9 — project-final branch, Prologue, Globe overhaul
+- **Deployment fixed:** Root `vercel.json` pointing Vercel at `project-final/` subdirectory. `--ignore-scripts` skips Husky in CI. `.gitignore` fixed to track PNGs in `project-final/public/`.
+- **Migrated from projectv3:** Pulled all polished v3 code (select carousel, diagram per-phone SVGs, globe pipeline header) into `project-final` branch.
+- **Globe CSP fix:** Added `https://raw.githubusercontent.com` to `connect-src` — was silently blocking GeoJSON country polygon fetch, causing blank gray globe.
+- **Prologue added:** 4-panel comic strip page at `/prologue`. Tripping panel (panel 0) uses 3 clip-path regions to stagger left shoe → right shoe → exclamation reveal.
+- **Ink-wipe transition:** 0.72s `cubic-bezier(0.76,0,0.24,1)` on all panel advances and route exits. Replaced zoom transition on landing.
+- **Idle buzz:** Landing auto-buzzes at 5s idle (was click-triggered). Buzz cancelled on any click.
+- **Globe icon markers:** `htmlElementsData` in `GlobeView.tsx` — pickaxe SVG (mine), gear SVG (refinery/factory), smartphone SVG (consumer). Active step highlighted cranberry. Location label below each icon.
+- **Globe cards:** `src/data/globe-cards.ts` created with 4 research-grounded cards per mineral (6 minerals). Globe page uses `GLOBE_CARDS` over `mineral.cards` fallback.
+- **Panel background darkened:** Globe info panel + top chrome changed from `rgba(253,247,238,0.98)` → `rgba(232,222,208,0.98)`.
+- **`minerals.json` enriched:** Added `pinType` and `locationLabel` to every supply chain step across all 6 minerals.
